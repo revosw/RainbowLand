@@ -298,7 +298,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5e159214fb242d4fa1e30cc63e9c877, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SomeInt: 248
+  SomeInt: 127
   myObj: {fileID: 1033944613}
 --- !u!4 &1757746723
 Transform:

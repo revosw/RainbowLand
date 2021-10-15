@@ -21,6 +21,12 @@ public class PlayerController : MonoBehaviour
     public Transform groundPoint;
     public LayerMask whatIsGround;
     public bool isGrounded;
+
+    public float shootCooldown;
+    private float cooldownTimer;
+    public Transform firePoint;
+    public GameObject[] projectiles;
+    
     
     private Rigidbody2D rb;
 
@@ -54,6 +60,31 @@ public class PlayerController : MonoBehaviour
         {
             moveInputX = ctx.ReadValue<Vector2>().x * airMovement;
         }
+    }
+
+    public void Shoot(InputAction.CallbackContext ctx)
+    {
+        if (cooldownTimer >= shootCooldown)
+        {
+            Debug.Log("SHOOT");
+            cooldownTimer = 0;
+            int projectileIndex = FindProjectile(); 
+            projectiles[projectileIndex].transform.position = firePoint.position;
+            projectiles[projectileIndex].GetComponent<Projectile>().activate();
+            // .setDirection(Mathf.Sign(transform.localScale.x));    
+        }
+        cooldownTimer += Time.deltaTime;
+
+    }
+    
+    private int FindProjectile()
+    {
+        for (int i = 0; i < projectiles.Length; i++)
+        {
+            if (!projectiles[i].activeInHierarchy)
+                return i;
+        }
+        return 0;
     }
 
     void OnEnable()

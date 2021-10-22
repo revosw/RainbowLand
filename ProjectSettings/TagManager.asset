@@ -6,6 +6,7 @@ TagManager:
   tags:
   - New tag
   - player
+  - HurtBox
   layers:
   - Default
   - TransparentFX

@@ -17,7 +17,7 @@ public class Health : MonoBehaviour {
         } else {
             // DEAD
             GetComponent<PlayerMovement>().enabled = false;
-
+            //animator for death
         }
     }
 

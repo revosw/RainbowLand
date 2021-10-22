@@ -23,5 +23,6 @@ public class EnemyHealth : MonoBehaviour
 
     public void TakeDamage(int _damage) {
         currentHealth -= _damage;
+        //animation for taking damage
     }
 }

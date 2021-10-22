@@ -5,9 +5,19 @@ using UnityEngine;
 public class Health : MonoBehaviour {
     [SerializeField] private float startingHealth;
     public float currentHealth { get; private set; }
+    private Rigidbody2D rb;
 
     private void Awake() {
         currentHealth = startingHealth;
+        rb = GetComponent<Rigidbody2D>();
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision) {
+        if (collision.gameObject.tag == "Enemy") {
+            Vector3 force = transform.position - collision.transform.position;
+            force = force.normalized;
+            gameObject.GetComponent<Rigidbody2D>().AddForce(force * 3000);
+            }
     }
 
     public void TakeDamage(float _damage) {

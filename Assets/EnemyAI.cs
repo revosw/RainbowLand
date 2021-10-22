@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
+using System;
 
 public class EnemyAI : MonoBehaviour
 {
 
     public Transform target;
-
     public Transform enemyGFX;
 
     public float speed = 200f;
     public float nextWaypointDistance = 3f;
-
+    public int bounceForce;
     Path path;
     int currentWaypoint = 0;
     bool reachedEndofPath = false;
@@ -20,6 +20,8 @@ public class EnemyAI : MonoBehaviour
     Seeker seeker;
     Rigidbody2D rb;
 
+    float jumpCD = 5f;
+    private float nextJump;
 
     // Start is called before the first frame update
     void Start()
@@ -29,7 +31,8 @@ public class EnemyAI : MonoBehaviour
 
         InvokeRepeating("UpdatePath", 0f, .5f);
     }
-     void UpdatePath() {
+
+    void UpdatePath() {
         if(seeker.IsDone())
             seeker.StartPath(rb.position, target.position, Onpathcomplete);
     }
@@ -66,6 +69,13 @@ public class EnemyAI : MonoBehaviour
             enemyGFX.localScale = new Vector3(10f, 10f, 1f);
         } else if (rb.velocity.x <= -.01f) {
             enemyGFX.localScale = new Vector3(-10f, 10f, 1f);
+        }
+
+        if (Math.Abs(target.position.x - rb.position.x) < 4
+            && Math.Abs(target.position.y - rb.position.y) < 6
+            && Time.time > nextJump) {
+            nextJump = Time.time + jumpCD;
+            rb.AddForce(transform.up * bounceForce, ForceMode2D.Impulse);
         }
     }
 }

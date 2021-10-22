@@ -7,14 +7,15 @@ using UnityEngine.Serialization;
 
 public class PlayerController : MonoBehaviour
 {
-
     // Movement speed variables
     [FormerlySerializedAs("speed")] [Header("Movement speed variables")]
-    public float moveSpeed;
+    public float movementForce;
+
     public float jumpForce;
-    public float airMovement;
+    public float maxMovementVelocity;
+    public float slowdownMultiplier;
     public int numberOfJumps;
-    private int jumpsPerformed;
+    public int jumpsPerformed;
 
     private float moveInputX;
 
@@ -26,8 +27,8 @@ public class PlayerController : MonoBehaviour
     private float cooldownTimer;
     public Transform firePoint;
     public GameObject[] projectiles;
-    
-    
+
+
     private Rigidbody2D rb;
 
 
@@ -41,25 +42,42 @@ public class PlayerController : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext ctx)
     {
-        if (jumpsPerformed < numberOfJumps)
+        if (ctx.started)
         {
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-            // rb.AddForce(new Vector2(0, jumpForce));
-            jumpsPerformed++;
+            if (jumpsPerformed < numberOfJumps)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+                // rb.AddForce(new Vector2(0, jumpForce));
+                jumpsPerformed++;
+            }
         }
     }
 
     public void Move(InputAction.CallbackContext ctx)
     {
-        if (isGrounded)
+        if (ctx.ReadValue<Vector2>().x == 0.0f)
         {
+            moveInputX = 0;
+            return;
+        }
+        if (isGrounded) //ground movement
+        {
+            Debug.Log("move on ground");
             moveInputX = ctx.ReadValue<Vector2>().x;
-            
+            // rb.velocity = new Vector2(moveInputX * moveSpeed, rb.velocity.y);
+            // rb.AddForce(new Vector2(moveInputX*moveSpeed, 0));
         }
-        else
+        else if (!isGrounded && ctx.started) // changing movement during jump/fall
         {
-            moveInputX = ctx.ReadValue<Vector2>().x * airMovement;
+            Debug.Log("move changed in air");
+            moveInputX = ctx.ReadValue<Vector2>().x;
+
+            // rb.velocity = new Vector2(moveInputX * moveSpeed * airMovement, rb.velocity.y);
         }
+        
+        
+        Debug.Log("x input value: " + moveInputX);
+
     }
 
     public void Shoot(InputAction.CallbackContext ctx)
@@ -68,15 +86,15 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("SHOOT");
             cooldownTimer = 0;
-            int projectileIndex = FindProjectile(); 
+            int projectileIndex = FindProjectile();
             projectiles[projectileIndex].transform.position = firePoint.position;
             projectiles[projectileIndex].GetComponent<Projectile>().activate();
             // .setDirection(Mathf.Sign(transform.localScale.x));    
         }
-        cooldownTimer += Time.deltaTime;
 
+        cooldownTimer += Time.deltaTime;
     }
-    
+
     private int FindProjectile()
     {
         for (int i = 0; i < projectiles.Length; i++)
@@ -84,6 +102,7 @@ public class PlayerController : MonoBehaviour
             if (!projectiles[i].activeInHierarchy)
                 return i;
         }
+
         return 0;
     }
 
@@ -102,12 +121,38 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        rb.velocity = new Vector2(moveInputX* moveSpeed, rb.velocity.y);
+        var kb = Keyboard.current;
 
-        isGrounded = Physics2D.OverlapCircle(groundPoint.position, .2f, whatIsGround);
+        var currentVelocity = rb.velocity;
+
+        //todo: this check of isGrounded solves air speed getting stuck on landing, but also forces air speed to always be reduced...
+        // if (isGrounded)
+        // {
+        if (moveInputX != 0)
+        {
+            Debug.Log("Player velocity: x = " + currentVelocity.x + " y = " + currentVelocity.y);
+            if (Mathf.Abs(currentVelocity.x) < maxMovementVelocity || Mathf.Sign(rb.velocity.x) != Mathf.Sign(moveInputX))
+            {
+                rb.AddForce(new Vector2(moveInputX*movementForce, 0));
+            }
+ 
+        }
+        else
+        {
+            rb.velocity = new Vector2(currentVelocity.x * slowdownMultiplier, currentVelocity.y);
+        }
+            // rb.velocity = new Vector2(moveInputX * moveSpeed, rb.velocity.y);
+        // }
+        // if (!isGrounded)
+        // {
+        //     rb.velocity = new Vector2(moveInputX * moveSpeed * airMovement, rb.velocity.y);
+        // }
+
+        isGrounded = Physics2D.OverlapCircle(groundPoint.position, .1f, whatIsGround);
         if (isGrounded)
         {
             jumpsPerformed = 0;
         }
+        
     }
 }

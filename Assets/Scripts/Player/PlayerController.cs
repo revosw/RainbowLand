@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnCollisionExit2D(Collision other) {
+    private void OnCollisionExit2D(Collision2D other) {
         if (other.gameObject.CompareTag("Ground"))
         {
             isGrounded = false;

@@ -32,17 +32,50 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
 
 
-    // Start is called before the first frame update
+    // Awake is called before Start
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        // input =  new InputPlayer();
-        // input.Gameplay.Jump.performed += ctx => Jump();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        // var kb = Keyboard.current; // just a reminder that this exists...
+        
+
+        var currentVelocity = rb.velocity; // used a lot in here
+
+        if (moveInputX != 0)
+        {
+            // Debug.Log("Player velocity: x = " + currentVelocity.x + " y = " + currentVelocity.y);
+            
+            // if not at max velocity, or if input is in opposite direction of current velocity (turning around)
+            // Mathf.Sign returns 1 if input is positive or 0, and -1 if negative
+            if (Mathf.Abs(currentVelocity.x) < maxMovementVelocity ||
+                Mathf.Sign(currentVelocity.x) != Mathf.Sign(moveInputX))
+            {
+                rb.AddForce(new Vector2(moveInputX * movementForce, 0));
+            }
+        }
+        else // if input == 0, we decelerate player velocity  
+        {
+            rb.velocity = new Vector2(currentVelocity.x * slowdownMultiplier, currentVelocity.y);
+        }
+
+        // is player touching ground?
+        isGrounded = Physics2D.OverlapCircle(groundPoint.position, .1f, whatIsGround);
+        
+        // reset jump counter.
+        // fixme: needs tweaking. Is triggering and resetting jump counter exactly as first jump starts?
+        if (isGrounded)
+        {
+            jumpsPerformed = 0;
+        }
     }
 
     public void Jump(InputAction.CallbackContext ctx)
-    {
-        if (ctx.started)
+    {aif (ctx.started)
         {
             if (jumpsPerformed < numberOfJumps)
             {
@@ -60,24 +93,20 @@ public class PlayerController : MonoBehaviour
             moveInputX = 0;
             return;
         }
+
         if (isGrounded) //ground movement
         {
             Debug.Log("move on ground");
             moveInputX = ctx.ReadValue<Vector2>().x;
-            // rb.velocity = new Vector2(moveInputX * moveSpeed, rb.velocity.y);
-            // rb.AddForce(new Vector2(moveInputX*moveSpeed, 0));
         }
         else if (!isGrounded && ctx.started) // changing movement during jump/fall
         {
             Debug.Log("move changed in air");
             moveInputX = ctx.ReadValue<Vector2>().x;
-
-            // rb.velocity = new Vector2(moveInputX * moveSpeed * airMovement, rb.velocity.y);
         }
-        
-        
-        Debug.Log("x input value: " + moveInputX);
 
+
+        Debug.Log("x input value: " + moveInputX);
     }
 
     public void Shoot(InputAction.CallbackContext ctx)
@@ -89,7 +118,6 @@ public class PlayerController : MonoBehaviour
             int projectileIndex = FindProjectile();
             projectiles[projectileIndex].transform.position = firePoint.position;
             projectiles[projectileIndex].GetComponent<Projectile>().activate();
-            // .setDirection(Mathf.Sign(transform.localScale.x));    
         }
 
         cooldownTimer += Time.deltaTime;
@@ -116,43 +144,5 @@ public class PlayerController : MonoBehaviour
         // moveInput = Input.GetAxis("Horizontal");
         // moveInputX = input.Gameplay.Move.ReadValue<float>();
         // Debug.Log("Move: " + moveInput);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        var kb = Keyboard.current;
-
-        var currentVelocity = rb.velocity;
-
-        //todo: this check of isGrounded solves air speed getting stuck on landing, but also forces air speed to always be reduced...
-        // if (isGrounded)
-        // {
-        if (moveInputX != 0)
-        {
-            Debug.Log("Player velocity: x = " + currentVelocity.x + " y = " + currentVelocity.y);
-            if (Mathf.Abs(currentVelocity.x) < maxMovementVelocity || Mathf.Sign(rb.velocity.x) != Mathf.Sign(moveInputX))
-            {
-                rb.AddForce(new Vector2(moveInputX*movementForce, 0));
-            }
- 
-        }
-        else
-        {
-            rb.velocity = new Vector2(currentVelocity.x * slowdownMultiplier, currentVelocity.y);
-        }
-            // rb.velocity = new Vector2(moveInputX * moveSpeed, rb.velocity.y);
-        // }
-        // if (!isGrounded)
-        // {
-        //     rb.velocity = new Vector2(moveInputX * moveSpeed * airMovement, rb.velocity.y);
-        // }
-
-        isGrounded = Physics2D.OverlapCircle(groundPoint.position, .1f, whatIsGround);
-        if (isGrounded)
-        {
-            jumpsPerformed = 0;
-        }
-        
     }
 }

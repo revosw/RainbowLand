@@ -25,6 +25,7 @@ namespace Player
         public LayerMask whatIsGround;
         public bool isGrounded;
 
+        public bool canShoot = false;
         public float shootCooldown;
         private float cooldownTimer;
         public Transform firePoint;
@@ -134,16 +135,18 @@ namespace Player
         //fixme: projectile direction changes when player direction changes..?
         public void Shoot(InputAction.CallbackContext ctx)
         {
-            if (cooldownTimer >= shootCooldown)
-            {
-                Debug.Log("SHOOT");
-                cooldownTimer = 0;
-                int projectileIndex = FindProjectile();
-                projectiles[projectileIndex].transform.position = firePoint.position;
-                projectiles[projectileIndex].GetComponent<Projectile>().activate(transform.localScale.x);
-            }
+            if (canShoot) {
+                if (cooldownTimer >= shootCooldown)
+                {
+                    Debug.Log("SHOOT");
+                    cooldownTimer = 0;
+                    int projectileIndex = FindProjectile();
+                    projectiles[projectileIndex].transform.position = firePoint.position;
+                    projectiles[projectileIndex].GetComponent<Projectile>().activate(transform.localScale.x);
+                }
 
-            cooldownTimer += Time.deltaTime;
+                cooldownTimer += Time.deltaTime;
+            }
         }
 
         private int FindProjectile()

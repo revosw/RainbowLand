@@ -9,6 +9,7 @@ TagManager:
   - HurtBox
   - BeerEnemy
   - Enemy
+  - MovingPlatform
   layers:
   - Default
   - TransparentFX
@@ -57,4 +58,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 3997888335
+    locked: 0
+  - name: Foreground
+    uniqueID: 747175859
     locked: 0

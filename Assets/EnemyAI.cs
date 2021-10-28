@@ -9,7 +9,7 @@ public class EnemyAI : MonoBehaviour
 
     public Transform target;
     public Transform enemyGFX;
-
+    public Animator animator;
     public float speed = 200f;
     public float nextWaypointDistance = 3f;
     public int bounceForce;

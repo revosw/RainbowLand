@@ -75,7 +75,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public void Jump(InputAction.CallbackContext ctx)
-    {aif (ctx.started)
+    {if (ctx.started)
         {
             if (jumpsPerformed < numberOfJumps)
             {

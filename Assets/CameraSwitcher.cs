@@ -1,3 +1,4 @@
+using Cinemachine;
 using UnityEngine;
 
 public class CameraSwitcher : MonoBehaviour
@@ -5,7 +6,7 @@ public class CameraSwitcher : MonoBehaviour
     public Cinemachine.CinemachineVirtualCamera camToActivate;
 
     private void OnTriggerEnter2D(Collider2D other) {
-        other.gameObject.SetActive(false);
+        CinemachineCore.Instance.GetActiveBrain(0).ActiveVirtualCamera.VirtualCameraGameObject.SetActive(false);
         camToActivate.gameObject.SetActive(true);
     }
 }

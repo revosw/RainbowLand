@@ -4784,7 +4784,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed8b7921565b7264dbc56e533e1439dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyHealth: 2
+  enemyHealth: 3
   animator: {fileID: 349011729}
 --- !u!61 &680786464
 BoxCollider2D:

@@ -21,18 +21,19 @@ public class EnemyHealth : MonoBehaviour
     {
         if (currentHealth <= 0)
             Destroy(transform.parent.gameObject);
+        if (animator.GetBool("takeDamage")) {
+            Timer += Time.deltaTime;
+            if (Timer >= 2f) {
+                animator.SetBool("takeDamage", false);
+                Timer = 0f;
+            }
+        }
     }
     
 
     public void TakeDamage(int _damage) {
         currentHealth -= _damage;
-        Timer += Time.deltaTime;
         animator.SetBool("takeDamage", true);
-        if (Timer >= 2f) {
-            animator.SetBool("takeDamage", false);
-            Timer = 0f;
-        }
-
     //animation for taking damage
 }
 }

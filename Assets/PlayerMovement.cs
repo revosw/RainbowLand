@@ -42,8 +42,8 @@ public class PlayerMovement : MonoBehaviour
         inputX = context.ReadValue<Vector2>().x;
     }
 
+    //Double Jump functionality
     public void Jump(InputAction.CallbackContext context) {
-        Debug.Log(isGrounded);
         if (context.performed && GroundCheck()) {
             rigidBody2D.velocity = new Vector2(rigidBody2D.velocity.x, jumpForce);
             airjump = true;

@@ -32,9 +32,13 @@ public class EnemyAI : MonoBehaviour
         InvokeRepeating("UpdatePath", 0f, .5f);
     }
 
+    //Calculates path when target is within range.
     void UpdatePath() {
-        if(seeker.IsDone())
-            seeker.StartPath(rb.position, target.position, Onpathcomplete);
+        if (Math.Abs(target.position.x - rb.position.x) < 20
+            && Math.Abs(target.position.y - rb.position.y) < 10) {
+            if (seeker.IsDone())
+                seeker.StartPath(rb.position, target.position, Onpathcomplete);
+        }
     }
 
     void Onpathcomplete(Path p) {
@@ -71,6 +75,7 @@ public class EnemyAI : MonoBehaviour
             enemyGFX.localScale = new Vector3(-10f, 10f, 1f);
         }
 
+        //The boss jumping script
         if (Math.Abs(target.position.x - rb.position.x) < 4
             && Math.Abs(target.position.y - rb.position.y) < 6
             && Time.time > nextJump) {

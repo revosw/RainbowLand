@@ -1,12 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Health : MonoBehaviour {
     [SerializeField] private float startingHealth;
     public float currentHealth { get; private set; }
     private Rigidbody2D rb;
     public Animator animator;
+    private GameMaster gm;
+
+    private void Start() {
+        gm = GameObject.FindGameObjectWithTag("GM").GetComponent<GameMaster>();
+        transform.position = gm.lastCheckPointPosition;
+    }
 
     private void Awake() {
         currentHealth = startingHealth;
@@ -32,6 +39,7 @@ public class Health : MonoBehaviour {
             animator.SetBool("isDead", true);
             GetComponent<PlayerMovement>().enabled = false;
             //animator for death
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 

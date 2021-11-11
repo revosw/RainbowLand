@@ -10,7 +10,7 @@ public class Health : MonoBehaviour {
     public Animator animator;
     private GameMaster gm;
 
-    private void Start() {
+    void Start() {
         gm = GameObject.FindGameObjectWithTag("GM").GetComponent<GameMaster>();
         transform.position = gm.lastCheckPointPosition;
     }

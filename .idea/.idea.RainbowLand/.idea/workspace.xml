@@ -4,7 +4,30 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="07ae105c-cbb6-4a69-b809-a0ccf0935e5a" name="Changes" comment="" />
+    <list default="true" id="07ae105c-cbb6-4a69-b809-a0ccf0935e5a" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Pickups.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Pickups/DoubleJumpPickup.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Pickups/DoubleJumpPickup.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Pickups/ShootPickup.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Pickups/ShootPickup.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Player.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Player.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefabs/A_.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefabs/A_.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefabs/CheckpointItems.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefabs/CheckpointItems.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefabs/Enemies.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefabs/Enemies/BeerEnemy Custom Pathing.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefabs/Enemies/BeerEnemy Custom Pathing.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefabs/Enemies/BeerEnemyAiPath(DONT USE).prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefabs/Enemies/BeerEnemyAiPath(DONT USE).prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefabs/Health Pickup.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefabs/Health Pickup.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefabs/Player.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefabs/Player.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefabs/UICanvasHealth.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefabs/UICanvasHealth.prefab.meta" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -23,9 +46,25 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem@1.0.2/InputSystem/Plugins/PlayerInput/PlayerInput.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/PlayerController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem@1.0.2/InputSystem/Actions/InputAction.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/PlayerController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock:///home/mort/git/unity/RainbowLand/UserSettings/EditorUserSettings.asset" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///home/mort/git/unity/RainbowLand/Assets/PhysicsMaterials.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/PlayerMovement.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock:///home/mort/git/unity/RainbowLand/Assets/Scripts/Player/PlayerController.cs.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///home/mort/git/unity/RainbowLand/Assets/BeerScript.cs.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///home/mort/git/unity/RainbowLand/UserSettings/EditorUserSettings.asset" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///home/mort/git/unity/RainbowLand/Assets/EnemyController.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Projectiles/Projectile.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock:///home/mort/git/unity/RainbowLand/Assets/PhysicsMaterials.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///home/mort/git/unity/RainbowLand/Assets/PhysicsMaterials.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///home/mort/git/unity/RainbowLand/Assets/Scripts/Player/PlayerController.cs.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///home/mort/git/unity/RainbowLand/Assets/EnemyController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///home/mort/git/unity/RainbowLand/Assets/BeerScript.cs.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///home/mort/git/unity/RainbowLand/Assets/PhysicsMaterials.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///home/mort/git/unity/RainbowLand/Assets/Scenes/Sandbox.unity" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///home/mort/git/unity/RainbowLand/Assets/Scenes/Sandbox.unity" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///home/mort/git/unity/RainbowLand/ProjectSettings/EditorBuildSettings.asset" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="1zXSveGGFBR7cQw1x5y4BCj9Kbt" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />

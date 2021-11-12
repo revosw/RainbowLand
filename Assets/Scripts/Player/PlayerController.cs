@@ -1,4 +1,4 @@
-using Projectiles;
+﻿using Projectiles;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
@@ -6,12 +6,11 @@ using UnityEngineInternal;
 
 namespace Player
 {
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : MonoBehaviour, IPausable
     {
         // Movement speed variables
         [FormerlySerializedAs("speed")] [Header("Movement speed variables")]
         public float movementForce;
-
         public float jumpForce;
         public float maxMovementVelocity;
         public float slowdownMultiplier;
@@ -31,14 +30,35 @@ namespace Player
         public Transform firePoint;
         public GameObject[] projectiles;
 
+        private PlayerControls controls;
+
 
         private Rigidbody2D rb;
+        [SerializeField] GameManager gameManager;
 
 
         // Awake is called before Start
         void Awake()
         {
+            // Parts of code taken from https://www.youtube.com/watch?v=vAZV5xO_AHU
+            
+            // The game always starts in the main menu, so UI should
+            // be enabled first
+            //gameManager = 
+
             rb = GetComponent<Rigidbody2D>();
+            controls = new PlayerControls();
+
+
+
+            // controls.Player.Movement.performed += ctx => movement = ctx.ReadValue<float>();
+            // controls.Player.Movement.canceled += _ => movement = 0;
+            controls.Player.Pause.performed += _ => OnPauseGame();
+
+            // controls.Player.Jump.started += _ => Jump();
+            controls.Player.Disable();
+            controls.UI.Enable();
+            controls.UI.Cancel.performed += _ => OnResumeGame();
         }
 
         // Update is called once per frame
@@ -90,6 +110,19 @@ namespace Player
             {
                 numberOfJumps = maxExtraJumps;
             }
+        }
+        
+        public void OnPauseGame()
+        {
+            controls.UI.Enable();
+            controls.Player.Disable();
+            gameManager.OnPauseGame();
+        }
+        public void OnResumeGame()
+        {
+            controls.UI.Disable();
+            controls.Player.Enable();
+            gameManager.OnResumeGame();
         }
 
         public void Jump(InputAction.CallbackContext ctx)
@@ -160,6 +193,22 @@ namespace Player
             }
 
             return 0;
+        }
+        
+        private void OnCollisionEnter2D(Collision2D other)
+        {
+            if (other.gameObject.CompareTag("Ground"))
+            {
+                isGrounded = true;
+            }
+        }
+
+        private void OnCollisionExit2D(Collision2D other)
+        {
+            if (other.gameObject.CompareTag("Ground"))
+            {
+                isGrounded = false;
+            }
         }
 
         void OnEnable()

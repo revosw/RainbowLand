@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - New tag
+  - player
+  - HurtBox
+  - BeerEnemy
+  - Enemy
+  - GM
   layers:
   - Default
   - TransparentFX
@@ -11,7 +17,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Ground
   - 
   - 
   - 
@@ -38,6 +44,18 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 3386019239
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Terrain/Foreground
+    uniqueID: 2207129081
+    locked: 0
+  - name: Enemy
+    uniqueID: 1784831307
+    locked: 0
+  - name: Player
+    uniqueID: 3997888335
     locked: 0

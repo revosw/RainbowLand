@@ -18,10 +18,12 @@ public class GameManager : MonoBehaviour
     public void OnPauseGame()
     {
         uiManager.OnPauseGame();
+        Time.timeScale = 0;
     }
 
     public void OnResumeGame()
     {
         uiManager.OnResumeGame();
+        Time.timeScale = 1;
     }
 }

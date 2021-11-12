@@ -1,11 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Health : MonoBehaviour {
     [SerializeField] private float startingHealth;
     public float currentHealth { get; private set; }
     private Rigidbody2D rb;
+    public Animator animator;
+    private GameMaster gm;
+
+    void Start() {
+        gm = GameObject.FindGameObjectWithTag("GM").GetComponent<GameMaster>();
+        transform.position = gm.lastCheckPointPosition;
+    }
 
     private void Awake() {
         currentHealth = startingHealth;
@@ -16,6 +24,7 @@ public class Health : MonoBehaviour {
         if (collision.gameObject.tag == "Enemy") {
             Vector3 force = transform.position - collision.transform.position;
             force = force.normalized;
+            //fix this
             gameObject.GetComponent<Rigidbody2D>().AddForce(force * 3000);
             }
     }
@@ -24,10 +33,13 @@ public class Health : MonoBehaviour {
         currentHealth = Mathf.Clamp(currentHealth - _damage, 0, startingHealth);
         if (currentHealth > 0) {
             // take damage animation
+            animator.SetTrigger("takeDamage");
         } else {
             // DEAD
+            animator.SetBool("isDead", true);
             GetComponent<PlayerMovement>().enabled = false;
             //animator for death
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 

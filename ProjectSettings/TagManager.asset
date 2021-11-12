@@ -9,6 +9,7 @@ TagManager:
   - HurtBox
   - BeerEnemy
   - Enemy
+  - GM
   layers:
   - Default
   - TransparentFX

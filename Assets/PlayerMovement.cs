@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-
+    public Transform playerTransform;
     public Rigidbody2D rigidBody2D;
     public float moveSpeed, jumpForce;
     private bool isGrounded;
@@ -13,9 +13,10 @@ public class PlayerMovement : MonoBehaviour
     const float groundCheckRadius = 0.2f;
     public Transform groundCheckCollider;
     public LayerMask groundLayer;
+    public Animator animator;
 
     bool airjump = false;
-
+    bool running = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +37,24 @@ public class PlayerMovement : MonoBehaviour
     {
         isGrounded = Physics2D.OverlapCircle(groundCheckCollider.position, groundCheckRadius, groundLayer);
         rigidBody2D.velocity = new Vector2(inputX * moveSpeed, rigidBody2D.velocity.y);
+        if (moveSpeed*inputX >= 0.1f ) {
+            running = true;
+        } else if (moveSpeed * inputX <= -.1f){
+            running = true;
+        } else {
+            running = false;
+        }
+        animator.SetBool("isGrounded", isGrounded);
+        animator.SetBool("isRunning", running);
+        
+    }
+
+    private void FixedUpdate() {
+        if (rigidBody2D.velocity.x >= .01f) {
+            playerTransform.localScale = new Vector3(1.5f, 1.5f, 1f);
+        } else if (rigidBody2D.velocity.x <= -.01f) {
+            playerTransform.localScale = new Vector3(-1.5f, 1.5f, 1f);
+        }
     }
 
     public void Move(InputAction.CallbackContext context) {

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BeerScript : MonoBehaviour
+public class EnemyDealDamage : MonoBehaviour
 {
 
     [SerializeField] private float damage;
@@ -14,16 +14,5 @@ public class BeerScript : MonoBehaviour
         } else {
 
         }
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

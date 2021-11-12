@@ -60,3 +60,7 @@ sysinfo.txt
 crashlytics-build.properties
 
 .vsconfig
+
+/.idea/
+
+

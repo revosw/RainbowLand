@@ -10,6 +10,7 @@ TagManager:
   - BeerEnemy
   - Enemy
   - MovingPlatform
+  - Trap
   layers:
   - Default
   - TransparentFX
@@ -18,7 +19,7 @@ TagManager:
   - Water
   - UI
   - Ground
-  - 
+  - Foreground
   - 
   - 
   - 

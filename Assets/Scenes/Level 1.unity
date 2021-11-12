@@ -183,7 +183,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7869199}
   - component: {fileID: 7869200}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Terrain (16x16) Whole_1 (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -402,7 +402,7 @@ GameObject:
   m_Component:
   - component: {fileID: 70122280}
   - component: {fileID: 70122281}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Terrain (16x16) Whole_1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35644,7 +35644,7 @@ GameObject:
   m_Component:
   - component: {fileID: 589895480}
   - component: {fileID: 589895481}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Terrain (16x16) Whole_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36803,7 +36803,7 @@ GameObject:
   m_Component:
   - component: {fileID: 982803875}
   - component: {fileID: 982803876}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Terrain (16x16) Whole_1 (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37190,7 +37190,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1017651539}
   - component: {fileID: 1017651540}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Terrain (16x16) Whole_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37760,7 +37760,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1199783496}
   - component: {fileID: 1199783497}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Terrain (16x16) Whole_1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46276,7 +46276,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1381551278}
   - component: {fileID: 1381551279}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Terrain (16x16) Whole_1 (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51972,7 +51972,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1833880066}
   - component: {fileID: 1833880067}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Terrain (16x16) Whole_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -52529,7 +52529,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2015568955}
   - component: {fileID: 2015568956}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Terrain (16x16) Whole_1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -52914,7 +52914,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2108099576}
   - component: {fileID: 2108099577}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Terrain (16x16) Whole_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

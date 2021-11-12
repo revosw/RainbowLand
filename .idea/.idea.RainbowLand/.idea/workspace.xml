@@ -6,6 +6,42 @@
   <component name="ChangeListManager">
     <list default="true" id="07ae105c-cbb6-4a69-b809-a0ccf0935e5a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RainbowLand/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RainbowLand/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/BedBoss.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/BedBoss/bed1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/BedBoss/bed1.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/BeerTurnAround.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/BeerTurnAround.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Checkpoint.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Checkpoint.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EnemyAI.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EnemyAI.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EnemyController.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EnemyController.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EnemyDealDamage.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EnemyDealDamage.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/GameMaster.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/GameMaster.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/HealthPickup.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/HealthPickup.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/InputSystem.inputsettings.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/InputSystem.inputsettings.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PlayerInputActions.inputactions" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PlayerInputActions.inputactions.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PlayerMovement.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PlayerMovement.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/BeerEnemy Custom Pathing.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/BeerEnemy Custom Pathing.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Health Pickup.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Health Pickup.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Projectiles.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Projectiles/PlayerProjectile.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Projectiles/PlayerProjectile.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Projectiles/Projectile.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Projectiles/Projectile.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Sandbox.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Sandbox.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Stomper.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Stomper.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,7 +64,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Projectiles/Projectile.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem@1.0.2/InputSystem/Actions/InputAction.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/PlayerController.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/PlayerMovement.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameMaster.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="1zXSveGGFBR7cQw1x5y4BCj9Kbt" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -84,6 +120,7 @@
       <workItem from="1635443825708" duration="9021000" />
       <workItem from="1635491797502" duration="1254000" />
       <workItem from="1636702592687" duration="599000" />
+      <workItem from="1636706509946" duration="1207000" />
     </task>
     <task id="LOCAL-00001" summary="implements basic player controller with InputActions for move and double jump.">
       <created>1634310251203</created>

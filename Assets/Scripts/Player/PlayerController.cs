@@ -141,6 +141,8 @@ namespace Player
                     Debug.Log("SHOOT");
                     cooldownTimer = 0;
                     int projectileIndex = FindProjectile();
+                    // todo: can we fix issue with projectile following player orientation
+                    // by changing the way we assign a transform position to it?
                     projectiles[projectileIndex].transform.position = firePoint.position;
                     projectiles[projectileIndex].GetComponent<Projectile>().activate(transform.localScale.x);
                 }

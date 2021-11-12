@@ -1,32 +1,54 @@
 ﻿using UnityEngine;
+using UnityEngine.InputSystem;
 
 /// <summary>
 /// Class which handles player movement
 /// 
 /// Code taken from https://www.youtube.com/watch?v=vAZV5xO_AHU
 /// </summary>
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IPausable
 {
-    public float movementSpeed;
-    public float jumpStrength;
+    [SerializeField] float movementSpeed;
+    [SerializeField] float jumpStrength;
     private Rigidbody2D rb;
     private PlayerControls controls;
     private float movement;
     private bool isGrounded;
+    [SerializeField] GameManager gameManager;
+
 
     private void Awake()
     {
+        // The game always starts in the main menu, so UI should
+        // be enabled first
+        //gameManager = 
         rb = GetComponent<Rigidbody2D>();
         controls = new PlayerControls();
 
+
+
         controls.Player.Movement.performed += ctx => movement = ctx.ReadValue<float>();
         controls.Player.Movement.canceled += _ => movement = 0;
+        controls.Player.Pause.performed += _ => OnPauseGame();
 
         controls.Player.Jump.started += _ => Jump();
+        controls.Player.Disable();
+        controls.UI.Enable();
+        controls.UI.Cancel.performed += _ => OnResumeGame();
     }
 
-    private void OnEnable() => controls.Enable();
-    private void OnDisable() => controls.Disable();
+    public void OnPauseGame()
+    {
+        controls.UI.Enable();
+        controls.Player.Disable();
+        gameManager.OnPauseGame();
+    }
+    public void OnResumeGame()
+    {
+        controls.UI.Disable();
+        controls.Player.Enable();
+        gameManager.OnResumeGame();
+    }
 
 
     private void Update()
@@ -53,14 +75,16 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D other) {
+    private void OnCollisionEnter2D(Collision2D other)
+    {
         if (other.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
         }
     }
 
-    private void OnCollisionExit2D(Collision2D other) {
+    private void OnCollisionExit2D(Collision2D other)
+    {
         if (other.gameObject.CompareTag("Ground"))
         {
             isGrounded = false;

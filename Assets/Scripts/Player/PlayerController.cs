@@ -33,7 +33,11 @@ namespace Player
         private PlayerControls controls;
         private float movement;
 
-
+        public Animator animator;
+        bool airjump = false;
+        bool running = false;
+        
+        
         private Rigidbody2D rb;
         [SerializeField] GameManager gameManager;
 
@@ -79,49 +83,49 @@ namespace Player
 
             var currentVelocity = rb.velocity; // used a lot in here
             
-            rb.velocity = new Vector2(movement * movementForce, rb.velocity.y);
-            //
-            // if (moveInputX != 0)
-            // {
-            //     if (moveInputX < 0 && facingRight == true)
-            //     {
-            //         Vector3 scaler = transform.localScale;
-            //         scaler.x *= -1;
-            //         transform.localScale = scaler;
-            //         facingRight = !facingRight;
-            //     }                
-            //     else if (moveInputX > 0 && facingRight == false)
-            //     {
-            //         Vector3 scaler = transform.localScale;
-            //         scaler.x *= -1;
-            //         transform.localScale = scaler;
-            //         facingRight = !facingRight;
-            //     }
-            //
-            //     // Debug.Log("Player velocity: x = " + currentVelocity.x + " y = " + currentVelocity.y);
-            //
-            //     // if not at max velocity, or if input is in opposite direction of current velocity (turning around)
-            //     // Mathf.Sign returns 1 if input is positive or 0, and -1 if negative
-            //     if (Mathf.Abs(currentVelocity.x) < maxMovementVelocity ||
-            //         Mathf.Sign(currentVelocity.x) != Mathf.Sign(moveInputX))
-            //     {
-            //         rb.AddForce(new Vector2(moveInputX * movementForce, 0));
-            //     }
-            // }
-            // else // if input == 0, we decelerate player velocity  
-            // {
-            //     rb.velocity = new Vector2(currentVelocity.x * slowdownMultiplier, currentVelocity.y);
-            // }
-            //
-            // // is player touching ground?
-            // isGrounded = Physics2D.OverlapCircle(groundPoint.position, 0.1f, whatIsGround);
-            //
-            // // reset jump counter.
-            // // fixme: needs tweaking. Is triggering and resetting jump counter exactly as first jump starts?
-            // if (isGrounded)
-            // {
-            //     numberOfJumps = maxExtraJumps;
-            // }
+            // rb.velocity = new Vector2(movement * movementForce, rb.velocity.y);
+            
+            if (moveInputX != 0)
+            {
+                if (moveInputX < 0 && facingRight == true)
+                {
+                    Vector3 scaler = transform.localScale;
+                    scaler.x *= -1;
+                    transform.localScale = scaler;
+                    facingRight = !facingRight;
+                }                
+                else if (moveInputX > 0 && facingRight == false)
+                {
+                    Vector3 scaler = transform.localScale;
+                    scaler.x *= -1;
+                    transform.localScale = scaler;
+                    facingRight = !facingRight;
+                }
+            
+                // Debug.Log("Player velocity: x = " + currentVelocity.x + " y = " + currentVelocity.y);
+            
+                // if not at max velocity, or if input is in opposite direction of current velocity (turning around)
+                // Mathf.Sign returns 1 if input is positive or 0, and -1 if negative
+                if (Mathf.Abs(currentVelocity.x) < maxMovementVelocity ||
+                    Mathf.Sign(currentVelocity.x) != Mathf.Sign(moveInputX))
+                {
+                    rb.AddForce(new Vector2(moveInputX * movementForce, 0));
+                }
+            }
+            else // if input == 0, we decelerate player velocity  
+            {
+                rb.velocity = new Vector2(currentVelocity.x * slowdownMultiplier, currentVelocity.y);
+            }
+            
+            // is player touching ground?
+            isGrounded = Physics2D.OverlapCircle(groundPoint.position, 0.1f, whatIsGround);
+            
+            // reset jump counter.
+            // fixme: needs tweaking. Is triggering and resetting jump counter exactly as first jump starts?
+            if (isGrounded)
+            {
+                numberOfJumps = maxExtraJumps;
+            }
         }
         
         public void OnPauseGame()
@@ -154,47 +158,47 @@ namespace Player
             }
         }
 
-        // public void Move(InputAction.CallbackContext ctx)
-        // {
-        //     if (ctx.ReadValue<Vector2>().x == 0.0f)
-        //     {
-        //         moveInputX = 0;
-        //         return;
-        //     }
-        //
-        //     if (isGrounded) //ground movement
-        //     {
-        //         Debug.Log("move on ground");
-        //         moveInputX = ctx.ReadValue<Vector2>().x;
-        //     }
-        //     else if (!isGrounded && ctx.started) // changing movement during jump/fall
-        //     {
-        //         Debug.Log("move changed in air");
-        //         moveInputX = ctx.ReadValue<Vector2>().x;
-        //     }
-        //
-        //
-        //     Debug.Log("x input value: " + moveInputX);
-        // }
+        public void Move(InputAction.CallbackContext ctx)
+        {
+            if (ctx.ReadValue<Vector2>().x == 0.0f)
+            {
+                moveInputX = 0;
+                return;
+            }
+        
+            if (isGrounded) //ground movement
+            {
+                Debug.Log("move on ground");
+                moveInputX = ctx.ReadValue<Vector2>().x;
+            }
+            else if (!isGrounded && ctx.started) // changing movement during jump/fall
+            {
+                Debug.Log("move changed in air");
+                moveInputX = ctx.ReadValue<Vector2>().x;
+            }
+        
+        
+            Debug.Log("x input value: " + moveInputX);
+        }
 
         //fixme: projectile direction changes when player direction changes..?
-        // public void Shoot(InputAction.CallbackContext ctx)
-        // {
-        //     if (canShoot) {
-        //         if (cooldownTimer >= shootCooldown)
-        //         {
-        //             Debug.Log("SHOOT");
-        //             cooldownTimer = 0;
-        //             int projectileIndex = FindProjectile();
-        //             // todo: can we fix issue with projectile following player orientation
-        //             // by changing the way we assign a transform position to it?
-        //             projectiles[projectileIndex].transform.position = firePoint.position;
-        //             projectiles[projectileIndex].GetComponent<Projectile>().activate(transform.localScale.x);
-        //         }
-        //
-        //         cooldownTimer += Time.deltaTime;
-        //     }
-        // }
+        public void Shoot(InputAction.CallbackContext ctx)
+        {
+            if (canShoot) {
+                if (cooldownTimer >= shootCooldown)
+                {
+                    Debug.Log("SHOOT");
+                    cooldownTimer = 0;
+                    int projectileIndex = FindProjectile();
+                    // todo: can we fix issue with projectile following player orientation
+                    // by changing the way we assign a transform position to it?
+                    projectiles[projectileIndex].transform.position = firePoint.position;
+                    projectiles[projectileIndex].GetComponent<Projectile>().activate(transform.localScale.x);
+                }
+        
+                cooldownTimer += Time.deltaTime;
+            }
+        }
 
         private int FindProjectile()
         {

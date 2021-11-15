@@ -36,6 +36,8 @@ namespace Projectiles
 
         private void OnTriggerEnter2D(Collider2D other)
         {
+            //todo: these bounces are not being counted correctly. Why..?
+            
             Debug.Log("Projectile Bounce remaining:" + remainingBounces);
             if (remainingBounces <= 0)
             {
@@ -43,6 +45,7 @@ namespace Projectiles
             }
             else
             {
+
                 remainingBounces--;
     
             }
@@ -50,7 +53,7 @@ namespace Projectiles
 
         public void setDirection(float sign)
         {
-            speed = speed;
+            // speed = speed;
         }
 
         public void activate(float direction)

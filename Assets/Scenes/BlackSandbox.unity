@@ -239,41 +239,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1103818614}
     m_Modifications:
-    - target: {fileID: 3142049096261639185, guid: 76e5685cdc52d7db0ab5445b100d21f9, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3142049096261639185, guid: 76e5685cdc52d7db0ab5445b100d21f9, type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3142049096261639186, guid: 76e5685cdc52d7db0ab5445b100d21f9, type: 3}
-      propertyPath: m_Mass
-      value: 0.040000003
-      objectReference: {fileID: 0}
-    - target: {fileID: 3142049096261639186, guid: 76e5685cdc52d7db0ab5445b100d21f9, type: 3}
-      propertyPath: m_UseAutoMass
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3142049096261639186, guid: 76e5685cdc52d7db0ab5445b100d21f9, type: 3}
-      propertyPath: m_GravityScale
-      value: 9.81
-      objectReference: {fileID: 0}
-    - target: {fileID: 3142049096261639187, guid: 76e5685cdc52d7db0ab5445b100d21f9, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3142049096261639187, guid: 76e5685cdc52d7db0ab5445b100d21f9, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3142049096261639189, guid: 76e5685cdc52d7db0ab5445b100d21f9, type: 3}
       propertyPath: m_Name
       value: PlayerProjectile
-      objectReference: {fileID: 0}
-    - target: {fileID: 3142049096261639189, guid: 76e5685cdc52d7db0ab5445b100d21f9, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3142049096261639191, guid: 76e5685cdc52d7db0ab5445b100d21f9, type: 3}
       propertyPath: m_RootOrder

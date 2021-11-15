@@ -283,21 +283,22 @@ namespace Player
             return 0;
         }
 
-        private void OnCollisionEnter2D(Collision2D other)
-        {
-            if (other.gameObject.CompareTag("Ground"))
-            {
-                isGrounded = true;
-            }
-        }
-
-        private void OnCollisionExit2D(Collision2D other)
-        {
-            if (other.gameObject.CompareTag("Ground"))
-            {
-                isGrounded = false;
-            }
-        }
+        //todo: refactor these two as a GroundChecker object?
+        // private void OnCollisionEnter2D(Collision2D other)
+        // {
+        //     if (other.gameObject.CompareTag("Ground"))
+        //     {
+        //         isGrounded = true;
+        //     }
+        // }
+        //
+        // private void OnCollisionExit2D(Collision2D other)
+        // {
+        //     if (other.gameObject.CompareTag("Ground"))
+        //     {
+        //         isGrounded = false;
+        //     }
+        // }
 
         void OnEnable()
         {

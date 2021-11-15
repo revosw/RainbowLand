@@ -12,6 +12,11 @@ namespace Projectiles
         private BoxCollider2D boxCollider;
         private Rigidbody2D rb;
 
+        
+        // todo: This whole class needs a rethink.
+        // todo: Rewrite as an interface (?), and implement playerProjectile based on this.
+        // Implementation doesn't feel 'nice' during play,
+        // and  it's coupled too closely to the player projectile functionality.
         private void Awake()
         {
             boxCollider = GetComponent<BoxCollider2D>();
@@ -31,6 +36,7 @@ namespace Projectiles
 
         private void OnTriggerEnter2D(Collider2D other)
         {
+            Debug.Log("Projectile Bounce remaining:" + remainingBounces);
             if (remainingBounces <= 0)
             {
                 gameObject.SetActive(false);

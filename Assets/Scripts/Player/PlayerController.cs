@@ -70,7 +70,7 @@ namespace Player
         [Tooltip("The set of projectiles that the player can fire.")]
         public GameObject[] projectiles;
 
-        private PlayerControls controls;
+        private PlayerInputAction controls;
         private float movement;
 
         public Animator animator;
@@ -81,33 +81,8 @@ namespace Player
         [SerializeField] GameManager gameManager;
 
 
-        /// Awake is called before Start
-        void Awake()
-        {
-            // Parts of code taken from https://www.youtube.com/watch?v=vAZV5xO_AHU
-
-            // The game always starts in the main menu, so UI should
-            // be enabled first
-            //gameManager = 
-
-            rb = GetComponent<Rigidbody2D>();
-            controls = new PlayerControls();
-
-
-            // todo: What the fuck is even going on here..?
-            //  Need to read up on PlayerControls API
-            controls.Player.Movement.performed += ctx => movement = ctx.ReadValue<float>();
-            controls.Player.Movement.canceled += _ => movement = 0;
-            // we don't use 'movement' variable for anything, it seems?
-            controls.Player.Pause.performed += _ => OnPauseGame();
-
-            controls.Player.Jump.started += Jump;
-            controls.Player.Disable();
-            controls.UI.Enable();
-            controls.UI.Cancel.performed += _ => OnResumeGame();
-        }
-
         // Update is called once per frame
+
         void Update()
         {
             // var kb = Keyboard.current; // just a reminder that this exists...
@@ -183,6 +158,43 @@ namespace Player
             gameManager.OnPauseGame();
         }
 
+        /// Awake is called before Start
+        void Awake()
+        {
+            // Parts of code taken from https://www.youtube.com/watch?v=vAZV5xO_AHU
+
+            // The game always starts in the main menu, so UI should
+            // be enabled first
+            //gameManager = 
+
+            rb = GetComponent<Rigidbody2D>();
+            controls = new PlayerInputAction();
+
+
+            // todo: What the fuck is even going on here..?
+            //  Need to read up on PlayerControls API
+
+
+            // controls.Player.Movement.performed += ctx => movement = ctx.ReadValue<float>();
+            // controls.Player.Movement.canceled += _ => movement = 0;
+            // we don't use 'movement' variable for anything, it seems?
+
+
+            controls.Player.Move.performed += Move;
+            controls.Player.Move.canceled += Move;;
+
+            controls.Player.Fire.started += Shoot;
+
+            controls.Player.Jump.started += Jump;
+            
+            controls.Player.Pause.performed += _ => OnPauseGame();
+            controls.UI.Cancel.performed += _ => OnResumeGame();
+            
+            controls.Player.Disable();
+            controls.UI.Enable();
+            // controls.Player.Enable();
+        }
+
         public void OnResumeGame()
         {
             controls.UI.Disable();
@@ -190,28 +202,31 @@ namespace Player
             gameManager.OnResumeGame();
         }
 
+        // InputAction.CallbackContext ctx
         public void Jump(InputAction.CallbackContext ctx)
         {
-            if (ctx.started)
+            Debug.Log("JUMP");
+            if (numberOfJumpsRemaining > 0 && !isGrounded)
             {
-                if (numberOfJumpsRemaining > 0 && !isGrounded)
-                {
-                    // if !isGrounded, we spend one of our double jump charges.
-                    rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-                    numberOfJumpsRemaining--;
-                }
-                else if (isGrounded)
-                {
-                    rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-                }
+                // if !isGrounded, we spend one of our double jump charges.
+                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+                numberOfJumpsRemaining--;
             }
+            else if (isGrounded)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            }
+            // if (ctx.started)
+            // {
+            //
+            // }
         }
 
         public void Move(InputAction.CallbackContext ctx)
         {
             float horizontalInput = ctx.ReadValue<Vector2>().x;
 
-            if (horizontalInput == 0.0f)
+            if (horizontalInput == 0f)
             {
                 moveInputX = 0;
             }

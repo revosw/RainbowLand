@@ -216,10 +216,7 @@ namespace Player
             {
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             }
-            // if (ctx.started)
-            // {
-            //
-            // }
+
         }
 
         public void Move(InputAction.CallbackContext ctx)

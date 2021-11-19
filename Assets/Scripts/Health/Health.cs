@@ -51,6 +51,7 @@ public class Health : MonoBehaviour {
     {
         yield return new WaitForSeconds(seconds);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        
 
     }
 

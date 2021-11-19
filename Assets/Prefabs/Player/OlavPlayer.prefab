@@ -51,10 +51,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6876760995812b905adc2ae650d9e61f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementForce: 30
-  jumpForce: 30
-  maxMovementVelocity: 12
-  slowdownMultiplier: 0.7
+  movementForce: 100
+  jumpForce: 35
+  maxMovementVelocity: 15
+  slowdownMultiplier: 0.6
   numberOfJumpsRemaining: 0
   maxExtraJumps: 1
   whatIsGround:

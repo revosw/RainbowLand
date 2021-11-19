@@ -6,15 +6,20 @@ public class Bullet : MonoBehaviour
 {
     public float speed = 20f;
     public Rigidbody2D rb;
+    public float damage;
+
     // Start is called before the first frame update
     void Start()
     {
-        rb.velocity = transform.right * speed;
+       
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("Hit!");
-      //  Destroy(gameObject);
+        if (collision.tag == "player") {
+            collision.GetComponent<Health>().TakeDamage(damage);
+        }
+        Destroy(gameObject);
     }
 }

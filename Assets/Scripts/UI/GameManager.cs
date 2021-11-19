@@ -7,6 +7,7 @@ using UnityEngine;
 /// </summary>
 public class GameManager : MonoBehaviour
 {
+    [Tooltip("Needs the Canvas object holding main and pause menu.")]
     [SerializeField] UIManager uiManager;
 
     public void Exit()

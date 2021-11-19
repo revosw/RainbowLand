@@ -58,18 +58,18 @@ public class MoneyMovement : MonoBehaviour
         */
     }
 
-    private float shootingCD; //local to store last time we shot so we can make sure its done every 3s
-    public float fireRate = 3f;
     public GameObject bullet; //bullet prefab.
-    public Transform shootPos; //Shoot from
+    public Transform shootPos; //Shoot from bottom
+    public Transform shootPosTop; //Shoot from top.
     public float shootPower = 3f; //shooting power
     public Transform target; // target position
     private void Shoot() {
             Vector2 shootFrom = new Vector2(shootPos.position.x, shootPos.position.y);
-            GameObject newBullet = Instantiate(bullet, shootFrom, Quaternion.identity);
-            Vector2 direction = shootFrom - (Vector2)target.position; //get the direction to the target
-            //newBullet.GetComponent<Rigidbody2D>().velocity = direction * shootPower;
-            
+        if(target.position.y > 0) { //This is done to ensure the boss doesn't shoot itself.
+            shootFrom = new Vector2(shootPosTop.position.x, shootPosTop.position.y);
+        } 
+        GameObject newBullet = Instantiate(bullet, shootFrom, Quaternion.identity);
+        Vector2 direction = shootFrom - (Vector2)target.position; //get the direction to the target
         newBullet.GetComponent<Rigidbody2D>().velocity = -1 * (shootFrom - (Vector2)target.position) ;
     }
 }

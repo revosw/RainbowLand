@@ -23,7 +23,7 @@ public class EnemyProjectile : Health
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.tag == "player")
             collision.GetComponent<Health>().TakeDamage(1);
         gameObject.SetActive(false); //When this hits any object deactivate arrow
     }

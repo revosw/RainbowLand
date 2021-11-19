@@ -49,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
             airjump = true;
         } else if(airjump == true && context.performed) {
             rigidBody2D.velocity = new Vector2(rigidBody2D.velocity.x, jumpForce);
-            airjump = false;
+            airjump = true;
         }
         
     }

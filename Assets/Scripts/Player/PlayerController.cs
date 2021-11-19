@@ -54,7 +54,7 @@ namespace Player
             {
                 isGrounded = true;
             }
-
+            Debug.Log("Ground Check performed: isGrounded = " + isGrounded);
             return isGrounded;
         }
 
@@ -100,55 +100,55 @@ namespace Player
             //     
             // }
 
-            GroundCheck();
-            var currentVelocity = rb.velocity; // used a lot in here
-
-            //todo: rewrite this to handle facing using the animator instead? Is that even a thing..?
-            if (moveInputX != 0)
-            {
-                running = true;
-                if (moveInputX < 0 && facingRight == true)
-                {
-                    Vector3 scaler = transform.localScale;
-                    scaler.x *= -1;
-                    transform.localScale = scaler;
-                    facingRight = !facingRight;
-                }
-                else if (moveInputX > 0 && facingRight == false)
-                {
-                    Vector3 scaler = transform.localScale;
-                    scaler.x *= -1;
-                    transform.localScale = scaler;
-                    facingRight = !facingRight;
-                }
-
-
-                // if not at max velocity, or if input is in opposite direction of current velocity (turning around)
-                // Mathf.Sign returns 1 if input is positive or 0, and -1 if negative
-                if (Mathf.Abs(currentVelocity.x) < maxMovementVelocity ||
-                    Mathf.Sign(currentVelocity.x) != Mathf.Sign(moveInputX))
-                {
-                    rb.AddForce(new Vector2(moveInputX * movementForce, 0));
-                }
-            }
-            else // if input == 0, we decelerate player velocity  
-            {
-                running = false;
-                rb.velocity = new Vector2(currentVelocity.x * slowdownMultiplier, currentVelocity.y);
-            }
-
-            // is player touching ground?
-            // isGrounded = Physics2D.OverlapCircle(groundChecker.position, 0.1f, whatIsGround);
-
-            // reset jump counter.
-            // fixme: needs tweaking. Is triggering and resetting jump counter exactly as first jump starts?
-            if (isGrounded)
-            {
-                numberOfJumpsRemaining = maxExtraJumps;
-            }
-
-            animator.SetBool("isGrounded", isGrounded);
-            animator.SetBool("isRunning", running);
+            // GroundCheck();
+            // var currentVelocity = rb.velocity; // used a lot in here
+            //
+            // //todo: rewrite this to handle facing using the animator instead? Is that even a thing..?
+            // if (moveInputX != 0)
+            // {
+            //     running = true;
+            //     if (moveInputX < 0 && facingRight == true)
+            //     {
+            //         Vector3 scaler = transform.localScale;
+            //         scaler.x *= -1;
+            //         transform.localScale = scaler;
+            //         facingRight = !facingRight;
+            //     }
+            //     else if (moveInputX > 0 && facingRight == false)
+            //     {
+            //         Vector3 scaler = transform.localScale;
+            //         scaler.x *= -1;
+            //         transform.localScale = scaler;
+            //         facingRight = !facingRight;
+            //     }
+            //
+            //
+            //     // if not at max velocity, or if input is in opposite direction of current velocity (turning around)
+            //     // Mathf.Sign returns 1 if input is positive or 0, and -1 if negative
+            //     if (Mathf.Abs(currentVelocity.x) < maxMovementVelocity ||
+            //         Mathf.Sign(currentVelocity.x) != Mathf.Sign(moveInputX))
+            //     {
+            //         rb.AddForce(new Vector2(moveInputX * movementForce, 0));
+            //     }
+            // }
+            // else // if input == 0, we decelerate player velocity  
+            // {
+            //     running = false;
+            //     rb.velocity = new Vector2(currentVelocity.x * slowdownMultiplier, currentVelocity.y);
+            // }
+            //
+            // // is player touching ground?
+            // // isGrounded = Physics2D.OverlapCircle(groundChecker.position, 0.1f, whatIsGround);
+            //
+            // // reset jump counter.
+            // // fixme: needs tweaking. Is triggering and resetting jump counter exactly as first jump starts?
+            // if (isGrounded)
+            // {
+            //     numberOfJumpsRemaining = maxExtraJumps;
+            // }
+            //
+            // animator.SetBool("isGrounded", isGrounded);
+            // animator.SetBool("isRunning", running);
         }
 
         public void OnPauseGame()

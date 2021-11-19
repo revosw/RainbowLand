@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1301910824685478733}
   - component: {fileID: 1301910824685478732}
   - component: {fileID: 1301910824685478734}
+  - component: {fileID: 255942708}
   m_Layer: 6
   m_Name: OlavPlayer
   m_TagString: player
@@ -206,6 +207,20 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &255942708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1301910824685478731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38fa1820a058f76449d3168a37b33f67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingHealth: 3
+  animator: {fileID: 575679842932402377}
 --- !u!61 &1090832650
 BoxCollider2D:
   m_ObjectHideFlags: 0

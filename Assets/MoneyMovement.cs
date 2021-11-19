@@ -15,9 +15,9 @@ public class MoneyMovement : MonoBehaviour
     [SerializeField]
     private Vector3[] positions;
     private int index;
-    private float stopAndShootCD = 3f;
 
     //Shooting fields
+    private float stopAndShootCD = 3f;
     public float range;
     private float distToPlayer;
     public Transform player;

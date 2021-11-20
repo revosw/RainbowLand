@@ -8,12 +8,6 @@ public class UIManager : MonoBehaviour, IPausable
     [SerializeField] GameObject mainMenu;
     [SerializeField] GameObject pauseMenu;
 
-
-    private void Awake()
-    {
-        DontDestroyOnLoad(this);
-    }
-
     public void OnPauseGame()
     {
         pauseMenu.SetActive(true);

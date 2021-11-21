@@ -25,6 +25,8 @@ public class BeerShooter : MonoBehaviour
                 Shoot();
                 Shoot();
                 Shoot();
+                Shoot();
+                Shoot();
             }
         }
     }
@@ -37,7 +39,7 @@ public class BeerShooter : MonoBehaviour
         GameObject newBullet = Instantiate(bullet, shootFromVector, Quaternion.identity);
 
         Vector3 targetDir = Quaternion.AngleAxis(Random.Range(-45.0f, 45.0f), Vector3.forward) * transform.up;
-        newBullet.GetComponent<Rigidbody2D>().velocity = targetDir * 10;
+        newBullet.GetComponent<Rigidbody2D>().velocity = targetDir * 15;
 
     }
 }

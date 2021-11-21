@@ -232,7 +232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 573cef000e70d804a899d5a7b3c3ce3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 10
+  range: 15
   bullet: {fileID: 2833213603186470342, guid: 6422054a3c57f1540a1ba213f13eb654, type: 3}
   shootFrom: {fileID: 971840277}
 --- !u!1001 &219323053
@@ -6752,6 +6752,7 @@ MonoBehaviour:
   enemyHealth: 3
   animator: {fileID: 1269388041}
   spriteRenderer: {fileID: 1269388042}
+  deathEffect: {fileID: 8136307692470961957, guid: 09fca7744ee37da4a85a7cd58cc80ba0, type: 3}
 --- !u!1 &521987993
 GameObject:
   m_ObjectHideFlags: 0
@@ -7366,7 +7367,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1025559284
 PrefabInstance:
@@ -7568,7 +7569,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1301910824685478720, guid: f7422ab7cb7e6716bb6b16e725de6ee3, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1301910824685478720, guid: f7422ab7cb7e6716bb6b16e725de6ee3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7644,7 +7645,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1967723445298757033, guid: f7422ab7cb7e6716bb6b16e725de6ee3, type: 3}
       propertyPath: orthographic size
-      value: 3.8839345
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f7422ab7cb7e6716bb6b16e725de6ee3, type: 3}
@@ -7657,7 +7658,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4165940945944306858, guid: 623daa858cdc5bce3951784bc5877853, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4165940945944306858, guid: 623daa858cdc5bce3951784bc5877853, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7864,6 +7865,7 @@ GameObject:
   - component: {fileID: 1250484283}
   - component: {fileID: 1250484285}
   - component: {fileID: 1250484284}
+  - component: {fileID: 1250484286}
   m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
@@ -67169,6 +67171,25 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!95 &1250484286
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1250484282}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a77e9571b25816443b7f19938495e170, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1269388039
 GameObject:
   m_ObjectHideFlags: 0
@@ -67388,7 +67409,7 @@ Transform:
   m_Children:
   - {fileID: 219323054}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1645818111
 GameObject:
@@ -67957,6 +67978,7 @@ MonoBehaviour:
   enemyHealth: 3
   animator: {fileID: 521987995}
   spriteRenderer: {fileID: 521987996}
+  deathEffect: {fileID: 39685727493443609, guid: 6bd66e681d04c0b4484e127f3c89252f, type: 3}
 --- !u!1 &2085470598 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1260824537126489653, guid: 07a7488c1768ee03f9827cd6f9f9f8f8, type: 3}
@@ -67978,6 +68000,10 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4927482268115711844, guid: cb167056d7281a545a0a88d9624a0db7, type: 3}
+      propertyPath: deathEffect
+      value: 
+      objectReference: {fileID: 5481115279821387892, guid: b8134adeffde3cb43b987a299dd3f015, type: 3}
     - target: {fileID: 4927482268115711844, guid: cb167056d7281a545a0a88d9624a0db7, type: 3}
       propertyPath: spriteRenderer
       value: 

@@ -31,9 +31,6 @@ namespace Player
         private float moveInputX;
         private bool facingRight = true;
 
-
-
-
         [Tooltip("LayerMask of what constitutes ground.")]
         public LayerMask whatIsGround;
         public bool isGrounded;
@@ -43,6 +40,16 @@ namespace Player
 
         [Tooltip("Radius from GroundChecker to extend search for ground layer contact.")]
         public float groundCheckRadius = 0.2f;
+
+
+        //DIALOGUE START
+        [SerializeField] private DialogueUI dialogueUI; //Serialized reference to the dialogue UI.
+
+        public DialogueUI DialogueUI => dialogueUI; // Getter for dialogueUI.
+
+        public IInteractable Interactable { get; set; }
+        //DIALOGUE END
+
 
         //todo: review the implementation and usage of this throughout the script.
         bool GroundCheck()
@@ -85,6 +92,15 @@ namespace Player
 
         void Update()
         {
+            //Dialogue related code ->
+            if (dialogueUI.IsOpen) return;
+
+            if (Keyboard.current[Key.E].wasPressedThisFrame)
+            {
+                Interactable?.Interact(this); //If interactable is not null, reference this player.
+            }
+            //////////
+
             // var kb = Keyboard.current; // just a reminder that this exists...
 
             // if (movement < 0)

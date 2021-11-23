@@ -62,13 +62,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   isGrounded: 0
-  isWallTouching: 0
-  wallJumpForce: 35
-  wallJumpForceAngle: 70
-  gravityWallSlideDivider: 4
   groundChecker: {fileID: 8621254741417073602}
   groundCheckRadius: 0.2
-  dialogueUI: {fileID: 0}
   canShoot: 1
   shootCooldown: 0.2
   firePoint: {fileID: 1301910825407635280}
@@ -274,10 +269,6 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1967723445219709756, guid: 9ca6973f7bfce993ca10348580ac0a18, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.3875
-      objectReference: {fileID: 0}
-    - target: {fileID: 1967723445219709756, guid: 9ca6973f7bfce993ca10348580ac0a18, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -319,7 +310,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1967723445219709759, guid: 9ca6973f7bfce993ca10348580ac0a18, type: 3}
       propertyPath: orthographic size
-      value: 8.58
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ca6973f7bfce993ca10348580ac0a18, type: 3}

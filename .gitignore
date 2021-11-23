@@ -60,7 +60,7 @@ sysinfo.txt
 crashlytics-build.properties
 
 .vsconfig
-
+ProjectSettings/ProjectVersion.txt
 /.idea/
 
 

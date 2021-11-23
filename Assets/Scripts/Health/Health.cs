@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,6 +10,8 @@ public class Health : MonoBehaviour {
     private Rigidbody2D rb;
     public Animator animator;
     private GameMaster gm;
+
+    public int deathTimer;
 
     void Start() {
         gm = GameObject.FindGameObjectWithTag("GM").GetComponent<GameMaster>();
@@ -37,10 +40,19 @@ public class Health : MonoBehaviour {
         } else {
             // DEAD
             animator.SetBool("isDead", true);
-            GetComponent<PlayerMovement>().enabled = false;
+            GetComponent<PlayerController>().enabled = false;
             //animator for death
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            StartCoroutine(WaitForAnimationSeconds(deathTimer));
+            
         }
+    }
+
+    IEnumerator WaitForAnimationSeconds(int seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        
+
     }
 
     public void Heal(float _heal) {

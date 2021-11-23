@@ -40,6 +40,7 @@ namespace Player
         public bool isGrounded;
         public bool isWallTouching;
         public bool isWallGrabbing;
+        public bool hitWallThisFrame;
         private Vector2 touchedWallNormalVector;
         public float wallJumpForce;
         public float wallJumpForceAngle;
@@ -146,119 +147,132 @@ namespace Player
                 }
             }
 
-            // WallDetector
-            WallCheck();
-            // if (isWallTouching && !isGrounded)
-            // {
-            //     rb.gravityScale = gravityForce / gravityWallSlideDivider;
-            //     // rb.velocity = new Vector2(0, 0);
-            //     // rb.AddForce(new Vector2(0f, (rb.gravityScale)/2));
-            // }
-            // else
-            // {
-            //     rb.gravityScale = gravityForce;
-            // }
 
             if (!isGrounded)
             {
-                if (isWallTouching && isWallGrabbing)
+                // WallDetector
+                WallCheck();
+                
+                // If we hit a wall this frame...
+                if (hitWallThisFrame)
                 {
-                    Debug.Log("GRAB");
-                    rb.gravityScale = 0;
-
-                    // controls.Player.WallGrab.;
-                    
-                    if (true)
+                    // ...and grab was being held...
+                    if (controls.Player.WallGrab.IsPressed())
                     {
-                        rb.velocity = new Vector2(rb.velocity.x, 0);
+                        Debug.Log("GRAB");
+                        isWallGrabbing = true;
+                        rb.velocity = new Vector2(0, 0); // ... we stop movement...
+                        rb.gravityScale = 0; // and start a grab by turning off gravity
+                    }
+                } 
+                
+                // If we were already touching the wall... 
+                else if (isWallTouching)
+                {
+                    // ...AND if wallGrab was activated this frame
+                    if (controls.Player.WallGrab.WasPressedThisFrame())
+                    {
+                        Debug.Log("GRAB");
+                        isWallGrabbing = true;
+                        rb.velocity = new Vector2(0, 0);  // ... we stop movement...
+                        rb.gravityScale = 0; // and start a grab by turning off gravity                           
+                    } 
+                    // ... or if we were already grabbing
+                    else if (isWallGrabbing)
+                    {
+                        rb.gravityScale = 0; // we stick around
+                    }
+                    // ... or if we're not grabbing but still touching the wall
+                    else 
+                    {
+                        rb.gravityScale = gravityForce / gravityWallSlideDivider; // ... we reduce gravity to slide down wall
                     }
                 }
-                else if (isWallTouching && ! isWallGrabbing)
+                
+                // If we are not touching a wall in any way...
+                else 
                 {
-                    rb.gravityScale = gravityForce / gravityWallSlideDivider;
-                }
-                else if (!isWallTouching)
-                {
-                    rb.gravityScale = gravityForce;
+                    rb.gravityScale = gravityForce; //reset gravity
                 }
             }
 
             //////////
 
-            // var kb = Keyboard.current; // just a reminder that this exists...
+                // var kb = Keyboard.current; // just a reminder that this exists...
 
-            // if (movement < 0)
-            // {
-            //     transform.localScale = new Vector3(-1, 1, 1);
-            // }
-            // else if (movement > 0)
-            // {
-            //     transform.localScale = new Vector3(1, 1, 1);
-            // }
-            // else
-            // {
-            //     
-            // }
+                // if (movement < 0)
+                // {
+                //     transform.localScale = new Vector3(-1, 1, 1);
+                // }
+                // else if (movement > 0)
+                // {
+                //     transform.localScale = new Vector3(1, 1, 1);
+                // }
+                // else
+                // {
+                //     
+                // }
 
-            GroundCheck();
+                GroundCheck();
 
 
-            var currentVelocity = rb.velocity; // used a lot in here
+                var currentVelocity = rb.velocity; // used a lot in here
 
-            //todo: rewrite this to handle facing using the animator instead? Is that even a thing..?
-            if (moveInputX != 0)
-            {
-                running = true;
-                if (moveInputX < 0 && facingRight == true)
+                //todo: rewrite this to handle facing using the animator instead? Is that even a thing..?
+                if (moveInputX != 0)
                 {
-                    Vector3 scaler = transform.localScale;
-                    scaler.x *= -1;
-                    transform.localScale = scaler;
-                    facingRight = !facingRight;
-                }
-                else if (moveInputX > 0 && facingRight == false)
-                {
-                    Vector3 scaler = transform.localScale;
-                    scaler.x *= -1;
-                    transform.localScale = scaler;
-                    facingRight = !facingRight;
-                }
-
-
-                // if not at max velocity, or if input is in opposite direction of current velocity (turning around)
-                // Mathf.Sign returns 1 if input is positive or 0, and -1 if negative
-                if (Mathf.Abs(currentVelocity.x) < maxMovementVelocity ||
-                    Mathf.Sign(currentVelocity.x) != Mathf.Sign(moveInputX))
-                {
-                    if (isGrounded)
+                    running = true;
+                    if (moveInputX < 0 && facingRight == true)
                     {
-                        rb.AddForce(new Vector2(moveInputX * movementForce, 0));
+                        Vector3 scaler = transform.localScale;
+                        scaler.x *= -1;
+                        transform.localScale = scaler;
+                        facingRight = !facingRight;
                     }
-                    else
+                    else if (moveInputX > 0 && facingRight == false)
                     {
-                        rb.AddForce(new Vector2(moveInputX * movementForce * airMovementFraction, 0));                        
+                        Vector3 scaler = transform.localScale;
+                        scaler.x *= -1;
+                        transform.localScale = scaler;
+                        facingRight = !facingRight;
+                    }
+
+
+                    // if not at max velocity, or if input is in opposite direction of current velocity (turning around)
+                    // Mathf.Sign returns 1 if input is positive or 0, and -1 if negative
+                    if (Mathf.Abs(currentVelocity.x) < maxMovementVelocity ||
+                        Mathf.Sign(currentVelocity.x) != Mathf.Sign(moveInputX))
+                    {
+                        if (isGrounded)
+                        {
+                            rb.AddForce(new Vector2(moveInputX * movementForce, 0));
+                        }
+                        else
+                        {
+                            rb.AddForce(new Vector2(moveInputX * movementForce * airMovementFraction, 0));
+                        }
                     }
                 }
-            }
-            else // if input == 0, we decelerate player velocity  
-            {
-                running = false;
-                rb.velocity = new Vector2(currentVelocity.x * slowdownMultiplier, currentVelocity.y);
-            }
+                else // if input == 0, we decelerate player velocity  
+                {
+                    running = false;
+                    rb.velocity = new Vector2(currentVelocity.x * slowdownMultiplier, currentVelocity.y);
+                }
 
-            // is player touching ground?
-            // isGrounded = Physics2D.OverlapCircle(groundChecker.position, 0.1f, whatIsGround);
+                // is player touching ground?
+                // isGrounded = Physics2D.OverlapCircle(groundChecker.position, 0.1f, whatIsGround);
 
-            // reset jump counter.
-            // fixme: needs tweaking. Is triggering and resetting jump counter exactly as first jump starts?
-            if (isGrounded)
-            {
-                numberOfJumpsRemaining = maxExtraJumps;
+                // reset jump counter.
+                // fixme: needs tweaking. Is triggering and resetting jump counter exactly as first jump starts?
+                if (isGrounded)
+                {
+                    numberOfJumpsRemaining = maxExtraJumps;
+                }
+
+                animator.SetBool("isGrounded", isGrounded);
+                animator.SetBool("isRunning", running);
             }
-
-            animator.SetBool("isGrounded", isGrounded);
-            animator.SetBool("isRunning", running);
-        }
+        
 
         bool GroundCheck()
         {
@@ -276,6 +290,7 @@ namespace Player
 
         void WallCheck()
         {
+            bool wasOnWall = isWallTouching;
             RaycastHit2D ray = Physics2D.Linecast(
                 new Vector2(firePoint.position.x, transform.position.y),
                 transform.position,
@@ -284,21 +299,22 @@ namespace Player
             {
                 isWallTouching = true;
                 touchedWallNormalVector = ray.normal;
-                // Debug.Log("Walltouch! \n" + 
-                //           "start X " + firePoint.position.x + "start y " + transform.position.y + "\n" +
-                //           "end vector " + transform.position +
-                //           "\nNormal Vector: " + touchedWallNormalVector);
-                // Debug.DrawLine(ray.normal, ray.normal, Color.yellow, 10.0f);
             }
             else
             {
                 isWallTouching = false;
             }
+
+            if (!wasOnWall) //we were not on the wall...
+            {
+                hitWallThisFrame = isWallTouching; //... but are we now?
+            }
+
         }
 
         private void WallGrab(InputAction.CallbackContext obj)
         {
-            isWallGrabbing = !obj.canceled;
+            isWallGrabbing = !obj.canceled; //reset wallGrab status when button is released.
         }
 
         public void OnPauseGame()

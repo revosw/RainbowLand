@@ -53,6 +53,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementForce: 100
+  airMovementFraction: 0.5
   jumpForce: 35
   maxMovementVelocity: 15
   slowdownMultiplier: 0.6
@@ -63,6 +64,7 @@ MonoBehaviour:
     m_Bits: 256
   isGrounded: 0
   isWallTouching: 0
+  isWallGrabbing: 0
   wallJumpForce: 35
   wallJumpForceAngle: 60
   gravityWallSlideDivider: 4
@@ -208,6 +210,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: b4e444f0-c0eb-434f-8861-bb1a214bc23c
     m_ActionName: Player/Pause[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 839f3dd8-ce95-48b2-a7b5-92cb07514c5a
+    m_ActionName: Player/WallGrab[/Keyboard/shift]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

@@ -1354,6 +1354,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2043670244}
     - target: {fileID: 1301910824685478721, guid: f7422ab7cb7e6716bb6b16e725de6ee3, type: 3}
+      propertyPath: airMovementFraction
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1301910824685478721, guid: f7422ab7cb7e6716bb6b16e725de6ee3, type: 3}
       propertyPath: projectiles.Array.data[0]
       value: 
       objectReference: {fileID: 766255424}

@@ -12,6 +12,8 @@ namespace Player
         [FormerlySerializedAs("speed")] [Header("Movement speed variables")]
         public float movementForce;
 
+        public float airMovementFraction;
+
         [Tooltip("Force applied to player rigidbody when performing a jump.")]
         public float jumpForce;
 
@@ -163,7 +165,13 @@ namespace Player
                 {
                     Debug.Log("GRAB");
                     rb.gravityScale = 0;
-                    rb.velocity = new Vector2(rb.velocity.x, 0);
+
+                    // controls.Player.WallGrab.;
+                    
+                    if (true)
+                    {
+                        rb.velocity = new Vector2(rb.velocity.x, 0);
+                    }
                 }
                 else if (isWallTouching && ! isWallGrabbing)
                 {
@@ -222,7 +230,14 @@ namespace Player
                 if (Mathf.Abs(currentVelocity.x) < maxMovementVelocity ||
                     Mathf.Sign(currentVelocity.x) != Mathf.Sign(moveInputX))
                 {
-                    rb.AddForce(new Vector2(moveInputX * movementForce, 0));
+                    if (isGrounded)
+                    {
+                        rb.AddForce(new Vector2(moveInputX * movementForce, 0));
+                    }
+                    else
+                    {
+                        rb.AddForce(new Vector2(moveInputX * movementForce * airMovementFraction, 0));                        
+                    }
                 }
             }
             else // if input == 0, we decelerate player velocity  
@@ -283,8 +298,7 @@ namespace Player
 
         private void WallGrab(InputAction.CallbackContext obj)
         {
-            if (obj.started) isWallGrabbing = true;
-            if (obj.canceled) isWallGrabbing = false;
+            isWallGrabbing = !obj.canceled;
         }
 
         public void OnPauseGame()

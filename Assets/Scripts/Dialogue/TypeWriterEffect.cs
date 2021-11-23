@@ -26,7 +26,7 @@ public class TypeWriterEffect : MonoBehaviour
 
             textLabel.text = textToType.Substring(0, charIndex);
 
-            yield return null;
+            yield return null; // wait one frame.
         }
 
         textLabel.text = textToType;

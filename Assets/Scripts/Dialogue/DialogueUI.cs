@@ -24,17 +24,17 @@ public class DialogueUI : MonoBehaviour
         IsOpen = true;
         dialogueBox.SetActive(true);
         StartCoroutine(StepThroughDialogue(dialogueObject));
-        Destroy(dialogueObject);
     }
 
     //Steps through the list of dialogues using the type writer effect.
     private IEnumerator StepThroughDialogue(DialogueObject dialogueObject)
     {
-        foreach(string dialogue in dialogueObject.Dialogue)
-        {
+        for(int i=0; i<dialogueObject.Dialogue.Length; i++) {
+            string dialogue = dialogueObject.Dialogue[i];
             yield return typeWriterEffect.Run(dialogue, textLabel);
-            yield return new WaitUntil(() => Keyboard.current[Key.E].wasPressedThisFrame);            
+            yield return new WaitUntil(() => Keyboard.current[Key.E].wasPressedThisFrame);
         }
+
         CloseDialogueBox();
     }
 

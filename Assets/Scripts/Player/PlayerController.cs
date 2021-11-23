@@ -37,6 +37,7 @@ namespace Player
 
         public bool isGrounded;
         public bool isWallTouching;
+        public bool isWallGrabbing;
         private Vector2 touchedWallNormalVector;
         public float wallJumpForce;
         public float wallJumpForceAngle;
@@ -118,7 +119,8 @@ namespace Player
             controls.Player.Fire.started += Shoot;
 
             controls.Player.Jump.started += Jump;
-
+            controls.Player.WallGrab.started += WallGrab;
+            controls.Player.WallGrab.canceled += WallGrab;
             controls.Player.Pause.performed += _ => OnPauseGame();
             controls.UI.Cancel.performed += _ => OnResumeGame();
 
@@ -126,6 +128,7 @@ namespace Player
             controls.UI.Enable();
             // controls.Player.Enable();
         }
+
 
         // Update is called once per frame
         void Update()
@@ -143,15 +146,33 @@ namespace Player
 
             // WallDetector
             WallCheck();
-            if (isWallTouching && !isGrounded)
+            // if (isWallTouching && !isGrounded)
+            // {
+            //     rb.gravityScale = gravityForce / gravityWallSlideDivider;
+            //     // rb.velocity = new Vector2(0, 0);
+            //     // rb.AddForce(new Vector2(0f, (rb.gravityScale)/2));
+            // }
+            // else
+            // {
+            //     rb.gravityScale = gravityForce;
+            // }
+
+            if (!isGrounded)
             {
-                rb.gravityScale = gravityForce / gravityWallSlideDivider;
-                // rb.velocity = new Vector2(0, 0);
-                // rb.AddForce(new Vector2(0f, (rb.gravityScale)/2));
-            }
-            else
-            {
-                rb.gravityScale = gravityForce;
+                if (isWallTouching && isWallGrabbing)
+                {
+                    Debug.Log("GRAB");
+                    rb.gravityScale = 0;
+                    rb.velocity = new Vector2(rb.velocity.x, 0);
+                }
+                else if (isWallTouching && ! isWallGrabbing)
+                {
+                    rb.gravityScale = gravityForce / gravityWallSlideDivider;
+                }
+                else if (!isWallTouching)
+                {
+                    rb.gravityScale = gravityForce;
+                }
             }
 
             //////////
@@ -246,7 +267,6 @@ namespace Player
                 whatIsGround);
             if (ray.collider != null)
             {
-                
                 isWallTouching = true;
                 touchedWallNormalVector = ray.normal;
                 // Debug.Log("Walltouch! \n" + 
@@ -259,6 +279,12 @@ namespace Player
             {
                 isWallTouching = false;
             }
+        }
+
+        private void WallGrab(InputAction.CallbackContext obj)
+        {
+            if (obj.started) isWallGrabbing = true;
+            if (obj.canceled) isWallGrabbing = false;
         }
 
         public void OnPauseGame()
@@ -290,20 +316,20 @@ namespace Player
             }
             else if (isWallTouching && !isGrounded) //walljump
             {
-                rb.velocity = new Vector2(rb.velocity.x, 0); // Stop fall
+                if (!isWallGrabbing) rb.velocity = new Vector2(rb.velocity.x, 0); // Stop fall
                 float xForce;
                 double radAngle = wallJumpForceAngle * Math.PI / 180;
                 if (Mathf.Abs(rb.velocity.x) < maxMovementVelocity)
                 {
                     xForce = (float) (wallJumpForce * Math.Cos(radAngle) * (-1 * touchedWallNormalVector.x));
-
                 }
                 else xForce = 0;
+
                 float yForce = (float) (wallJumpForce * Math.Sin(radAngle));
-                Debug.Log("WAllJUMP" + xForce + " " + yForce);
+                Debug.Log($"WAllJUMP  x:{xForce}  y:{yForce}");
 
                 //todo: force direction should be away from wall. Wall is in direction of facing.
-                rb.AddForce(new Vector2( xForce, yForce), ForceMode2D.Impulse);
+                rb.AddForce(new Vector2(xForce, yForce), ForceMode2D.Impulse);
             }
             else if (isGrounded)
             {
@@ -312,8 +338,7 @@ namespace Player
                 rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
             }
         }
-        
-        
+
 
         public void Move(InputAction.CallbackContext ctx)
         {

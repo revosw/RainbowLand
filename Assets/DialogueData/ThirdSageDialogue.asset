@@ -10,11 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a35b486822f7efc408de4a96fbe3e04b, type: 3}
-  m_Name: FirstSageDialogue
+  m_Name: ThirdSageDialogue
   m_EditorClassIdentifier: 
   dialogue:
-  - 'Hello! Welcome to Rainbowland.
-
-    ...'
-  - If you are dreaming? How should I know?
-  - I heard some noise east of here.. You should probably check it out.
+  - "There is a bed running amok! Look like the one I saw in your room earlier. \n..."
+  - 'When I was in your room? Enough of these trivial questions, try jumping on the
+    bed! I heard your beds hate that.. '

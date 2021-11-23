@@ -93,10 +93,16 @@ namespace Player
         void Update()
         {
             //Dialogue related code ->
-            if(dialogueUI != null)
+            if (dialogueUI != null)
                 {
-                    if (dialogueUI.IsOpen) return;
+                if (dialogueUI.IsOpen) {
+                    movementForce = 0;
+                    jumpForce = 0;
+                } else {
+                    jumpForce = 35;
+                    movementForce = 100;
                 }
+             }
             
 
             if (Keyboard.current[Key.E].wasPressedThisFrame)

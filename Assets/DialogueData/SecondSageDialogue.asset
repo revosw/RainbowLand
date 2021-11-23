@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a35b486822f7efc408de4a96fbe3e04b, type: 3}
-  m_Name: FirstSageDialogue
+  m_Name: SecondSageDialogue
   m_EditorClassIdentifier: 
   dialogue:
-  - 'Hello! Welcome to Rainbowland.
-
-    ...'
-  - If you are dreaming? How should I know?
-  - I heard some noise east of here.. You should probably check it out.
+  - Wow! That was some impressive jumping.
+  - Did you know, some spiders perform something called balooning, in which the spider
+    releases threads meant to catch winds!
+  - They use these threads to fly, and some spiders nets have been observed 5km above
+    sea level! Neat, huh?

@@ -24,6 +24,7 @@ public class DialogueUI : MonoBehaviour
         IsOpen = true;
         dialogueBox.SetActive(true);
         StartCoroutine(StepThroughDialogue(dialogueObject));
+        Destroy(dialogueObject);
     }
 
     //Steps through the list of dialogues using the type writer effect.
@@ -34,7 +35,6 @@ public class DialogueUI : MonoBehaviour
             yield return typeWriterEffect.Run(dialogue, textLabel);
             yield return new WaitUntil(() => Keyboard.current[Key.E].wasPressedThisFrame);            
         }
-
         CloseDialogueBox();
     }
 

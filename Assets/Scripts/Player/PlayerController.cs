@@ -1,4 +1,5 @@
-﻿using Projectiles;
+﻿using System;
+using Projectiles;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
@@ -33,7 +34,14 @@ namespace Player
 
         [Tooltip("LayerMask of what constitutes ground.")]
         public LayerMask whatIsGround;
+
         public bool isGrounded;
+        public bool isWallTouching;
+        private Vector2 touchedWallNormalVector;
+        public float wallJumpForce;
+        public float wallJumpForceAngle;
+        private float gravityForce;
+        public float gravityWallSlideDivider = 1;
 
         [Tooltip("A transform used as contact surface with ground.")]
         public Transform groundChecker;
@@ -52,27 +60,20 @@ namespace Player
 
 
         //todo: review the implementation and usage of this throughout the script.
-        bool GroundCheck()
-        {
-            isGrounded = false;
-            Collider2D[] colliders =
-                Physics2D.OverlapCircleAll(groundChecker.position, groundCheckRadius, whatIsGround);
-            if (colliders.Length > 0)
-            {
-                isGrounded = true;
-            }
-            // Debug.Log("Ground Check performed: isGrounded = " + isGrounded);
-            return isGrounded;
-        }
+
 
         [Tooltip("Does the player have the shooting ability? Activate through pickups, or set manually.")]
         public bool canShoot = false;
+
         [Tooltip("Cooldown time before new projectile can be fired. Set to 0 for lols...")]
         public float shootCooldown;
+
         private float _cooldownTimer;
+
         [Tooltip("Where should projectiles be fired from? Ideally, this would be a transform that is a child " +
                  "of the Player object (or the player itself).")]
         public Transform firePoint;
+
         //todo: refactor this as a separate class thing?
         [Tooltip("The set of projectiles that the player can fire.")]
         public GameObject[] projectiles;
@@ -87,18 +88,72 @@ namespace Player
         private Rigidbody2D rb;
         [SerializeField] GameManager gameManager;
 
+        /// Awake is called before Start
+        void Awake()
+        {
+            // Parts of code taken from https://www.youtube.com/watch?v=vAZV5xO_AHU
+
+            // The game always starts in the main menu, so UI should
+            // be enabled first
+            //gameManager = 
+
+            rb = GetComponent<Rigidbody2D>();
+            gravityForce = rb.gravityScale;
+            controls = new PlayerInputAction();
+
+
+            // todo: What the fuck is even going on here..?
+            //  Need to read up on PlayerControls API
+
+
+            // controls.Player.Movement.performed += ctx => movement = ctx.ReadValue<float>();
+            // controls.Player.Movement.canceled += _ => movement = 0;
+            // we don't use 'movement' variable for anything, it seems?
+
+
+            controls.Player.Move.performed += Move;
+            controls.Player.Move.canceled += Move;
+            ;
+
+            controls.Player.Fire.started += Shoot;
+
+            controls.Player.Jump.started += Jump;
+
+            controls.Player.Pause.performed += _ => OnPauseGame();
+            controls.UI.Cancel.performed += _ => OnResumeGame();
+
+            controls.Player.Disable();
+            controls.UI.Enable();
+            // controls.Player.Enable();
+        }
 
         // Update is called once per frame
-
         void Update()
         {
             //Dialogue related code ->
-            if (dialogueUI.IsOpen) return;
-
-            if (Keyboard.current[Key.E].wasPressedThisFrame)
+            if (dialogueUI != null)
             {
-                Interactable?.Interact(this); //If interactable is not null, reference this player.
+                if (dialogueUI.IsOpen) return;
+
+                if (Keyboard.current[Key.E].wasPressedThisFrame)
+                {
+                    Interactable?.Interact(this); //If interactable is not null, reference this player.
+                }
             }
+
+            // WallDetector
+            WallCheck();
+            if (isWallTouching && !isGrounded)
+            {
+                rb.gravityScale = gravityForce / gravityWallSlideDivider;
+                // rb.velocity = new Vector2(0, 0);
+                // rb.AddForce(new Vector2(0f, (rb.gravityScale)/2));
+            }
+            else
+            {
+                rb.gravityScale = gravityForce;
+            }
+
             //////////
 
             // var kb = Keyboard.current; // just a reminder that this exists...
@@ -117,8 +172,10 @@ namespace Player
             // }
 
             GroundCheck();
+
+
             var currentVelocity = rb.velocity; // used a lot in here
-            
+
             //todo: rewrite this to handle facing using the animator instead? Is that even a thing..?
             if (moveInputX != 0)
             {
@@ -137,8 +194,8 @@ namespace Player
                     transform.localScale = scaler;
                     facingRight = !facingRight;
                 }
-            
-            
+
+
                 // if not at max velocity, or if input is in opposite direction of current velocity (turning around)
                 // Mathf.Sign returns 1 if input is positive or 0, and -1 if negative
                 if (Mathf.Abs(currentVelocity.x) < maxMovementVelocity ||
@@ -152,19 +209,56 @@ namespace Player
                 running = false;
                 rb.velocity = new Vector2(currentVelocity.x * slowdownMultiplier, currentVelocity.y);
             }
-            
+
             // is player touching ground?
             // isGrounded = Physics2D.OverlapCircle(groundChecker.position, 0.1f, whatIsGround);
-            
+
             // reset jump counter.
             // fixme: needs tweaking. Is triggering and resetting jump counter exactly as first jump starts?
             if (isGrounded)
             {
                 numberOfJumpsRemaining = maxExtraJumps;
             }
-            
+
             animator.SetBool("isGrounded", isGrounded);
             animator.SetBool("isRunning", running);
+        }
+
+        bool GroundCheck()
+        {
+            isGrounded = false;
+            Collider2D[] colliders =
+                Physics2D.OverlapCircleAll(groundChecker.position, groundCheckRadius, whatIsGround);
+            if (colliders.Length > 0)
+            {
+                isGrounded = true;
+            }
+
+            // Debug.Log("Ground Check performed: isGrounded = " + isGrounded);
+            return isGrounded;
+        }
+
+        void WallCheck()
+        {
+            RaycastHit2D ray = Physics2D.Linecast(
+                new Vector2(firePoint.position.x, transform.position.y),
+                transform.position,
+                whatIsGround);
+            if (ray.collider != null)
+            {
+                
+                isWallTouching = true;
+                touchedWallNormalVector = ray.normal;
+                // Debug.Log("Walltouch! \n" + 
+                //           "start X " + firePoint.position.x + "start y " + transform.position.y + "\n" +
+                //           "end vector " + transform.position +
+                //           "\nNormal Vector: " + touchedWallNormalVector);
+                // Debug.DrawLine(ray.normal, ray.normal, Color.yellow, 10.0f);
+            }
+            else
+            {
+                isWallTouching = false;
+            }
         }
 
         public void OnPauseGame()
@@ -174,42 +268,6 @@ namespace Player
             gameManager.OnPauseGame();
         }
 
-        /// Awake is called before Start
-        void Awake()
-        {
-            // Parts of code taken from https://www.youtube.com/watch?v=vAZV5xO_AHU
-
-            // The game always starts in the main menu, so UI should
-            // be enabled first
-            //gameManager = 
-
-            rb = GetComponent<Rigidbody2D>();
-            controls = new PlayerInputAction();
-
-
-            // todo: What the fuck is even going on here..?
-            //  Need to read up on PlayerControls API
-
-
-            // controls.Player.Movement.performed += ctx => movement = ctx.ReadValue<float>();
-            // controls.Player.Movement.canceled += _ => movement = 0;
-            // we don't use 'movement' variable for anything, it seems?
-
-
-            controls.Player.Move.performed += Move;
-            controls.Player.Move.canceled += Move;;
-
-            controls.Player.Fire.started += Shoot;
-
-            controls.Player.Jump.started += Jump;
-            
-            controls.Player.Pause.performed += _ => OnPauseGame();
-            controls.UI.Cancel.performed += _ => OnResumeGame();
-            
-            controls.Player.Disable();
-            controls.UI.Enable();
-            // controls.Player.Enable();
-        }
 
         public void OnResumeGame()
         {
@@ -221,19 +279,40 @@ namespace Player
         // InputAction.CallbackContext ctx
         public void Jump(InputAction.CallbackContext ctx)
         {
-            Debug.Log("JUMP");
-            if (numberOfJumpsRemaining > 0 && !isGrounded)
+            if (numberOfJumpsRemaining > 0 && !isGrounded && !isWallTouching)
             {
                 // if !isGrounded, we spend one of our double jump charges.
-                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+                // rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+                rb.velocity = new Vector2(rb.velocity.x, 0); // Stop fall
+                rb.AddForce(
+                    new Vector2(0, jumpForce), ForceMode2D.Impulse);
                 numberOfJumpsRemaining--;
+            }
+            else if (isWallTouching && !isGrounded) //walljump
+            {
+                float xForce;
+                double radAngle = wallJumpForceAngle * Math.PI / 180;
+                if (Mathf.Abs(rb.velocity.x) < maxMovementVelocity)
+                {
+                    xForce = (float) (wallJumpForce * Math.Cos(radAngle) * (-1 * touchedWallNormalVector.x));
+
+                }
+                else xForce = 0;
+                float yForce = (float) (wallJumpForce * Math.Sin(radAngle));
+                Debug.Log("WAllJUMP" + xForce + " " + yForce);
+
+                //todo: force direction should be away from wall. Wall is in direction of facing.
+                rb.AddForce(new Vector2( xForce, yForce), ForceMode2D.Impulse);
             }
             else if (isGrounded)
             {
-                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+                Debug.Log("JUMP");
+                // rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+                rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
             }
-
         }
+        
+        
 
         public void Move(InputAction.CallbackContext ctx)
         {
@@ -278,7 +357,6 @@ namespace Player
         //fixme: projectile direction changes when player direction changes..?
         public void Shoot(InputAction.CallbackContext ctx)
         {
-            
             //todo: projectiles don't despawn... Why?
             if (canShoot)
             {

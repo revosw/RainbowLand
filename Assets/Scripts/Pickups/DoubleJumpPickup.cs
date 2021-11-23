@@ -7,10 +7,10 @@ namespace Pickups
     {
         public override void DoOnTrigger(Collider2D other)
         {
-            if (other.CompareTag("Player"))
+            if (other.CompareTag("player"))
             {
                 // Debug.Log();
-                other.gameObject.GetComponent<PlayerController>().maxExtraJumps = 1;
+                other.gameObject.GetComponent<PlayerController>().numberOfJumpsRemaining = 1;
             }
             
             base.DoOnTrigger(other);

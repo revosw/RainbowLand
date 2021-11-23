@@ -64,7 +64,7 @@ MonoBehaviour:
   isGrounded: 0
   isWallTouching: 0
   wallJumpForce: 35
-  wallJumpForceAngle: 70
+  wallJumpForceAngle: 60
   gravityWallSlideDivider: 4
   groundChecker: {fileID: 8621254741417073602}
   groundCheckRadius: 0.2

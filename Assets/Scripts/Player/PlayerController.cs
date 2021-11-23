@@ -290,6 +290,7 @@ namespace Player
             }
             else if (isWallTouching && !isGrounded) //walljump
             {
+                rb.velocity = new Vector2(rb.velocity.x, 0); // Stop fall
                 float xForce;
                 double radAngle = wallJumpForceAngle * Math.PI / 180;
                 if (Mathf.Abs(rb.velocity.x) < maxMovementVelocity)

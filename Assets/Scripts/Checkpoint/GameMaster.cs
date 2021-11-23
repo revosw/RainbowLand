@@ -9,6 +9,6 @@ public class GameMaster : MonoBehaviour {
     private void Awake() {
         player = GameObject.FindGameObjectWithTag("player").GetComponent<Transform>();
         // set checkpoint position to player starting position.
-        lastCheckPointPosition = player.position;
+        player.position = lastCheckPointPosition;
     }
 }

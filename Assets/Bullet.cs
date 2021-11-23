@@ -11,20 +11,26 @@ public class Bullet : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       
+        StartCoroutine(CountDownDestroyObject());
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Destroy(gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Hit!");
         if (collision.tag == "player") {
             collision.GetComponent<Health>().TakeDamage(damage);
             Debug.Log("Player hit!");
-
+            Destroy(gameObject);
         }
-        Destroy(gameObject);
-        
-        
+    }
 
+    IEnumerator CountDownDestroyObject()
+    {
+        yield return new WaitForSeconds(4);
+        Destroy(gameObject);
     }
 }

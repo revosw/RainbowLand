@@ -40,7 +40,7 @@ public class Health : MonoBehaviour {
         } else {
             // DEAD
             animator.SetBool("isDead", true);
-            // GetComponent<PlayerController>().enabled = false;
+            GetComponent<PlayerController>().enabled = false;
             //animator for death
             StartCoroutine(WaitForAnimationSeconds(deathTimer));
             

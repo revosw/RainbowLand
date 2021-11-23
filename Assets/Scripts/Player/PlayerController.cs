@@ -298,6 +298,7 @@ namespace Player
                     projectile.transform.position = position;
                     var direction = transform.localScale.x;
                     projectile.GetComponent<Projectile>().activate(direction);
+                    
                 }
 
                 _cooldownTimer += Time.deltaTime;

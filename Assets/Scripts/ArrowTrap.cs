@@ -3,15 +3,16 @@ using UnityEngine;
 public class ArrowTrap : MonoBehaviour
 {
     [SerializeField] private float attackCooldown;
-    [SerializeField] private Transform firePoint;
+    [SerializeField] private Transform trapfirePoint;
+ 
     [SerializeField] private GameObject[] arrows;
+    private int arrownumber;
     private float cooldownTimer;
 
     private void Attack()
     {
         cooldownTimer = 0;
-
-        arrows[FindArrow()].transform.position = firePoint.position;
+        arrows[FindArrow()].transform.position = trapfirePoint.position;
         arrows[FindArrow()].GetComponent<EnemyProjectile>().ActivateProjectile();
     }
     private int FindArrow()

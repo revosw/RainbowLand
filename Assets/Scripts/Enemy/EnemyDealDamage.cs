@@ -11,7 +11,6 @@ public class EnemyDealDamage : MonoBehaviour
     private float nextDamageTimer;
 
     private void OnTriggerEnter2D(Collider2D collision) {
-
         if (collision.tag == "player" && Time.time > nextDamageTimer) {
             collision.GetComponent<Health>().TakeDamage(damage);
             nextDamageTimer = Time.time + dealDamageCD;

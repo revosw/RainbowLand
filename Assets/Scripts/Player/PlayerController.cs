@@ -41,7 +41,6 @@ namespace Player
         [Tooltip("Radius from GroundChecker to extend search for ground layer contact.")]
         public float groundCheckRadius = 0.2f;
 
-
         //DIALOGUE START
         [SerializeField] private DialogueUI dialogueUI; //Serialized reference to the dialogue UI.
 
@@ -93,8 +92,9 @@ namespace Player
         void Update()
         {
             //Dialogue related code ->
-            if (dialogueUI.IsOpen) return;
-
+            if (dialogueUI != null) {
+                if (dialogueUI.IsOpen) return;
+            }
             if (Keyboard.current[Key.E].wasPressedThisFrame)
             {
                 Interactable?.Interact(this); //If interactable is not null, reference this player.

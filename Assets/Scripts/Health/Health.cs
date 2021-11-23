@@ -40,7 +40,7 @@ public class Health : MonoBehaviour {
         } else {
             // DEAD
             animator.SetBool("isDead", true);
-            GetComponent<PlayerController>().enabled = false;
+            //GetComponent<PlayerController>().enabled = false;
             //animator for death
             StartCoroutine(WaitForAnimationSeconds(deathTimer));
             
@@ -49,10 +49,8 @@ public class Health : MonoBehaviour {
 
     IEnumerator WaitForAnimationSeconds(int seconds)
     {
-        yield return new WaitForSeconds(seconds);
+        yield return new WaitForSeconds(seconds);   
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        
-
     }
 
     public void Heal(float _heal) {

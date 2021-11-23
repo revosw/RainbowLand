@@ -10,10 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a35b486822f7efc408de4a96fbe3e04b, type: 3}
-  m_Name: Text
+  m_Name: FirstSageDialogue
   m_EditorClassIdentifier: 
   dialogue:
-  - "This is my dialogue!\nHello.\t"
-  - 'This is our second dialogue!
+  - 'Hello! Welcome to Rainbowland.
 
-    Goodbye!'
+    I believe you have some inner demons,
+
+    some
+    of whom you need to defeat.'
+  - 'Without further a due, I think its time
+
+    for you to get out of bed! That
+    is the first
+
+    step to get better.'

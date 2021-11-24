@@ -8,6 +8,8 @@ namespace Player
 {
     public class PlayerController : MonoBehaviour, IPausable
     {
+
+        private SpriteRenderer sprite;
         // Movement speed variables
         [FormerlySerializedAs("speed")] [Header("Movement speed variables")]
         public float movementForce;
@@ -24,6 +26,7 @@ namespace Player
                  "When no movement input is active, player velocity is reduced by multiplying it with this value each update. " +
                  "Lower values == faster slowdown. DO NOT SET TO 1 OR ABOVE, lol...")]
         public float slowdownMultiplier;
+        public float airSlowdownMultiplier;
 
         [Tooltip("Number of jumps remaining to player. Reset this midair to 'restore' double jump ability.")]
         public int numberOfJumpsRemaining;
@@ -31,27 +34,29 @@ namespace Player
         [Tooltip("Number of jumps to be able to perform midair. Set to 0 to disable double jump.")]
         public int maxExtraJumps;
 
-        private float moveInputX;
+        public float moveInputX;
         private bool facingRight = true;
 
         [Tooltip("LayerMask of what constitutes ground.")]
         public LayerMask whatIsGround;
-
-        public bool isGrounded;
-        public bool isWallTouching;
-        public bool isWallGrabbing;
-        public bool hitWallThisFrame;
-        private Vector2 touchedWallNormalVector;
-        public float wallJumpForce;
-        public float wallJumpForceAngle;
-        private float gravityForce;
-        public float gravityWallSlideDivider = 1;
-
         [Tooltip("A transform used as contact surface with ground.")]
         public Transform groundChecker;
+        //todo: rewrite as Collider2D instead of Transform
 
         [Tooltip("Radius from GroundChecker to extend search for ground layer contact.")]
         public float groundCheckRadius = 0.2f;
+        public bool isGrounded;
+        
+        public Collider2D wallChecker;
+        public bool isWallTouching;
+        public bool isWallGrabbing;
+        public bool hitWallThisFrame;
+        public Vector2 touchedWallNormalVector;
+        
+        public float wallJumpForce;
+        public float wallJumpForceAngle;
+        [FormerlySerializedAs("gravityWallSlideDivider")] public float gravityWallSlideCounterForce = 1;
+        private float gravityForce;
 
 
         //DIALOGUE START
@@ -104,6 +109,7 @@ namespace Player
             rb = GetComponent<Rigidbody2D>();
             gravityForce = rb.gravityScale;
             controls = new PlayerInputAction();
+            sprite = GetComponentInChildren<SpriteRenderer>();
 
 
             // todo: What the fuck is even going on here..?
@@ -147,12 +153,17 @@ namespace Player
                 }
             }
 
-
+            // Ground detector
+            GroundCheck();
+            
+            // WallDetector
+            WallCheck();
+            
+            
+            // Things that happen in air or on wall
             if (!isGrounded)
             {
-                // WallDetector
-                WallCheck();
-                
+
                 // If we hit a wall this frame...
                 if (hitWallThisFrame)
                 {
@@ -164,8 +175,8 @@ namespace Player
                         rb.velocity = new Vector2(0, 0); // ... we stop movement...
                         rb.gravityScale = 0; // and start a grab by turning off gravity
                     }
-                } 
-                
+                }
+
                 // If we were already touching the wall... 
                 else if (isWallTouching)
                 {
@@ -174,21 +185,27 @@ namespace Player
                     {
                         Debug.Log("GRAB");
                         isWallGrabbing = true;
-                        rb.velocity = new Vector2(0, 0);  // ... we stop movement...
+                        rb.velocity = new Vector2(0, 0); // ... we stop movement...
                         rb.gravityScale = 0; // and start a grab by turning off gravity                           
-                    } 
+                    }
                     // ... or if we were already grabbing
                     else if (isWallGrabbing)
                     {
                         rb.gravityScale = 0; // we stick around
                     }
-                    // ... or if we're not grabbing but still touching the wall
-                    else 
+                    // ... or if we're not grabbing but still touching the wall and pushing towards it
+                    else if ((touchedWallNormalVector.x * moveInputX) > 0 && rb.velocity.y < 0)
                     {
-                        rb.gravityScale = gravityForce / gravityWallSlideDivider; // ... we reduce gravity to slide down wall
+                        // rb.AddForce(new Vector2(0, gravityForce*gravityWallSlideCounterForce), ForceMode2D.Impulse);
+                        rb.gravityScale =
+                            gravityForce / gravityWallSlideCounterForce; // ... we reduce gravity to slide down wall
+                    }
+                    else // touching but not pushing against, so we fall normal
+                    {
+                        rb.gravityScale = gravityForce; //reset gravity
                     }
                 }
-                
+
                 // If we are not touching a wall in any way...
                 else 
                 {
@@ -196,83 +213,95 @@ namespace Player
                 }
             }
 
-            //////////
-
-                // var kb = Keyboard.current; // just a reminder that this exists...
-
-                // if (movement < 0)
-                // {
-                //     transform.localScale = new Vector3(-1, 1, 1);
-                // }
-                // else if (movement > 0)
-                // {
-                //     transform.localScale = new Vector3(1, 1, 1);
-                // }
-                // else
-                // {
-                //     
-                // }
-
-                GroundCheck();
 
 
-                var currentVelocity = rb.velocity; // used a lot in here
+            var currentVelocity = rb.velocity; // used a lot in here
 
-                //todo: rewrite this to handle facing using the animator instead? Is that even a thing..?
-                if (moveInputX != 0)
+            //todo: rewrite this to handle facing using the animator instead? Is that even a thing..?
+            
+            // Handle player sprite facing direction
+            if (moveInputX != 0)
+            {
+                // we need to only turn the sprite itself around when grabbing a wall
+                // but while we are running around, we need to set the transform of the whole
+                // player object, so that the fire point etc is turned as well.
+                // We can do this by checking if we are touching AND grabbing a wall,
+                // and selecting which transform to change based on this.
+                // However, when we then release the wall, we MUST ensure that the player transform
+                // and the sprite transform are synchronised again, otherwise we will end up with unwanted behavior,
+                // like the player seemingly moonwalking...
+                running = true;
+                
+                if (moveInputX < 0 && facingRight == true) // movement to left, but facing right.
                 {
-                    running = true;
-                    if (moveInputX < 0 && facingRight == true)
-                    {
-                        Vector3 scaler = transform.localScale;
-                        scaler.x *= -1;
-                        transform.localScale = scaler;
-                        facingRight = !facingRight;
-                    }
-                    else if (moveInputX > 0 && facingRight == false)
-                    {
-                        Vector3 scaler = transform.localScale;
-                        scaler.x *= -1;
-                        transform.localScale = scaler;
-                        facingRight = !facingRight;
-                    }
-
-
-                    // if not at max velocity, or if input is in opposite direction of current velocity (turning around)
-                    // Mathf.Sign returns 1 if input is positive or 0, and -1 if negative
-                    if (Mathf.Abs(currentVelocity.x) < maxMovementVelocity ||
-                        Mathf.Sign(currentVelocity.x) != Mathf.Sign(moveInputX))
-                    {
-                        if (isGrounded)
-                        {
-                            rb.AddForce(new Vector2(moveInputX * movementForce, 0));
-                        }
-                        else
-                        {
-                            rb.AddForce(new Vector2(moveInputX * movementForce * airMovementFraction, 0));
-                        }
-                    }
+                    Vector3 scaler = sprite.transform.localScale;
+                    scaler.x *= -1;
+                    sprite.transform.localScale = scaler;
+                    facingRight = !facingRight;
                 }
-                else // if input == 0, we decelerate player velocity  
+                else if (moveInputX > 0 && facingRight == false) //movement to right, but facing left 
                 {
-                    running = false;
-                    rb.velocity = new Vector2(currentVelocity.x * slowdownMultiplier, currentVelocity.y);
+                    Vector3 scaler = sprite.transform.localScale;
+                    scaler.x *= -1;
+                    sprite.transform.localScale = scaler;
+                    facingRight = !facingRight;
                 }
 
-                // is player touching ground?
-                // isGrounded = Physics2D.OverlapCircle(groundChecker.position, 0.1f, whatIsGround);
-
-                // reset jump counter.
-                // fixme: needs tweaking. Is triggering and resetting jump counter exactly as first jump starts?
+                // Mathf.Sign returns 1 if input is positive or 0, and -1 if negative
+                // if not at max velocity, or if input is in opposite direction of current velocity (turning around)
+                if (Mathf.Abs(currentVelocity.x) < maxMovementVelocity ||
+                    Mathf.Sign(currentVelocity.x) != Mathf.Sign(moveInputX))
+                {
+                    if (isGrounded)
+                    {
+                        rb.AddForce(new Vector2(moveInputX * movementForce, 0));
+                    } else if (
+                        isWallTouching 
+                        && isWallGrabbing 
+                        && ((touchedWallNormalVector.x * moveInputX) < 0))
+                    {
+                        // Ignore input away from wall if we are grabbing it.
+                        //todo: this is bad code and I should feel bad. Fix it when brain is not soup.
+                    }
+                    else // movement in air has lower "effect" on speed than on ground, because physics.
+                    {
+                        rb.AddForce(new Vector2(moveInputX * movementForce * airMovementFraction, 0));
+                    }
+                }
+            }
+            else // if input == 0, we decelerate player velocity  
+            {
+                running = false;
+                //apply force opposite of movement direction, scaled by velocity magnitude
+                // rb.AddForce(new Vector2(
+                //      (slowdownMultiplier * movementForce * (-1*Mathf.Sign(rb.velocity.x))),
+                //     0));
                 if (isGrounded)
                 {
-                    numberOfJumpsRemaining = maxExtraJumps;
+                    rb.velocity = new Vector2(currentVelocity.x * slowdownMultiplier, currentVelocity.y);
                 }
+                else
+                {
+                    rb.velocity = new Vector2(currentVelocity.x * airSlowdownMultiplier, currentVelocity.y);
 
-                animator.SetBool("isGrounded", isGrounded);
-                animator.SetBool("isRunning", running);
+                }
             }
-        
+
+            // is player touching ground?
+            // isGrounded = Physics2D.OverlapCircle(groundChecker.position, 0.1f, whatIsGround);
+
+            // reset jump counter.
+            // fixme: needs tweaking. Is triggering and resetting jump counter exactly as first jump starts?
+            if (isGrounded)
+            {
+                numberOfJumpsRemaining = maxExtraJumps;
+                rb.gravityScale = gravityForce;
+            }
+
+            animator.SetBool("isGrounded", isGrounded);
+            animator.SetBool("isRunning", running);
+        }
+
 
         bool GroundCheck()
         {
@@ -290,11 +319,13 @@ namespace Player
 
         void WallCheck()
         {
+
             bool wasOnWall = isWallTouching;
             RaycastHit2D ray = Physics2D.Linecast(
                 new Vector2(firePoint.position.x, transform.position.y),
                 transform.position,
                 whatIsGround);
+            // RaycastHit2D ray = wallChecker.Raycast()
             if (ray.collider != null)
             {
                 isWallTouching = true;
@@ -308,8 +339,12 @@ namespace Player
             if (!wasOnWall) //we were not on the wall...
             {
                 hitWallThisFrame = isWallTouching; //... but are we now?
+                if (hitWallThisFrame) Debug.Log("Hit wall this frame!");
             }
-
+            else
+            {
+                hitWallThisFrame = false;
+            }
         }
 
         private void WallGrab(InputAction.CallbackContext obj)
@@ -335,20 +370,34 @@ namespace Player
         // InputAction.CallbackContext ctx
         public void Jump(InputAction.CallbackContext ctx)
         {
-            if (numberOfJumpsRemaining > 0 && !isGrounded && !isWallTouching)
+            // Air jump
+            if (
+                numberOfJumpsRemaining > 0  // we have jump charges left
+                && !isGrounded              // and we are not on the ground
+                && !isWallTouching)         // and we are not touching a wall
             {
+                Debug.Log("AIRJUMP");
                 // if !isGrounded, we spend one of our double jump charges.
-                // rb.velocity = new Vector2(rb.velocity.x, jumpForce);
                 rb.velocity = new Vector2(rb.velocity.x, 0); // Stop fall
-                rb.AddForce(
-                    new Vector2(0, jumpForce), ForceMode2D.Impulse);
+                rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
                 numberOfJumpsRemaining--;
             }
-            else if (isWallTouching && !isGrounded) //walljump
+            // Wall Jump
+            else if (isWallTouching && !isGrounded) 
             {
-                if (!isWallGrabbing) rb.velocity = new Vector2(rb.velocity.x, 0); // Stop fall
-                float xForce;
+                if (isWallGrabbing)
+                {
+                    rb.gravityScale = gravityForce; //reset gravity so that we can be sure we actuall jump.
+                }
+                // if (!isWallGrabbing) rb.velocity = new Vector2(rb.velocity.x, 0); // Stop fall
+
+
                 double radAngle = wallJumpForceAngle * Math.PI / 180;
+                float xForce;
+
+                //todo:
+                // fixme: this makes no sense here, since we are touching up against a wall,
+                //  and therefore have a horizontal speed of 0.
                 if (Mathf.Abs(rb.velocity.x) < maxMovementVelocity)
                 {
                     xForce = (float) (wallJumpForce * Math.Cos(radAngle) * (-1 * touchedWallNormalVector.x));
@@ -357,12 +406,19 @@ namespace Player
 
                 float yForce = (float) (wallJumpForce * Math.Sin(radAngle));
                 Debug.Log($"WAllJUMP  x:{xForce}  y:{yForce}");
-
-                //todo: force direction should be away from wall. Wall is in direction of facing.
+                rb.velocity = new Vector2(0, 0); // stop velocity, so we actually manage to kick off wall
                 rb.AddForce(new Vector2(xForce, yForce), ForceMode2D.Impulse);
             }
+            // else if (isGrounded && isWallTouching)
+            // {
+            //     rb.AddForce(new Vector2(0, jumpForce/gravityWallSlideDivider), ForceMode2D.Impulse);
+            //
+            // }
+
+            // Normal Jump
             else if (isGrounded)
             {
+                rb.gravityScale = gravityForce; // ensure that gravity is correct on a normal jump
                 Debug.Log("JUMP");
                 // rb.velocity = new Vector2(rb.velocity.x, jumpForce);
                 rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);

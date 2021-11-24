@@ -10,10 +10,15 @@ namespace Pickups
             if (other.CompareTag("player"))
             {
                 // Debug.Log();
-                other.gameObject.GetComponent<PlayerController>().numberOfJumpsRemaining = 1;
+                other.gameObject.GetComponentInParent<PlayerController>().numberOfJumpsRemaining = 1;
             }
             
             base.DoOnTrigger(other);
+        }
+
+        public void SetActiveState(bool state)
+        {
+            gameObject.SetActive(state);
         }
     }
 }

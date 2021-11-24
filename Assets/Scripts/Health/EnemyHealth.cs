@@ -11,7 +11,6 @@ public class EnemyHealth : MonoBehaviour
     float Timer = 0f;
     public SpriteRenderer spriteRenderer;
     public GameObject deathEffect;
-    public Door door;
 
     Color red = Color.red;
     Color white = Color.white;
@@ -28,7 +27,6 @@ public class EnemyHealth : MonoBehaviour
         if (currentHealth <= 0)
         {
             DeathEffect();
-            if (door != null) door.openTheDoor();
             Destroy(transform.parent.gameObject);
         }
         if (animator.GetBool("takeDamage")) {

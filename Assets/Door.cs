@@ -6,12 +6,13 @@ public class Door : MonoBehaviour
 {
     public Animator animator;
 
-    public bool doorOpen { set; get; }
+    //If this field is not filled, the door will be permanentely open.
+    [SerializeField]
+    public GameObject enemy;
 
     // Start is called before the first frame update
     void Start()
     {
-        doorOpen = false;
     }
 
     public void openTheDoor() {
@@ -27,6 +28,6 @@ public class Door : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (enemy == null) openTheDoor();
     }
 }

@@ -112474,7 +112474,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2496394982213795355, guid: ca29a4b1acff1d1498bb10459ae2415b, type: 3}
       propertyPath: m_Name
-      value: MovingPlatformVertical
+      value: BossElevator
       objectReference: {fileID: 0}
     - target: {fileID: 2496394982213795357, guid: ca29a4b1acff1d1498bb10459ae2415b, type: 3}
       propertyPath: m_RootOrder
@@ -112865,6 +112865,7 @@ MonoBehaviour:
   speed: 30
   moving: 0
   targetPosition: {x: 1208.513, y: 100}
+  yDestroy: 140
 --- !u!1001 &1718073525
 PrefabInstance:
   m_ObjectHideFlags: 0

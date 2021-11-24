@@ -6,7 +6,6 @@ using System;
 
 public class EnemyAI : MonoBehaviour
 {
-
     public Transform target;
     public Transform enemyGFX;
     public Animator animator;

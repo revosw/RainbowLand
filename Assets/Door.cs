@@ -9,25 +9,30 @@ public class Door : MonoBehaviour
     //If this field is not filled, the door will be permanentely open.
     [SerializeField]
     public GameObject enemy;
+    BoxCollider2D collider;
+    bool notRemoteClosed = false;
 
     // Start is called before the first frame update
     void Start()
     {
+        collider = GetComponent<BoxCollider2D>();
     }
 
     public void openTheDoor() {
+        notRemoteClosed = false;
+        collider.enabled = false;
         animator.SetBool("DoorOpen", true);
-        GetComponent<BoxCollider2D>().enabled = false;
     }
     
     public void closeTheDoor() {
+        notRemoteClosed = true;
+        collider.enabled = true;
         animator.SetBool("DoorOpen", false);
-        GetComponent<BoxCollider2D>().enabled = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (enemy == null) openTheDoor();
+        if (enemy == null && !notRemoteClosed) openTheDoor();
     }
 }

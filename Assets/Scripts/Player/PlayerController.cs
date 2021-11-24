@@ -169,6 +169,12 @@ namespace Player
             // Things that happen in air or on wall
             if (!isGrounded)
             {
+                
+                //todo: This whole section is a shitshow, and could probably be drastically simplified.
+                // It is the product of mixing several iterations of playerController,
+                // without doing a proper cleanup and rewrite of existing code each time a new
+                // feature was added or implementation technique was discovered.   
+                
                 // If we hit a wall this frame...
                 if (hitWallThisFrame)
                 {
@@ -178,7 +184,8 @@ namespace Player
                         Debug.Log("GRAB");
                         isWallGrabbing = true;
                         rb.velocity = new Vector2(0, 0); // ... we stop movement...
-                        rb.gravityScale = 0; // and start a grab by turning off gravity
+                        // rb.gravityScale = 0; // and start a grab by turning off gravity
+                        SetPlayerGravityScale(0);
                     }
                 }
 
@@ -191,30 +198,36 @@ namespace Player
                         Debug.Log("GRAB");
                         isWallGrabbing = true;
                         rb.velocity = new Vector2(0, 0); // ... we stop movement...
-                        rb.gravityScale = 0; // and start a grab by turning off gravity                           
+                        // rb.gravityScale = 0; // and start a grab by turning off gravity                           
+                        SetPlayerGravityScale(0);
                     }
-                    // ... or if we were already grabbing
-                    else if (isWallGrabbing)
+                    // ... or if we were already grabbing AND falling...
+                    else if (isWallGrabbing && rb.velocity.y <= 0.0f)
                     {
-                        rb.gravityScale = 0; // we stick around
+                        //&& rb.velocity.y <= 0.0f
+                        rb.velocity = new Vector2(0, 0); // ... we stop movement...
+                        SetPlayerGravityScale(0); // ...we stick around
                     }
                     // ... or if we're not grabbing but still touching the wall and pushing towards it
-                    else if ((touchedWallNormalVector.x * moveInputX) > 0 && rb.velocity.y < 0)
+                    else if ((touchedWallNormalVector.x * moveInputX) > 0 && rb.velocity.y <= 0.0f)
                     {
                         // rb.AddForce(new Vector2(0, gravityForce*gravityWallSlideCounterForce), ForceMode2D.Impulse);
-                        rb.gravityScale =
-                            gravityForce / gravityWallSlideCounterForce; // ... we reduce gravity to slide down wall
+                        // rb.gravityScale = gravityForce / gravityWallSlideCounterForce; // ... we reduce gravity to slide down wall
+                        SetPlayerGravityScale(gravityForce / gravityWallSlideCounterForce);
                     }
                     else // touching but not pushing against, so we fall normal
                     {
-                        rb.gravityScale = gravityForce; //reset gravity
+                        // rb.gravityScale = gravityForce; //reset gravity
+                        SetPlayerGravityScale(gravityForce);
                     }
                 }
 
                 // If we are not touching a wall in any way...
                 else
                 {
-                    rb.gravityScale = gravityForce; //reset gravity
+                    // rb.gravityScale = gravityForce; //reset gravity
+                    SetPlayerGravityScale(gravityForce);
+
                 }
             }
 
@@ -226,14 +239,6 @@ namespace Player
             // Handle player sprite facing direction
             if (moveInputX != 0)
             {
-                // we need to only turn the sprite itself around when grabbing a wall
-                // but while we are running around, we need to set the transform of the whole
-                // player object, so that the fire point etc is turned as well.
-                // We can do this by checking if we are touching AND grabbing a wall,
-                // and selecting which transform to change based on this.
-                // However, when we then release the wall, we MUST ensure that the player transform
-                // and the sprite transform are synchronised again, otherwise we will end up with unwanted behavior,
-                // like the player seemingly moonwalking...
                 running = true;
                 
                 if (isWallTouching && isWallGrabbing)
@@ -296,9 +301,10 @@ namespace Player
             if (isGrounded)
             {
                 numberOfJumpsRemaining = maxExtraJumps;
-                rb.gravityScale = gravityForce;
+                // rb.gravityScale = gravityForce;
+                SetPlayerGravityScale(gravityForce);
             }
-
+            
             animator.SetBool("isGrounded", isGrounded);
             animator.SetBool("isRunning", running);
         }
@@ -367,6 +373,15 @@ namespace Player
             gameManager.OnResumeGame();
         }
 
+        public void SetPlayerGravityScale(float gravity)
+        {
+            if (rb != null)
+            {
+                Debug.Log($"New gravity scale set to: {gravity}");
+                rb.gravityScale = gravity;
+            }
+        }
+
         // InputAction.CallbackContext ctx
         public void Jump(InputAction.CallbackContext ctx)
         {
@@ -387,7 +402,9 @@ namespace Player
             {
                 if (isWallGrabbing)
                 {
-                    rb.gravityScale = gravityForce; //reset gravity so that we can be sure we actuall jump.
+                    SetPlayerGravityScale(gravityForce);
+
+                    // rb.gravityScale = gravityForce; //reset gravity so that we can be sure we actually jump.
                 }
                 // if (!isWallGrabbing) rb.velocity = new Vector2(rb.velocity.x, 0); // Stop fall
 
@@ -409,16 +426,12 @@ namespace Player
                 rb.velocity = new Vector2(0, 0); // stop velocity, so we actually manage to kick off wall
                 rb.AddForce(new Vector2(xForce, yForce), ForceMode2D.Impulse);
             }
-            // else if (isGrounded && isWallTouching)
-            // {
-            //     rb.AddForce(new Vector2(0, jumpForce/gravityWallSlideDivider), ForceMode2D.Impulse);
-            //
-            // }
-
             // Normal Jump
-            else if (isGrounded)
+            else if (isGrounded || (isGrounded && isWallTouching && isWallGrabbing))
             {
-                rb.gravityScale = gravityForce; // ensure that gravity is correct on a normal jump
+                // rb.gravityScale = gravityForce; // ensure that gravity is correct on a normal jump
+                SetPlayerGravityScale(gravityForce);
+
                 Debug.Log("JUMP");
                 // rb.velocity = new Vector2(rb.velocity.x, jumpForce);
                 rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);

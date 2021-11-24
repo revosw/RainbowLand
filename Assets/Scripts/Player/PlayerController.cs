@@ -8,8 +8,8 @@ namespace Player
 {
     public class PlayerController : MonoBehaviour, IPausable
     {
-
         private SpriteRenderer sprite;
+
         // Movement speed variables
         [FormerlySerializedAs("speed")] [Header("Movement speed variables")]
         public float movementForce;
@@ -26,6 +26,7 @@ namespace Player
                  "When no movement input is active, player velocity is reduced by multiplying it with this value each update. " +
                  "Lower values == faster slowdown. DO NOT SET TO 1 OR ABOVE, lol...")]
         public float slowdownMultiplier;
+
         public float airSlowdownMultiplier;
 
         [Tooltip("Number of jumps remaining to player. Reset this midair to 'restore' double jump ability.")]
@@ -35,27 +36,32 @@ namespace Player
         public int maxExtraJumps;
 
         public float moveInputX;
-        private bool facingRight = true;
+        public bool facingRight = true;
 
         [Tooltip("LayerMask of what constitutes ground.")]
         public LayerMask whatIsGround;
+
         [Tooltip("A transform used as contact surface with ground.")]
         public Transform groundChecker;
         //todo: rewrite as Collider2D instead of Transform
 
         [Tooltip("Radius from GroundChecker to extend search for ground layer contact.")]
         public float groundCheckRadius = 0.2f;
+
         public bool isGrounded;
-        
+
         public Collider2D wallChecker;
         public bool isWallTouching;
         public bool isWallGrabbing;
         public bool hitWallThisFrame;
         public Vector2 touchedWallNormalVector;
-        
+
         public float wallJumpForce;
         public float wallJumpForceAngle;
-        [FormerlySerializedAs("gravityWallSlideDivider")] public float gravityWallSlideCounterForce = 1;
+
+        [FormerlySerializedAs("gravityWallSlideDivider")]
+        public float gravityWallSlideCounterForce = 1;
+
         private float gravityForce;
 
 
@@ -155,15 +161,14 @@ namespace Player
 
             // Ground detector
             GroundCheck();
-            
+
             // WallDetector
             WallCheck();
-            
-            
+
+
             // Things that happen in air or on wall
             if (!isGrounded)
             {
-
                 // If we hit a wall this frame...
                 if (hitWallThisFrame)
                 {
@@ -207,18 +212,17 @@ namespace Player
                 }
 
                 // If we are not touching a wall in any way...
-                else 
+                else
                 {
                     rb.gravityScale = gravityForce; //reset gravity
                 }
             }
 
 
-
             var currentVelocity = rb.velocity; // used a lot in here
 
             //todo: rewrite this to handle facing using the animator instead? Is that even a thing..?
-            
+
             // Handle player sprite facing direction
             if (moveInputX != 0)
             {
@@ -232,21 +236,18 @@ namespace Player
                 // like the player seemingly moonwalking...
                 running = true;
                 
-                if (moveInputX < 0 && facingRight == true) // movement to left, but facing right.
+                if (isWallTouching && isWallGrabbing)
                 {
-                    Vector3 scaler = sprite.transform.localScale;
-                    scaler.x *= -1;
-                    sprite.transform.localScale = scaler;
-                    facingRight = !facingRight;
+                    transform.localScale = new Vector3(touchedWallNormalVector.x, 1, 1); // reset player scale
+                    sprite.transform.localScale = new Vector3(moveInputX*transform.localScale.x, 1, 1); // set sprite scale to input dir
                 }
-                else if (moveInputX > 0 && facingRight == false) //movement to right, but facing left 
+                else
                 {
-                    Vector3 scaler = sprite.transform.localScale;
-                    scaler.x *= -1;
-                    sprite.transform.localScale = scaler;
-                    facingRight = !facingRight;
-                }
+                    transform.localScale = new Vector3(moveInputX, 1, 1); // set player scale to input dir.
+                    sprite.transform.localScale = new Vector3(1, 1, 1); // reset sprite scale
 
+                }
+                
                 // Mathf.Sign returns 1 if input is positive or 0, and -1 if negative
                 // if not at max velocity, or if input is in opposite direction of current velocity (turning around)
                 if (Mathf.Abs(currentVelocity.x) < maxMovementVelocity ||
@@ -255,9 +256,10 @@ namespace Player
                     if (isGrounded)
                     {
                         rb.AddForce(new Vector2(moveInputX * movementForce, 0));
-                    } else if (
-                        isWallTouching 
-                        && isWallGrabbing 
+                    }
+                    else if (
+                        isWallTouching
+                        && isWallGrabbing
                         && ((touchedWallNormalVector.x * moveInputX) < 0))
                     {
                         // Ignore input away from wall if we are grabbing it.
@@ -283,7 +285,6 @@ namespace Player
                 else
                 {
                     rb.velocity = new Vector2(currentVelocity.x * airSlowdownMultiplier, currentVelocity.y);
-
                 }
             }
 
@@ -319,7 +320,6 @@ namespace Player
 
         void WallCheck()
         {
-
             bool wasOnWall = isWallTouching;
             RaycastHit2D ray = Physics2D.Linecast(
                 new Vector2(firePoint.position.x, transform.position.y),
@@ -372,9 +372,9 @@ namespace Player
         {
             // Air jump
             if (
-                numberOfJumpsRemaining > 0  // we have jump charges left
-                && !isGrounded              // and we are not on the ground
-                && !isWallTouching)         // and we are not touching a wall
+                numberOfJumpsRemaining > 0 // we have jump charges left
+                && !isGrounded // and we are not on the ground
+                && !isWallTouching) // and we are not touching a wall
             {
                 Debug.Log("AIRJUMP");
                 // if !isGrounded, we spend one of our double jump charges.
@@ -383,7 +383,7 @@ namespace Player
                 numberOfJumpsRemaining--;
             }
             // Wall Jump
-            else if (isWallTouching && !isGrounded) 
+            else if (isWallTouching && !isGrounded)
             {
                 if (isWallGrabbing)
                 {

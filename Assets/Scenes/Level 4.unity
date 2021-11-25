@@ -72149,10 +72149,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1301910824685478721, guid: f7422ab7cb7e6716bb6b16e725de6ee3, type: 3}
-      propertyPath: canShoot
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1301910824685478721, guid: f7422ab7cb7e6716bb6b16e725de6ee3, type: 3}
       propertyPath: dialogueUI
       value: 
       objectReference: {fileID: 2063039284}
@@ -72160,21 +72156,9 @@ PrefabInstance:
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 2112899866}
-    - target: {fileID: 1301910824685478721, guid: f7422ab7cb7e6716bb6b16e725de6ee3, type: 3}
-      propertyPath: maxExtraJumps
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1301910824685478721, guid: f7422ab7cb7e6716bb6b16e725de6ee3, type: 3}
-      propertyPath: projectiles.Array.size
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1301910824685478731, guid: f7422ab7cb7e6716bb6b16e725de6ee3, type: 3}
       propertyPath: m_Name
       value: OlavPlayer
-      objectReference: {fileID: 0}
-    - target: {fileID: 1301910824685478731, guid: f7422ab7cb7e6716bb6b16e725de6ee3, type: 3}
-      propertyPath: m_TagString
-      value: player
       objectReference: {fileID: 0}
     - target: {fileID: 1642853180784060925, guid: f7422ab7cb7e6716bb6b16e725de6ee3, type: 3}
       propertyPath: m_BoundingShape2D
@@ -72182,19 +72166,15 @@ PrefabInstance:
       objectReference: {fileID: 1965872104}
     - target: {fileID: 1967723445298757034, guid: f7422ab7cb7e6716bb6b16e725de6ee3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.5300293
+      value: -1232.41
       objectReference: {fileID: 0}
     - target: {fileID: 1967723445298757034, guid: f7422ab7cb7e6716bb6b16e725de6ee3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.11999512
+      value: -268.33002
       objectReference: {fileID: 0}
-    - target: {fileID: 7295209236113112778, guid: f7422ab7cb7e6716bb6b16e725de6ee3, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.5300293
-      objectReference: {fileID: 0}
-    - target: {fileID: 7295209236113112778, guid: f7422ab7cb7e6716bb6b16e725de6ee3, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.11999512
+    - target: {fileID: 1967723445298757034, guid: f7422ab7cb7e6716bb6b16e725de6ee3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -12.39678
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f7422ab7cb7e6716bb6b16e725de6ee3, type: 3}

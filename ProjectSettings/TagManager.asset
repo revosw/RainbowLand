@@ -11,6 +11,8 @@ TagManager:
   - Enemy
   - GM
   - Ground
+  - MovingPlatform
+  - Trap
   layers:
   - Default
   - TransparentFX
@@ -45,6 +47,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Skybox
+    uniqueID: 1771195421
+    locked: 0
   - name: Background
     uniqueID: 3386019239
     locked: 0

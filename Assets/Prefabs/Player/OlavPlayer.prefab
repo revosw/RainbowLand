@@ -54,9 +54,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathWaitTimeSeconds: 1
-  movementForce: 50
+  movementForce: 40
   airMovementFraction: 0.6
-  jumpForce: 35
+  jumpForce: 25
   maxMovementVelocity: 15
   slowdownMultiplier: 0.6
   airSlowdownMultiplier: 0.95
@@ -286,7 +286,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2509905270484320253}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.0030517578, y: -0.02999878, z: -10}
+  m_LocalPosition: {x: 0.002998352, y: -0.02999878, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 353878421695548678}
@@ -471,7 +471,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1967723445219709756, guid: 9ca6973f7bfce993ca10348580ac0a18, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.0030517578
+      value: 0.002998352
       objectReference: {fileID: 0}
     - target: {fileID: 1967723445219709756, guid: 9ca6973f7bfce993ca10348580ac0a18, type: 3}
       propertyPath: m_LocalPosition.y

@@ -37,7 +37,7 @@ public class Health : MonoBehaviour
             Vector3 force = transform.position - collision.transform.position;
             force = force.normalized;
             //fix this
-            gameObject.GetComponent<Rigidbody2D>().AddForce(force * 3000);
+            gameObject.GetComponent<Rigidbody2D>().AddForce(force * 300);
         }
     }
 

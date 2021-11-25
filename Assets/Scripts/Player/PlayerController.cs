@@ -150,7 +150,7 @@ namespace Player
 
             controls.Player.Disable();
             controls.UI.Enable();
-            hasBeenActivated = true;
+            // hasBeenActivated = true;
             // controls.Player.Enable();
         }
 

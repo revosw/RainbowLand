@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Player;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 
@@ -9,15 +10,43 @@ public class LevelSwitcher : MonoBehaviour
     bool shouldTransition;
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        AsyncOperation levelLoad;
         if (name == "LevelEntrance")
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+            levelLoad = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex - 1);
         }
         else
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            levelLoad = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
         }
+
+        levelLoad.completed += (a) => GameObject.FindObjectOfType<PlayerController>().OnResumeGame();
+
+        // if (name == "LevelEntrance")
+        // {
+        //     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        // }
+        // else
+        // {
+        //   SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        // }
+        // StartCoroutine(LoadLevelAsync());
+        
     }
+
+    // IEnumerator LoadLevelAsync()
+    // {
+    //
+    //
+    //     while (!levelLoad.isDone)
+    //     {
+    //         yield return null;
+    //     
+    //     }
+    //
+    //
+    //
+    // }
 
     private void FixedUpdate()
     {

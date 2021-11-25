@@ -45,7 +45,6 @@ namespace Projectiles
             }
             else
             {
-
                 remainingBounces--;
     
             }

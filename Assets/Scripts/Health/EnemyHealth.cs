@@ -10,7 +10,6 @@ public class EnemyHealth : MonoBehaviour
     public Animator animator;
     float Timer = 0f;
     public SpriteRenderer spriteRenderer;
-
     public GameObject deathEffect;
 
     Color red = Color.red;
@@ -21,7 +20,6 @@ public class EnemyHealth : MonoBehaviour
     {
         currentHealth = enemyHealth;    
     }
-
 
     // Update is called once per frame
     void Update()

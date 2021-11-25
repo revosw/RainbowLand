@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8469040963005149252}
   - component: {fileID: 8469040963005149255}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Sprite
   m_TagString: Trap
   m_Icon: {fileID: 0}
@@ -69,7 +69,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 747175859
-  m_SortingLayer: 4
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 84b0d89aa2c8bfb4c8c1d378fa972fbd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -91,7 +91,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8469040963012250704}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: ArrowHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -131,8 +131,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8469040963223240203}
-  m_Layer: 7
-  m_Name: Firepoint
+  m_Layer: 0
+  m_Name: TrapFirepoint
   m_TagString: Untagged
   m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -146,7 +146,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8469040963223240200}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.59, y: -2.29, z: 0}
+  m_LocalPosition: {x: 2.98, y: -2.29, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8469040964886747321}
@@ -162,7 +162,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8469040964886747321}
   - component: {fileID: 8469040964886747320}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Arrow Trap
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8469040964886747270}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.51, y: -36.96, z: 1}
+  m_LocalPosition: {x: -9.42, y: -38.81, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8469040963005149252}
@@ -199,7 +199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackCooldown: 1
-  firePoint: {fileID: 8469040963223240203}
+  trapfirePoint: {fileID: 8469040963223240203}
   arrows:
   - {fileID: 8469040962985359637}
   - {fileID: 7928251845991881742}
@@ -268,7 +268,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1985767403210628449, guid: 499af61e983c88c42867c2c078fcee70, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1985767403210628449, guid: 499af61e983c88c42867c2c078fcee70, type: 3}
       propertyPath: m_IsActive
@@ -343,7 +343,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1985767403210628449, guid: 499af61e983c88c42867c2c078fcee70, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1985767403210628449, guid: 499af61e983c88c42867c2c078fcee70, type: 3}
       propertyPath: m_IsActive
@@ -418,7 +418,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1985767403210628449, guid: 499af61e983c88c42867c2c078fcee70, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1985767403210628449, guid: 499af61e983c88c42867c2c078fcee70, type: 3}
       propertyPath: m_IsActive
@@ -493,7 +493,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1985767403210628449, guid: 499af61e983c88c42867c2c078fcee70, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1985767403210628449, guid: 499af61e983c88c42867c2c078fcee70, type: 3}
       propertyPath: m_IsActive
@@ -568,7 +568,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1985767403210628449, guid: 499af61e983c88c42867c2c078fcee70, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1985767403210628449, guid: 499af61e983c88c42867c2c078fcee70, type: 3}
       propertyPath: m_IsActive
@@ -643,7 +643,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1985767403210628449, guid: 499af61e983c88c42867c2c078fcee70, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1985767403210628449, guid: 499af61e983c88c42867c2c078fcee70, type: 3}
       propertyPath: m_IsActive
@@ -718,7 +718,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1985767403210628449, guid: 499af61e983c88c42867c2c078fcee70, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1985767403210628449, guid: 499af61e983c88c42867c2c078fcee70, type: 3}
       propertyPath: m_IsActive
@@ -793,7 +793,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1985767403210628449, guid: 499af61e983c88c42867c2c078fcee70, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1985767403210628449, guid: 499af61e983c88c42867c2c078fcee70, type: 3}
       propertyPath: m_IsActive
@@ -872,7 +872,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1985767403210628449, guid: 499af61e983c88c42867c2c078fcee70, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1985767403210628449, guid: 499af61e983c88c42867c2c078fcee70, type: 3}
       propertyPath: m_IsActive
@@ -947,7 +947,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1985767403210628449, guid: 499af61e983c88c42867c2c078fcee70, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1985767403210628449, guid: 499af61e983c88c42867c2c078fcee70, type: 3}
       propertyPath: m_IsActive

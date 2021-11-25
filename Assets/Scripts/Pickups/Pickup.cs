@@ -13,10 +13,12 @@ namespace Pickups
         public virtual void DoOnTrigger(Collider2D other)
         { 
 
-            if (other.CompareTag("Player"))
+            if (other.CompareTag("player"))
             {
                 Debug.Log("PICKUP!");
-                Destroy(this.gameObject);
+                gameObject.SetActive(false);
+                // enabled = false;
+                // Destroy(this.gameObject);
             }
         }
     }

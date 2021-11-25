@@ -6,7 +6,16 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/NewBossSandbox.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    path: Assets/Scenes/Level 1.unity
+    guid: f04f76e968ab5344381937fa92990807
+  - enabled: 1
+    path: Assets/Scenes/Level 2.unity
+    guid: a508e6a3d02fb13438ea5264b11de2f7
+  - enabled: 1
+    path: Assets/Scenes/Level 3.unity
+    guid: 494c0990e0969c94ba7546026194c20e
+  - enabled: 1
+    path: Assets/Scenes/Level 4.unity
+    guid: 3c7ad58b007666740aef7381b2c975b0
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: baf091a65f97b964087df85ecae72984, type: 2}

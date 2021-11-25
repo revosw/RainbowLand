@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4496512694334984870}
   - component: {fileID: 4496512694334984867}
   - component: {fileID: 8126136107376574412}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: Moving PlatformSideways
   m_TagString: MovingPlatform
   m_Icon: {fileID: 0}

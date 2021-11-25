@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameMaster : MonoBehaviour {
-    public Vector2 lastCheckPointPosition;
+    public static Vector2 lastCheckPointPosition;
     private Transform player;
 
     private void Awake() {
         player = GameObject.FindGameObjectWithTag("player").GetComponent<Transform>();
         // set checkpoint position to player starting position.
-        player.position = lastCheckPointPosition;
+        lastCheckPointPosition = player.position;
     }
 }

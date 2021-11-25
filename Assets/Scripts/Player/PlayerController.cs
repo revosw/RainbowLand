@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using Projectiles;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -8,6 +9,9 @@ namespace Player
 {
     public class PlayerController : MonoBehaviour, IPausable
     {
+        private static bool hasBeenActivated;
+
+        public float deathWaitTimeSeconds;
         private SpriteRenderer sprite;
 
         // Movement speed variables
@@ -106,6 +110,8 @@ namespace Player
         /// Awake is called before Start
         void Awake()
         {
+            // if (GameObject.FindObjectsOfType<PlayerController>().Length >= 1) return;
+            // if (hasBeenActivated) return;
             // Parts of code taken from https://www.youtube.com/watch?v=vAZV5xO_AHU
 
             // The game always starts in the main menu, so UI should
@@ -129,7 +135,7 @@ namespace Player
 
             controls.Player.Move.performed += Move;
             controls.Player.Move.canceled += Move;
-            ;
+            
 
             controls.Player.Fire.started += Shoot;
 
@@ -141,6 +147,7 @@ namespace Player
 
             controls.Player.Disable();
             controls.UI.Enable();
+            hasBeenActivated = true;
             // controls.Player.Enable();
         }
 
@@ -371,6 +378,26 @@ namespace Player
             controls.UI.Disable();
             controls.Player.Enable();
             gameManager.OnResumeGame();
+        }
+
+        public void OnDeath()
+        {
+            controls.Player.Disable();
+            animator.SetBool("isDead", true);
+            StartCoroutine(OnRespawn());
+        }
+
+        public IEnumerator OnRespawn()
+        {
+
+            yield return new WaitForSecondsRealtime(deathWaitTimeSeconds);
+
+            //reset player
+            GetComponent<Health>().FullHeal();
+            transform.position = GameMaster.lastCheckPointPosition;
+            animator.SetBool("isDead", false);
+            controls.Player.Enable();
+
         }
 
         public void SetPlayerGravityScale(float gravity)

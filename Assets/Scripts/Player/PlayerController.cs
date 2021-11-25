@@ -181,7 +181,7 @@ namespace Player
                     // ...and grab was being held...
                     if (controls.Player.WallGrab.IsPressed())
                     {
-                        Debug.Log("GRAB");
+                        //Debug.Log("GRAB");
                         isWallGrabbing = true;
                         rb.velocity = new Vector2(0, 0); // ... we stop movement...
                         // rb.gravityScale = 0; // and start a grab by turning off gravity
@@ -195,7 +195,7 @@ namespace Player
                     // ...AND if wallGrab was activated this frame
                     if (controls.Player.WallGrab.WasPressedThisFrame())
                     {
-                        Debug.Log("GRAB");
+                        //Debug.Log("GRAB");
                         isWallGrabbing = true;
                         rb.velocity = new Vector2(0, 0); // ... we stop movement...
                         // rb.gravityScale = 0; // and start a grab by turning off gravity                           
@@ -320,7 +320,7 @@ namespace Player
                 isGrounded = true;
             }
 
-            // Debug.Log("Ground Check performed: isGrounded = " + isGrounded);
+            // //Debug.Log("Ground Check performed: isGrounded = " + isGrounded);
             return isGrounded;
         }
 
@@ -345,7 +345,7 @@ namespace Player
             if (!wasOnWall) //we were not on the wall...
             {
                 hitWallThisFrame = isWallTouching; //... but are we now?
-                if (hitWallThisFrame) Debug.Log("Hit wall this frame!");
+                if (hitWallThisFrame); //Debug.Log("Hit wall this frame!")
             }
             else
             {
@@ -377,7 +377,7 @@ namespace Player
         {
             if (rb != null)
             {
-                Debug.Log($"New gravity scale set to: {gravity}");
+                //Debug.Log($"New gravity scale set to: {gravity}");
                 rb.gravityScale = gravity;
             }
         }
@@ -391,7 +391,7 @@ namespace Player
                 && !isGrounded // and we are not on the ground
                 && !isWallTouching) // and we are not touching a wall
             {
-                Debug.Log("AIRJUMP");
+                //Debug.Log("AIRJUMP");
                 // if !isGrounded, we spend one of our double jump charges.
                 rb.velocity = new Vector2(rb.velocity.x, 0); // Stop fall
                 rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
@@ -422,7 +422,7 @@ namespace Player
                 else xForce = 0;
 
                 float yForce = (float) (wallJumpForce * Math.Sin(radAngle));
-                Debug.Log($"WAllJUMP  x:{xForce}  y:{yForce}");
+                //Debug.Log($"WAllJUMP  x:{xForce}  y:{yForce}");
                 rb.velocity = new Vector2(0, 0); // stop velocity, so we actually manage to kick off wall
                 rb.AddForce(new Vector2(xForce, yForce), ForceMode2D.Impulse);
             }
@@ -432,7 +432,7 @@ namespace Player
                 // rb.gravityScale = gravityForce; // ensure that gravity is correct on a normal jump
                 SetPlayerGravityScale(gravityForce);
 
-                Debug.Log("JUMP");
+                //Debug.Log("JUMP");
                 // rb.velocity = new Vector2(rb.velocity.x, jumpForce);
                 rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
             }
@@ -451,7 +451,7 @@ namespace Player
             //ground movement
             else
             {
-                Debug.Log("move on ground");
+                //Debug.Log("move on ground");
 
                 if (horizontalInput > 0f)
                 {
@@ -462,7 +462,7 @@ namespace Player
                     moveInputX = -1;
                 }
             }
-            Debug.Log("x input value: " + moveInputX);
+            //Debug.Log("x input value: " + moveInputX);
         }
 
         //fixme: projectile direction changes when player direction changes..?
@@ -473,7 +473,7 @@ namespace Player
             {
                 if (_cooldownTimer >= shootCooldown)
                 {
-                    Debug.Log("SHOOT");
+                    //Debug.Log("SHOOT");
                     _cooldownTimer = 0;
                     int projectileIndex = FindProjectile();
                     // todo: can we fix issue with projectile following player orientation

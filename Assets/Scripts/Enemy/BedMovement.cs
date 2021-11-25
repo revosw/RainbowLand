@@ -21,8 +21,6 @@ public class BedMovement : MonoBehaviour
     const float groundCheckRadius = 0.2f;
     public Transform groundCheckCollider;
     public LayerMask groundLayer;
-    bool airjump = false;
-
 
     bool GroundCheck() {
         isGrounded = false;

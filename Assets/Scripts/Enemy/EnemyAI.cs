@@ -6,7 +6,6 @@ using System;
 
 public class EnemyAI : MonoBehaviour
 {
-
     public Transform target;
     public Transform enemyGFX;
     public Animator animator;
@@ -15,7 +14,6 @@ public class EnemyAI : MonoBehaviour
     public int bounceForce;
     Path path;
     int currentWaypoint = 0;
-    bool reachedEndofPath = false;
 
     Seeker seeker;
     Rigidbody2D rb;
@@ -34,6 +32,7 @@ public class EnemyAI : MonoBehaviour
 
     //Calculates path when target is within range.
     void UpdatePath() {
+        print("Update path");
         if (Math.Abs(target.position.x - rb.position.x) < 20
             && Math.Abs(target.position.y - rb.position.y) < 10) {
             if (seeker.IsDone())
@@ -42,6 +41,7 @@ public class EnemyAI : MonoBehaviour
     }
 
     void Onpathcomplete(Path p) {
+        print("Path complete");
         if (!p.error) {
             path = p;
             currentWaypoint = 0;
@@ -50,14 +50,12 @@ public class EnemyAI : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        print("fixed update");
         if ( path == null) 
             return;
         if(currentWaypoint >= path.vectorPath.Count) {
-            reachedEndofPath = true;
             return;
-        } else {
-            reachedEndofPath = false;
-        }
+        } 
 
         Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
         Vector2 force = direction * speed * Time.deltaTime;

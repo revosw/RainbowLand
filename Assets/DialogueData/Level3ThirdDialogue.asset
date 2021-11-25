@@ -10,10 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a35b486822f7efc408de4a96fbe3e04b, type: 3}
-  m_Name: Text
+  m_Name: Level3ThirdDialogue
   m_EditorClassIdentifier: 
   dialogue:
-  - "This is my dialogue!\nHello.\t"
-  - 'This is our second dialogue!
+  - "Not bad! \n"
+  - ...
+  - 'How I''m getting here before you?
 
-    Goodbye!'
+    ...
+
+'
+  - 'I think there is a princess in distress to the east!
+
+'

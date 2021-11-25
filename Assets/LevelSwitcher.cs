@@ -1,12 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class LevelSwitcher : MonoBehaviour
 {
-    [SerializeField] string level;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene(level);
+        if (name == "LevelEntrance")
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        }
+        else
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
     }
 }

@@ -223,7 +223,7 @@ namespace Player
         // InputAction.CallbackContext ctx
         public void Jump(InputAction.CallbackContext ctx)
         {
-            Debug.Log("JUMP");
+           // Debug.Log("JUMP");
             if (numberOfJumpsRemaining > 0 && !isGrounded)
             {
                 // if !isGrounded, we spend one of our double jump charges.
@@ -248,7 +248,7 @@ namespace Player
             else
                 //ground movement
             {
-                Debug.Log("move on ground");
+              //  Debug.Log("move on ground");
 
                 if (horizontalInput > 0f)
                 {
@@ -274,7 +274,7 @@ namespace Player
             // }
 
 
-            Debug.Log("x input value: " + moveInputX);
+            //Debug.Log("x input value: " + moveInputX);
         }
 
         //fixme: projectile direction changes when player direction changes..?
@@ -286,7 +286,7 @@ namespace Player
             {
                 if (_cooldownTimer >= shootCooldown)
                 {
-                    Debug.Log("SHOOT");
+                    //Debug.Log("SHOOT");
                     _cooldownTimer = 0;
                     int projectileIndex = FindProjectile();
                     // todo: can we fix issue with projectile following player orientation

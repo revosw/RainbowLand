@@ -80063,7 +80063,7 @@ GameObject:
   m_Component:
   - component: {fileID: 801649382}
   m_Layer: 0
-  m_Name: Decor Objects
+  m_Name: Decoration
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -146,7 +146,7 @@ namespace Player
 
 
         // Update is called once per frame
-        void Update()
+        void FixedUpdate()
         {
             //Dialogue related code ->
             if (dialogueUI != null)
@@ -447,8 +447,9 @@ namespace Player
             {
                 moveInputX = 0;
             }
+            
+            //ground movement
             else
-                //ground movement
             {
                 Debug.Log("move on ground");
 
@@ -461,21 +462,6 @@ namespace Player
                     moveInputX = -1;
                 }
             }
-
-            // else if (!isGrounded) // changing movement during jump/fall
-            // {
-            //     Debug.Log("move changed in air");
-            //     if (horizontalInput > 0f)
-            //     {
-            //         moveInputX = 1;
-            //     }
-            //     else if (horizontalInput < 0f)
-            //     {
-            //         moveInputX = -1;
-            //     }
-            // }
-
-
             Debug.Log("x input value: " + moveInputX);
         }
 
@@ -513,34 +499,6 @@ namespace Player
 
             return 0;
         }
-
-        //todo: refactor these two as a GroundChecker object?
-        // private void OnCollisionEnter2D(Collision2D other)
-        // {
-        //     if (other.gameObject.CompareTag("Ground"))
-        //     {
-        //         isGrounded = true;
-        //     }
-        // }
-        //
-        // private void OnCollisionExit2D(Collision2D other)
-        // {
-        //     if (other.gameObject.CompareTag("Ground"))
-        //     {
-        //         isGrounded = false;
-        //     }
-        // }
-
-        void OnEnable()
-        {
-            // input.Enable();
-        }
-
-        private void FixedUpdate()
-        {
-            // moveInput = Input.GetAxis("Horizontal");
-            // moveInputX = input.Gameplay.Move.ReadValue<float>();
-            // Debug.Log("Move: " + moveInput);
-        }
+        
     }
 }

@@ -151,6 +151,7 @@ MonoBehaviour:
   numberOfJumpsRemaining: 0
   maxExtraJumps: 1
   moveInputX: 0
+  facingRight: 1
   whatIsGround:
     serializedVersion: 2
     m_Bits: 256
@@ -163,7 +164,7 @@ MonoBehaviour:
   hitWallThisFrame: 0
   touchedWallNormalVector: {x: 0, y: 0}
   wallJumpForce: 33
-  wallJumpForceAngle: 65
+  wallJumpForceAngle: 70
   gravityWallSlideCounterForce: 4
   dialogueUI: {fileID: 0}
   canShoot: 1

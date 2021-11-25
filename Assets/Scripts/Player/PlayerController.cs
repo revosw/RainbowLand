@@ -132,12 +132,15 @@ namespace Player
             // controls.Player.Movement.canceled += _ => movement = 0;
             // we don't use 'movement' variable for anything, it seems?
 
+            controls.Player.Suicide.performed += Suicide;
 
             controls.Player.Move.performed += Move;
             controls.Player.Move.canceled += Move;
             
 
             controls.Player.Fire.started += Shoot;
+
+            controls.Player.Interact.performed += Interact;
 
             controls.Player.Jump.started += Jump;
             controls.Player.WallGrab.started += WallGrab;
@@ -156,15 +159,15 @@ namespace Player
         void FixedUpdate()
         {
             //Dialogue related code ->
-            if (dialogueUI != null)
-            {
-                if (dialogueUI.IsOpen) return;
-
-                if (Keyboard.current[Key.E].wasPressedThisFrame)
-                {
-                    Interactable?.Interact(this); //If interactable is not null, reference this player.
-                }
-            }
+            // if (dialogueUI != null)
+            // {
+            //     if (dialogueUI.IsOpen) return;
+            //
+            //     if (Keyboard.current[Key.E].wasPressedThisFrame)
+            //     {
+            //         Interactable?.Interact(this); //If interactable is not null, reference this player.
+            //     }
+            // }
 
             // Ground detector
             GroundCheck();
@@ -380,6 +383,10 @@ namespace Player
             gameManager.OnResumeGame();
         }
 
+        private void Suicide(InputAction.CallbackContext obj)
+        {
+            OnDeath();
+        }
         public void OnDeath()
         {
             controls.Player.Disable();
@@ -407,6 +414,16 @@ namespace Player
                 //Debug.Log($"New gravity scale set to: {gravity}");
                 rb.gravityScale = gravity;
             }
+        }
+
+        public void Interact(InputAction.CallbackContext ctx)
+        {
+            if (dialogueUI != null)
+            {
+                if (dialogueUI.IsOpen) return;
+
+                    Interactable?.Interact(this); //If interactable is not null, reference this player.
+            } 
         }
 
         // InputAction.CallbackContext ctx

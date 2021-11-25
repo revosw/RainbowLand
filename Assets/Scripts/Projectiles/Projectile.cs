@@ -5,12 +5,11 @@ namespace Projectiles
     public class Projectile : MonoBehaviour
     {
         public float speed;
-        public int bounces;
-        private int remainingBounces;
-        private bool hit;
-
-        private BoxCollider2D boxCollider;
+        public int damage;
         private Rigidbody2D rb;
+        public float lifeTime;
+        private float spawnTime;
+        public float timeAlive;
 
         
         // todo: This whole class needs a rethink.
@@ -19,8 +18,12 @@ namespace Projectiles
         // and  it's coupled too closely to the player projectile functionality.
         private void Awake()
         {
-            boxCollider = GetComponent<BoxCollider2D>();
+            // collider = GetComponent<Collider2D>();
+            
             rb = GetComponent<Rigidbody2D>();
+            spawnTime = Time.time;
+            timeAlive = 0;
+            Destroy(gameObject, lifeTime);
         }
 
         // Start is called before the first frame update
@@ -29,25 +32,31 @@ namespace Projectiles
         }
 
         // Update is called once per frame
-        void Update()
+        void FixedUpdate()
         {
+            // timeAlive += Time.fixedDeltaTime;
+            // if (timeAlive > lifeTime)
+            // {
+            //  Destroy(rb);   
+            // }
+
         }
 
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            //todo: these bounces are not being counted correctly. Why..?
-            
-            Debug.Log("Projectile Bounce remaining:" + remainingBounces);
-            if (remainingBounces <= 0)
+            if (other.CompareTag("Enemy"))
             {
-                gameObject.SetActive(false);
-            }
-            else
+                other.GetComponent<BasicEnemyHealth>().TakeDamage(damage);
+                // gameObject.SetActive(false);
+                Destroy(gameObject);
+
+            } else if (other.CompareTag("Ground"))
             {
-                remainingBounces--;
-    
+                Destroy(gameObject);
+                // gameObject.SetActive(false);
             }
+  
         }
 
         public void setDirection(float sign)
@@ -57,7 +66,6 @@ namespace Projectiles
 
         public void activate(float direction)
         {
-            remainingBounces = bounces; 
             gameObject.SetActive(true);
             rb.velocity = new Vector2(speed*direction, 0);
         }

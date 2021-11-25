@@ -53,8 +53,8 @@ namespace Player
         public float groundCheckRadius = 0.2f;
 
         public bool isGrounded;
-
-        public Collider2D wallChecker;
+        
+        public Transform wallTouchPoint;
         public bool isWallTouching;
         public bool isWallGrabbing;
         public bool hitWallThisFrame;
@@ -87,7 +87,7 @@ namespace Player
         [Tooltip("Cooldown time before new projectile can be fired. Set to 0 for lols...")]
         public float shootCooldown;
 
-        private float _cooldownTimer;
+        public float _cooldownTimer;
 
         [Tooltip("Where should projectiles be fired from? Ideally, this would be a transform that is a child " +
                  "of the Player object (or the player itself).")]
@@ -95,7 +95,7 @@ namespace Player
 
         //todo: refactor this as a separate class thing?
         [Tooltip("The set of projectiles that the player can fire.")]
-        public GameObject[] projectiles;
+        public Projectile projectile;
 
         private PlayerInputAction controls;
         private float movement;
@@ -255,11 +255,15 @@ namespace Player
                 {
                     transform.localScale = new Vector3(touchedWallNormalVector.x, 1, 1); // reset player scale
                     sprite.transform.localScale = new Vector3(moveInputX*transform.localScale.x, 1, 1); // set sprite scale to input dir
+                    firePoint.transform.localScale = new Vector3(moveInputX*transform.localScale.x, 1, 1); // set sprite scale to input dir
+                    // Vector3 fpPos = firePoint.transform.position;
+                    // firePoint.transform.position.Set(-fpPos.x, fpPos.y, fpPos.z); 
                 }
                 else
                 {
                     transform.localScale = new Vector3(moveInputX, 1, 1); // set player scale to input dir.
                     sprite.transform.localScale = new Vector3(1, 1, 1); // reset sprite scale
+                    firePoint.transform.localScale = new Vector3(1, 1, 1); // reset sprite scale
 
                 }
                 
@@ -315,6 +319,10 @@ namespace Player
                 SetPlayerGravityScale(gravityForce);
             }
             
+            // shooting cooldown timer
+            _cooldownTimer += Time.fixedDeltaTime;
+
+            
             animator.SetBool("isGrounded", isGrounded);
             animator.SetBool("isRunning", running);
         }
@@ -338,10 +346,9 @@ namespace Player
         {
             bool wasOnWall = isWallTouching;
             RaycastHit2D ray = Physics2D.Linecast(
-                new Vector2(firePoint.position.x, transform.position.y),
+                new Vector2(wallTouchPoint.position.x, transform.position.y),
                 transform.position,
                 whatIsGround);
-            // RaycastHit2D ray = wallChecker.Raycast()
             if (ray.collider != null)
             {
                 isWallTouching = true;
@@ -512,37 +519,38 @@ namespace Player
         //fixme: projectile direction changes when player direction changes..?
         public void Shoot(InputAction.CallbackContext ctx)
         {
-            //todo: projectiles don't despawn... Why?
+            // double time = ctx.time;
             if (canShoot)
             {
+                
+                //todo: Rework this timer logic
                 if (_cooldownTimer >= shootCooldown)
                 {
-                    //Debug.Log("SHOOT");
-                    _cooldownTimer = 0;
-                    int projectileIndex = FindProjectile();
+                    // int projectileIndex = FindProjectile();
                     // todo: can we fix issue with projectile following player orientation
                     // by changing the way we assign a transform position to it?
-                    var projectile = projectiles[projectileIndex];
-                    var position = firePoint.position;
-                    projectile.transform.position = position;
-                    var direction = transform.localScale.x;
-                    projectile.GetComponent<Projectile>().activate(direction);
+                    // var projectile = projectiles[projectileIndex];
+                    // var position = position;
+                    var _projectile = Instantiate(projectile);
+                    _projectile.transform.position = firePoint.position;
+                    // var direction = transform.localScale.x;
+                    _projectile.GetComponent<Projectile>().activate(firePoint.transform.localScale.x);
+                    _cooldownTimer = 0;
                 }
 
-                _cooldownTimer += Time.deltaTime;
             }
         }
 
-        private int FindProjectile()
-        {
-            for (int i = 0; i < projectiles.Length; i++)
-            {
-                if (!projectiles[i].activeSelf)
-                    return i;
-            }
-
-            return 0;
-        }
-        
+        // private int FindProjectile()
+        // {
+        //     for (int i = 0; i < projectiles.Length; i++)
+        //     { 
+        //         if (!projectiles[i].activeSelf)
+        //             return i;
+        //     }
+        //
+        //     return 0;
+        // }
+        //
     }
 }

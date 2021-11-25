@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24976ef2e984c4e4e9f8aff775aa4155, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: Level 2
+  blackBackground: {fileID: 7513624017131322498}
 --- !u!61 &2726289890058187384
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -115,7 +115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24976ef2e984c4e4e9f8aff775aa4155, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: Level 2
+  blackBackground: {fileID: 7513624017131322498}
 --- !u!61 &7513624016915276230
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -200,7 +200,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

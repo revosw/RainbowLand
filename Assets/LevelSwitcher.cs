@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class LevelSwitcher : MonoBehaviour
 {
+    [SerializeField] GameObject blackBackground;
+    bool shouldTransition;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (name == "LevelEntrance")
@@ -14,6 +16,14 @@ public class LevelSwitcher : MonoBehaviour
         else
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (shouldTransition)
+        {
+
         }
     }
 }

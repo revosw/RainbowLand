@@ -4868,7 +4868,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1702537905}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 25.26, y: 23.28, z: 0}
+  m_LocalPosition: {x: 25.26, y: 17.54, z: 0}
   m_LocalScale: {x: 1, y: 6.6987596, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -5773,7 +5773,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1938805317}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 13.87, y: 47.2, z: 0}
+  m_LocalPosition: {x: 13.87, y: 45.08, z: 0}
   m_LocalScale: {x: 6.2495003, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1947835532}
@@ -6415,6 +6415,22 @@ PrefabInstance:
     - target: {fileID: 1292102628271075846, guid: 556bfda779d0a7118b3e0d97925062a2, type: 3}
       propertyPath: m_Name
       value: JumpChargePickupHolder
+      objectReference: {fileID: 0}
+    - target: {fileID: 4216750111816671285, guid: 556bfda779d0a7118b3e0d97925062a2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 17.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4216750112109596412, guid: 556bfda779d0a7118b3e0d97925062a2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 30.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4216750112907701221, guid: 556bfda779d0a7118b3e0d97925062a2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 19.97
+      objectReference: {fileID: 0}
+    - target: {fileID: 4216750112907701221, guid: 556bfda779d0a7118b3e0d97925062a2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 40.56
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 556bfda779d0a7118b3e0d97925062a2, type: 3}

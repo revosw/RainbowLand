@@ -31,11 +31,16 @@ public class EnemyHealth : MonoBehaviour
         }
         if (animator.GetBool("takeDamage")) {
             Timer += Time.deltaTime;
-            if(Timer >=0.3f) spriteRenderer.color = white;
+            if(Timer >= 0.3f) spriteRenderer.color = white;
             if (Timer >= 1f) {
                 animator.SetBool("takeDamage", false);
                 Timer = 0f;
             }
+        }
+        if (spriteRenderer.color == red)
+        {
+            Timer += Time.deltaTime;
+            if (Timer >= 0.3f) spriteRenderer.color = white;
         }
     }
     
@@ -43,8 +48,6 @@ public class EnemyHealth : MonoBehaviour
         currentHealth -= _damage;
         animator.SetBool("takeDamage", true);
         spriteRenderer.color = red;
-        Debug.Log(spriteRenderer.color);
-        //animation for taking damage
     }
 
     private void DeathEffect() {

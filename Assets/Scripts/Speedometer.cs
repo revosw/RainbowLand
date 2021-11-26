@@ -27,7 +27,7 @@ public class Speedometer : MonoBehaviour
             maxVelocity = 0;
         }
 
-        float currentVelocity = playerRB.velocity.x;
+        float currentVelocity = playerRB.velocity.y;
         if (Mathf.Abs(currentVelocity) > Mathf.Abs(maxVelocity))
         {
             maxVelocity = currentVelocity;

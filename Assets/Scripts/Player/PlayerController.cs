@@ -55,6 +55,8 @@ namespace Player
         public bool isGrounded;
         
         public Transform wallTouchPoint;
+        public bool canWallJump;
+        public bool canWallGrab;
         public bool isWallTouching;
         public bool isWallGrabbing;
         public bool hitWallThisFrame;
@@ -158,6 +160,16 @@ namespace Player
         // Update is called once per frame
         void FixedUpdate()
         {
+
+            if (!canWallGrab)
+            {
+                controls.Player.WallGrab.Disable();
+
+            } else if (canWallGrab)
+            {
+                controls.Player.WallGrab.Enable();
+
+            }
             //Dialogue related code ->
             // if (dialogueUI != null)
             // {
@@ -449,7 +461,7 @@ namespace Player
                 numberOfJumpsRemaining--;
             }
             // Wall Jump
-            else if (isWallTouching && !isGrounded)
+            else if (canWallJump && isWallTouching && !isGrounded )
             {
                 if (isWallGrabbing)
                 {

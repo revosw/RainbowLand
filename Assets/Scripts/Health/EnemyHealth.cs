@@ -22,7 +22,7 @@ public class EnemyHealth : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (currentHealth <= 0)
         {
@@ -39,7 +39,6 @@ public class EnemyHealth : MonoBehaviour
         }
     }
     
-
     public void TakeDamage(int _damage) {
         currentHealth -= _damage;
         animator.SetBool("takeDamage", true);

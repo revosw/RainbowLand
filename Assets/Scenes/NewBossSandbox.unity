@@ -32265,7 +32265,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 595802818}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.46, y: 0, z: 0}
+  m_LocalPosition: {x: 0.71, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1977661765}
@@ -32295,7 +32295,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 606867504}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.496, y: 0, z: 0}
+  m_LocalPosition: {x: -1.04, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1977661765}
@@ -32432,7 +32432,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed8b7921565b7264dbc56e533e1439dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyHealth: 5
+  enemyHealth: 10
   animator: {fileID: 145302588}
   spriteRenderer: {fileID: 145302587}
   deathEffect: {fileID: 0}
@@ -32770,11 +32770,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1301910824685478720, guid: f7422ab7cb7e6716bb6b16e725de6ee3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -98.17
+      value: -113.67
       objectReference: {fileID: 0}
     - target: {fileID: 1301910824685478720, guid: f7422ab7cb7e6716bb6b16e725de6ee3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -51
+      value: -51.26
       objectReference: {fileID: 0}
     - target: {fileID: 1301910824685478720, guid: f7422ab7cb7e6716bb6b16e725de6ee3, type: 3}
       propertyPath: m_LocalPosition.z
@@ -92673,7 +92673,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1977661764}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -105.46, y: -51.42, z: 0}
+  m_LocalPosition: {x: -101.45, y: -51.38, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 145302584}
@@ -92722,14 +92722,19 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   groundChecker: {fileID: 1738660456}
-  groundCheckRadius: 0.5
-  speed: 5
+  groundCheckRadius: 1
+  player: {fileID: 157204984}
+  speed: 10
   positions:
   - {x: -101.69, y: -51.42, z: 0}
   - {x: -105.46, y: -51.42, z: 0}
+  - {x: -98.31, y: -48.74, z: 0}
+  - {x: -80, y: -50.25, z: 0}
+  - {x: -77.39, y: -49.31, z: 0}
+  - {x: -73.61, y: -50.25, z: 0}
+  - {x: -77.3, y: -49.17, z: 0}
   range: 10
-  player: {fileID: 157204984}
-  bullet: {fileID: 2833213603186470342, guid: 6422054a3c57f1540a1ba213f13eb654, type: 3}
+  bullet: {fileID: 8434788474426209224, guid: 33d3f5d3e073bb74b9512ffa3827676e, type: 3}
   shootPos: {fileID: 595802819}
   shootPosLeft: {fileID: 606867505}
   shootPower: 100

@@ -4,41 +4,33 @@ using UnityEngine;
 
 public class DarkAI : MonoBehaviour
 {
+    private Rigidbody2D rb;
+    //Sprite stuff
     private SpriteRenderer sprite; //Boss sprite
-
-    [Tooltip("LayerMask of what constitutes ground.")]
-    public LayerMask whatIsGround;
-
-    [Tooltip("A transform used as contact surface with ground.")]
-    public Transform groundChecker;
-    //todo: rewrite as Collider2D instead of Transform
-
-    [Tooltip("Radius from GroundChecker to extend search for ground layer contact.")]
-    public float groundCheckRadius = 0.2f;
-
-    private bool isGrounded = false;
-
     private float moveInputX;
-
-
     private Animator animator;
 
-    bool running = false;
-
-    private Rigidbody2D rb;
-
+    //Grounded stuff
+    [Tooltip("LayerMask of what constitutes ground.")]
+    public LayerMask whatIsGround;
+    [Tooltip("A transform used as contact surface with ground.")]
+    public Transform groundChecker;
+    [Tooltip("Radius from GroundChecker to extend search for ground layer contact.")]
+    public float groundCheckRadius = 0.2f;
+    private bool isGrounded = false;
+    public Transform player;
+    //
     //Movement fields
+    bool running = false;
     [SerializeField]
     private float speed;
     [SerializeField]
     private Vector3[] positions;
     private int index;
-
     //Shooting fields
     private float stopAndShootCD = 3f;
     public float range;
     private float distToPlayer;
-    public Transform player;
 
     private void Awake() {
         animator = GetComponentInChildren<Animator>();
@@ -46,12 +38,8 @@ public class DarkAI : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
+    bool lookLeft = false;
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         //Shooting code
@@ -63,47 +51,46 @@ public class DarkAI : MonoBehaviour
             }
         }
 
-
         //Movement code
+        if (positions[index].x >= transform.position.x)
+        {
+            transform.localScale = new Vector3(1f, 1f, 1f);
+            lookLeft = false;
+        }
+        else
+        {
+            transform.localScale = new Vector3(-1f, 1f, 1f);
+            lookLeft = true;
+        }
+        if (positions[index].y - transform.position.y > 1 
+            && Mathf.Abs(positions[index].x - transform.position.x) < 3) 
+                rb.AddForce(transform.up * 10, ForceMode2D.Impulse);
+
         transform.position = Vector2.MoveTowards(transform.position, positions[index], Time.deltaTime * speed);
         if (transform.position == positions[index]) {
+            //rb.velocity = transform.position; // Må gi han fart???
+            //if(Mathf.Abs(positions[index].y - transform.position.y) > 5) rb.AddForce(transform.up * 1000, ForceMode2D.Impulse); <- Hvis han skal et sted han trenge å hoppe for
+            
             if (index == positions.Length - 1) {
                 index = 0;
-            } else {
+            } else {    
                 index++;
             }
-        }
-
-
-        //Sprite change on turn
-        if (rb.velocity.x > 0f) {
-            moveInputX = 1;
-        } else if (rb.velocity.x < 0f) {
-            moveInputX = -1;
-        }
-        sprite.transform.localScale = new Vector3(moveInputX, 1, 1);
-
+        }        
         //Ground check for running animation
         GroundCheck();
+        
         if (Mathf.Abs(rb.velocity.x) > 0) running = true;
         else running = false;
 
         animator.SetBool("isGrounded", isGrounded);
         animator.SetBool("isRunning", running);
-
     }
 
     bool GroundCheck() {
-        Collider2D[] colliders =
-            Physics2D.OverlapCircleAll(groundChecker.position, groundCheckRadius, whatIsGround);
-        print(colliders.Length);
-        if (colliders.Length > 0) {
-            isGrounded = true;
-        }
-        Debug.Log("Ground Check performed: isGrounded = " + isGrounded);
+        isGrounded = Physics2D.OverlapCircle(groundChecker.position, groundCheckRadius, whatIsGround);
         return isGrounded;
-    }
-
+    }   
 
     public GameObject bullet; //bullet prefab.
     public Transform shootPos; //Shoot from
@@ -112,26 +99,35 @@ public class DarkAI : MonoBehaviour
     public Transform target; // target position
     private void Shoot() {
         Vector2 shootFrom = new Vector2(shootPos.position.x, shootPos.position.y);
-        if (target.position.x < 0) { //Make sure boss doesnt shoot itself.
+        if (target.position.x < transform.position.x) {
+             shootFrom = new Vector2(shootPosLeft.position.x, shootPosLeft.position.y);
+        } 
+        if (transform.localScale.x == -1f) //He will move shotposleft to the r.h.s once local scale is changed.
+        {
             shootFrom = new Vector2(shootPosLeft.position.x, shootPosLeft.position.y);
-        }
-        GameObject newBullet = Instantiate(bullet, shootFrom, Quaternion.identity);
-        Vector2 direction = shootFrom - (Vector2)target.position; //get the direction to the target
-        //newBullet.GetComponent<Rigidbody2D>().velocity = direction * shootPower;
+            if (target.position.x < transform.position.x)
+            {
+                shootFrom = new Vector2(shootPos.position.x, shootPos.position.y);
+            }
 
+        }
+        // If sprite is on left side shoot left - vice versa.
+        GameObject newBullet = Instantiate(bullet, shootFrom, Quaternion.identity);
         newBullet.GetComponent<Rigidbody2D>().velocity = -1 * (shootFrom - (Vector2)target.position);
     }
 
 
     IEnumerator StopAndShoot() {
-        speed = 0;
         Shoot();
         yield return new WaitForSeconds(1);
         Shoot();
         yield return new WaitForSeconds(1);
         Shoot();
         yield return new WaitForSeconds(1);
-        speed = 10f;
+        Shoot();
+        yield return new WaitForSeconds(1);
+        Shoot();
+        yield return new WaitForSeconds(1);
     }
 
 }

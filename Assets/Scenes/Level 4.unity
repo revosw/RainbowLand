@@ -69985,6 +69985,30 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7513624016915276224, guid: 6a02e0cb50b2c0e4bbde805e1c29f877, type: 3}
+      propertyPath: bannerMovement.m_Curve.Array.data[1].time
+      value: 0.44794846
+      objectReference: {fileID: 0}
+    - target: {fileID: 7513624016915276224, guid: 6a02e0cb50b2c0e4bbde805e1c29f877, type: 3}
+      propertyPath: bannerMovement.m_Curve.Array.data[2].time
+      value: 2.3192143
+      objectReference: {fileID: 0}
+    - target: {fileID: 7513624016915276224, guid: 6a02e0cb50b2c0e4bbde805e1c29f877, type: 3}
+      propertyPath: bannerMovement.m_Curve.Array.data[3].time
+      value: 3.1329572
+      objectReference: {fileID: 0}
+    - target: {fileID: 7513624016915276224, guid: 6a02e0cb50b2c0e4bbde805e1c29f877, type: 3}
+      propertyPath: bannerMovement.m_Curve.Array.data[1].value
+      value: 166.18886
+      objectReference: {fileID: 0}
+    - target: {fileID: 7513624016915276224, guid: 6a02e0cb50b2c0e4bbde805e1c29f877, type: 3}
+      propertyPath: bannerMovement.m_Curve.Array.data[2].value
+      value: 165.1485
+      objectReference: {fileID: 0}
+    - target: {fileID: 7513624016915276224, guid: 6a02e0cb50b2c0e4bbde805e1c29f877, type: 3}
+      propertyPath: bannerMovement.m_Curve.Array.data[3].value
+      value: 342.4083
+      objectReference: {fileID: 0}
     - target: {fileID: 7513624016915276230, guid: 6a02e0cb50b2c0e4bbde805e1c29f877, type: 3}
       propertyPath: m_IsTrigger
       value: 1

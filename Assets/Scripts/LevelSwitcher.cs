@@ -40,7 +40,6 @@ public class LevelSwitcher : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
         backgroundColor.CrossFadeAlphaWithCallBack(1f, 1f, delegate
         {
             AsyncOperation levelLoad;

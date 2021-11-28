@@ -21,7 +21,7 @@ public class BeerBulletScript : MonoBehaviour
     {
         if (collision.tag == "player") {
             collision.GetComponent<Health>().TakeDamage(damage);
-            Debug.Log("Player hit!");
+            //Debug.Log("Player hit!");
             Destroy(gameObject);
         }
     }

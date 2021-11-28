@@ -73,7 +73,7 @@ GameObject:
   - component: {fileID: 7112043201148567909}
   m_Layer: 0
   m_Name: MoneyHurtCollider
-  m_TagString: HurtBox
+  m_TagString: MoneyHurt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -130,7 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed8b7921565b7264dbc56e533e1439dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyHealth: 3
+  enemyHealth: 10
   animator: {fileID: 7112043201588640223}
   spriteRenderer: {fileID: 7112043201588640216}
   deathEffect: {fileID: 39685727493443609, guid: 6bd66e681d04c0b4484e127f3c89252f, type: 3}
@@ -246,6 +246,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7112043202191866316}
   - component: {fileID: 7112043202191866317}
+  - component: {fileID: 183040313}
   m_Layer: 0
   m_Name: MoneyBoss
   m_TagString: Enemy
@@ -283,16 +284,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c73548bd4530d7c499694cb81dbd12f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 7
   positions:
-  - {x: 74.77, y: 6.27, z: 0}
-  - {x: 59.37, y: 6.27, z: 0}
-  - {x: 63.01, y: 19.13, z: 0}
-  - {x: 63.01, y: 19.13, z: 0}
-  - {x: 63.01, y: -1.33, z: 0}
-  - {x: 88.82, y: -1.33, z: 0}
-  - {x: 63.01, y: -1.33, z: 0}
-  - {x: 88.82, y: -1.33, z: 0}
+  - {x: 1098.332, y: 201.6787, z: 0}
+  - {x: 1107.19, y: 201.6787, z: 0}
+  - {x: 1109.67, y: 197.55, z: 0}
+  - {x: 1116.35, y: 189.14, z: 0}
+  - {x: 1078.59, y: 189.14, z: 0}
+  - {x: 1086.85, y: 194.17, z: 0}
+  - {x: 1107.72, y: 194.17, z: 0}
+  - {x: 1099.01, y: 202.95, z: 0}
+  - {x: 1115, y: 207.9, z: 0}
+  - {x: 1082.94, y: 200.84, z: 0}
+  - {x: 1098.85, y: 189.96, z: 0}
+  - {x: 1109.96, y: 193.94, z: 0}
   range: 10
   player: {fileID: 0}
   bullet: {fileID: 8434788474426209224, guid: 33d3f5d3e073bb74b9512ffa3827676e, type: 3}
@@ -300,3 +305,16 @@ MonoBehaviour:
   shootPosTop: {fileID: 7112043200967733060}
   shootPower: 3
   target: {fileID: 0}
+--- !u!114 &183040313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7112043202191866307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 262f3229e188feb49bdc1e511f3390b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeFilter: 3

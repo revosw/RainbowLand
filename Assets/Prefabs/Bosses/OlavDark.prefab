@@ -130,7 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed8b7921565b7264dbc56e533e1439dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyHealth: 10
+  enemyHealth: 50
   animator: {fileID: 6570774714353675360}
   spriteRenderer: {fileID: 6570774714353675363}
   deathEffect: {fileID: 0}
@@ -146,6 +146,7 @@ GameObject:
   - component: {fileID: 2218097984357226645}
   - component: {fileID: 2218097984357226644}
   - component: {fileID: 2218097984357226650}
+  - component: {fileID: 119527065}
   m_Layer: 6
   m_Name: OlavDark
   m_TagString: Enemy
@@ -205,10 +206,11 @@ MonoBehaviour:
   - {x: 1250.67, y: 87.67, z: 0}
   - {x: 1229.02, y: 90.27, z: 0}
   - {x: 1221.62, y: 85.82, z: 0}
-  - {x: 1216.21, y: 89.52, z: 0}
+  - {x: 1216.21, y: 88.71, z: 0}
   - {x: 1206.75, y: 85.68, z: 0}
-  - {x: 1215.84, y: 89.11, z: 0}
+  - {x: 1215.84, y: 88.71, z: 0}
   range: 10
+  jumpForce: 7
   bullet: {fileID: 8434788474426209224, guid: 33d3f5d3e073bb74b9512ffa3827676e, type: 3}
   shootPos: {fileID: 2218097983591602961}
   shootPosLeft: {fileID: 2218097983563756003}
@@ -248,8 +250,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 5
+  incrementer: 3
   bullet: {fileID: 2833213603186470342, guid: 6422054a3c57f1540a1ba213f13eb654, type: 3}
   shootFrom: {fileID: 2218097984462752448}
+--- !u!114 &119527065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2218097984357226646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06da04f3d6d4ba3409179046a0db74a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelExit: {fileID: 0}
 --- !u!1 &2218097984462752451
 GameObject:
   m_ObjectHideFlags: 0

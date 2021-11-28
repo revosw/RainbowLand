@@ -27,7 +27,7 @@ public class ColorFilter : MonoBehaviour
         volume.sharedProfile.TryGet(out bloom);
         volume.sharedProfile.TryGet(out colorCurves);
 
-        activeCurve = new TextureCurve(Gray, 0f, true, new Vector2(0f, 1f));
+        SetFilter(Filter.Gray);
     }
 
     public void SetFilter(Filter filter)
@@ -51,9 +51,9 @@ public class ColorFilter : MonoBehaviour
     void Update()
     {
         bloom.intensity.value = 5f + Mathf.Sin(Time.time * 0.6f) * 3;
-        Keyframe red = new Keyframe(0, redOffset.value * 10 + Mathf.Sin(Time.time * 1.2f) * 0.4f);
-        Keyframe green = new Keyframe(0.5f, greenOffset.value * 10 + Mathf.Sin(Time.time * 0.5f) * 0.5f);
-        Keyframe blue = new Keyframe(1f, blueOffset.value * 10 + Mathf.Sin((Time.time + 0.8f) * 1.2f));
+        Keyframe red = new Keyframe(0, redOffset.value + Mathf.Sin(Time.time * 1.2f) * 0.4f);
+        Keyframe green = new Keyframe(0.5f, greenOffset.value + Mathf.Sin(Time.time * 0.5f) * 0.5f);
+        Keyframe blue = new Keyframe(1f, blueOffset.value + Mathf.Sin((Time.time + 0.8f) * 1.2f));
         activeCurve.MoveKey(0, red);
         activeCurve.MoveKey(1, green);
         activeCurve.MoveKey(2, blue);

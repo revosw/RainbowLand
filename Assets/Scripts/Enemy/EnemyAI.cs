@@ -6,7 +6,6 @@ using System;
 
 public class EnemyAI : MonoBehaviour
 {
-
     public Transform target;
     public Transform enemyGFX;
     public Animator animator;
@@ -15,7 +14,6 @@ public class EnemyAI : MonoBehaviour
     public int bounceForce;
     Path path;
     int currentWaypoint = 0;
-    bool reachedEndofPath = false;
 
     Seeker seeker;
     Rigidbody2D rb;
@@ -53,11 +51,8 @@ public class EnemyAI : MonoBehaviour
         if ( path == null) 
             return;
         if(currentWaypoint >= path.vectorPath.Count) {
-            reachedEndofPath = true;
             return;
-        } else {
-            reachedEndofPath = false;
-        }
+        } 
 
         Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
         Vector2 force = direction * speed * Time.deltaTime;

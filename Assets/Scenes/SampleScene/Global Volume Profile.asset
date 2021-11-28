@@ -154,7 +154,7 @@ MonoBehaviour:
   hueVsSat:
     m_OverrideState: 1
     m_Value:
-      <length>k__BackingField: 2
+      <length>k__BackingField: 3
       m_Loop: 1
       m_ZeroValue: 0
       m_Range: 1
@@ -163,21 +163,30 @@ MonoBehaviour:
         m_Curve:
         - serializedVersion: 3
           time: 0
-          value: 0.2848783
+          value: 0
           inSlope: 0
           outSlope: 0
-          tangentMode: 0
+          tangentMode: 34
           weightedMode: 0
           inWeight: 0
-          outWeight: 0
+          outWeight: 0.33333334
         - serializedVersion: 3
           time: 0.5
-          value: 0.70956415
+          value: 0
           inSlope: 0
           outSlope: 0
-          tangentMode: 0
+          tangentMode: 34
           weightedMode: 0
-          inWeight: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1.0059873
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0.33333334
           outWeight: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
@@ -228,11 +237,11 @@ MonoBehaviour:
     min: 0
   intensity:
     m_OverrideState: 1
-    m_Value: 3.55
-    min: 0
+    m_Value: 6.741372
+    min: 2
   scatter:
     m_OverrideState: 1
-    m_Value: 0.677
+    m_Value: 0.185
     min: 0
     max: 1
   clamp:
@@ -241,7 +250,7 @@ MonoBehaviour:
     min: 0
   tint:
     m_OverrideState: 1
-    m_Value: {r: 0.48001954, g: 0.5154682, b: 0.6320754, a: 1}
+    m_Value: {r: 0.511, g: 0.383, b: 0.766, a: 1}
     hdr: 0
     showAlpha: 0
     showEyeDropper: 1

@@ -1,18 +1,22 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Users;
+using UnityEngine.UI;
 
-public class OverlayTrigger : MonoBehaviour
+public class ControlSchemeDetector : MonoBehaviour
 {
 
-    public GameObject canvas;
+    public Sprite controllerIcon;
+
+    public Sprite keyboardIcon;
+    
+    
     // Start is called before the first frame update
     void Start()
     {
-    
+        
     }
 
     // Update is called once per frame
@@ -24,18 +28,5 @@ public class OverlayTrigger : MonoBehaviour
     private void InputUserOnChange(InputUser arg1, InputUserChange arg2, InputDevice arg3)
     {
         arg1.controlScheme.ToString();
-    }
-
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        Debug.Log("Canvas Active");
-        canvas.SetActive(true);
-    }
-
-    void OnTriggerExit2D(Collider2D other)
-    {
-        Debug.Log("Canvas Inactive");
-        canvas.SetActive(false);
     }
 }

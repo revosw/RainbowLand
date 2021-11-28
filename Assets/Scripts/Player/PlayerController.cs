@@ -165,13 +165,14 @@ namespace Player
         void FixedUpdate()
         {
 
+            //todo: re enable these!
             if (!canWallGrab)
             {
-                controls.Player.WallGrab.Disable();
+                // controls.Player.WallGrab.Disable();
 
             } else if (canWallGrab)
             {
-                controls.Player.WallGrab.Enable();
+                // controls.Player.WallGrab.Enable();
 
             }
             //Dialogue related code ->
@@ -558,7 +559,7 @@ namespace Player
 
             }
         }
-
+        
         public PlayerInputAction GetPlayerInputInstance()
         {
                 return controls;

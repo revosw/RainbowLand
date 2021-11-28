@@ -4,6 +4,7 @@ using System.Linq;
 using Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Users;
 using UnityEngine.UI;
 
 //todo: move to correct location in Assets when done
@@ -13,32 +14,44 @@ public class ControlsUIOverlay : MonoBehaviour
 
     private Text text;
 
-    private PlayerInputAction playerInput;
+    private string controlScheme;
+    private string inputDeviceName;
 
     public GameObject player;
     // Start is called before the first frame update
     void Start()
     {
         text = GetComponent<Text>();
-        playerInput = player.GetComponent<PlayerController>().GetPlayerInputInstance();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
 
-        var anyPress = InputSystem.onAnyButtonPress.GetType();
-        var devices = InputSystem.devices;
-        // Debug.Log($"InputSystem.devices = {devices}");
-        string devs = "";
-        foreach (var dev in devices)
-        {
-            devs = devs + $"{dev.description.deviceClass}, ";
-        }
         
-        
-        text.text = $"Active controller: {devs} ";
+        // var devices = InputSystem.devices;
+        // // Debug.Log($"InputSystem.devices = {devices}");
+        // string devs = "";
+        // foreach (var dev in devices)
+        // {
+        //     devs = devs + $"{dev.description.deviceClass}, ";
+        // }
+    
+        InputUser.onChange += InputUserOnChange;
 
+        
+        text.text = $"Active controller: {inputDeviceName} ";
+
+    }
+    
+    private void InputUserOnChange(InputUser arg1, InputUserChange arg2, InputDevice arg3)
+    {
+        // if (arg3 != null)
+        // {
+        //     inputDeviceName = arg3.displayName;
+        // }
+        controlScheme = arg1.controlScheme.ToString();
+        // inputDeviceName = arg3.name;
     }
 
 }

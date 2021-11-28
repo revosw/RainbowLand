@@ -20,8 +20,10 @@ public class LevelSwitcher : MonoBehaviour
 
     private void Start()
     {
-        backgroundColor.CrossFadeAlphaWithCallBack(0, 1f, () => StartCoroutine(ShowBanner()));
-
+        if (banner != null)
+        {
+            backgroundColor.CrossFadeAlphaWithCallBack(0, 1f, () => StartCoroutine(ShowBanner()));
+        }
     }
 
     IEnumerator ShowBanner()

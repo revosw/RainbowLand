@@ -14,6 +14,9 @@ namespace Player
         public float deathWaitTimeSeconds;
         private SpriteRenderer sprite;
 
+        // Audio
+        AudioSource shootSfx;
+
         // Movement speed variables
         [FormerlySerializedAs("speed")] [Header("Movement speed variables")]
         public float movementForce;
@@ -119,6 +122,9 @@ namespace Player
             // The game always starts in the main menu, so UI should
             // be enabled first
             //gameManager = 
+
+            // Audio
+            shootSfx = GetComponent<AudioSource>();
 
             rb = GetComponent<Rigidbody2D>();
             gravityForce = rb.gravityScale;
@@ -545,7 +551,8 @@ namespace Player
                     // var position = position;
                     if (firePoint.position.x < transform.position.x) direction = -1;
                     else direction = 1;
-                    
+
+                    shootSfx.Play();
                     var _projectile = Instantiate(projectile, firePoint.position, Quaternion.identity); // Added firePoint.position, Quaternion.identity and commented out below code.
                                                                                                         // _projectile.transform.position = firePoint.position;
                     _projectile.GetComponent<Projectile>().activate(direction);

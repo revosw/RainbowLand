@@ -22,6 +22,13 @@ public class BedMovement : MonoBehaviour
     public Transform groundCheckCollider;
     public LayerMask groundLayer;
 
+    public Player.PlayerController playercontroller;
+
+    private void OnDestroy()
+    {
+        playercontroller.maxExtraJumps = 1; // Double jump activated.
+    }
+
     bool GroundCheck() {
         isGrounded = false;
         Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheckCollider.position, groundCheckRadius, groundLayer);

@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed8b7921565b7264dbc56e533e1439dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyHealth: 3
+  enemyHealth: 10
   animator: {fileID: 9128849882379111443}
   spriteRenderer: {fileID: 8081290414689145986}
   deathEffect: {fileID: 5481115279821387892, guid: b8134adeffde3cb43b987a299dd3f015, type: 3}
@@ -120,6 +120,7 @@ GameObject:
   - component: {fileID: 9128849882070420156}
   - component: {fileID: 9128849882070420166}
   - component: {fileID: 9128849882419747361}
+  - component: {fileID: 1962091443}
   m_Layer: 0
   m_Name: BeerEnemy
   m_TagString: Enemy
@@ -134,7 +135,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9128849882070420159}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 8.801186, y: 13.822905, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -223,6 +224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4582c7bba4c275644a9070fabae29141, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerController: {fileID: 0}
   target: {fileID: 0}
   enemyGFX: {fileID: 8081290414689145987}
   animator: {fileID: 9128849882379111443}
@@ -289,8 +291,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 15
+  incrementer: 3
   bullet: {fileID: 2833213603186470342, guid: 6422054a3c57f1540a1ba213f13eb654, type: 3}
   shootFrom: {fileID: 9128849881626224663}
+--- !u!114 &1962091443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9128849882070420159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 262f3229e188feb49bdc1e511f3390b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeFilter: 2
 --- !u!1001 &9128849880649725167
 PrefabInstance:
   m_ObjectHideFlags: 0

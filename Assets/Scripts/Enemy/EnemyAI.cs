@@ -6,6 +6,7 @@ using System;
 
 public class EnemyAI : MonoBehaviour
 {
+    public Player.PlayerController playerController;
     public Transform target;
     public Transform enemyGFX;
     public Animator animator;
@@ -20,13 +21,16 @@ public class EnemyAI : MonoBehaviour
 
     float jumpCD = 5f;
     private float nextJump;
+    private void OnDestroy()
+    {
+        playerController.canShoot = true;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
-
         InvokeRepeating("UpdatePath", 0f, .5f);
     }
 

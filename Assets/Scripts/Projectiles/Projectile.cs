@@ -48,6 +48,7 @@ namespace Projectiles
             if (other.CompareTag("MoneyHurt") || other.CompareTag("HurtBox"))
             {
                 other.GetComponent<EnemyHealth>().TakeDamage(damage);
+                Destroy(gameObject);
             }
             else if (other.CompareTag("Enemy"))
             {

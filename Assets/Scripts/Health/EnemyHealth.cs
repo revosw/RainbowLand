@@ -6,7 +6,9 @@ public class EnemyHealth : MonoBehaviour
 {
 
     public int enemyHealth;
-    private int currentHealth;
+
+    public int currentHealth { private set; get; }
+
     public Animator animator;
     float Timer = 0f;
     public SpriteRenderer spriteRenderer;
@@ -57,4 +59,9 @@ public class EnemyHealth : MonoBehaviour
             Destroy(effect, 4f);
         }
     }
+
+    public void FullHeal()
+    {
+        currentHealth = enemyHealth;
+    } 
 }

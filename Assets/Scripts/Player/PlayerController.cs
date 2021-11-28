@@ -548,12 +548,7 @@ namespace Player
                     
                     var _projectile = Instantiate(projectile, firePoint.position, Quaternion.identity); // Added firePoint.position, Quaternion.identity and commented out below code.
                                                                                                         // _projectile.transform.position = firePoint.position;
-                    //_projectile.GetComponent<Rigidbody2D>().velocity = direction * firePoint.position; 
-
-                    // var direction = transform.localScale.x;
-                    
                     _projectile.GetComponent<Projectile>().activate(direction);
-                    
                     _cooldownTimer = 0;
                 }
 

@@ -10,15 +10,12 @@ public class Health : MonoBehaviour
     public float maxHealth;
     public float currentHealth { get; private set; }
     private PlayerController _playerController;
-    private Rigidbody2D rb;
     public Animator animator;
-    private GameMaster gm;
 
     public int deathTimer;
 
     void Start()
     {
-        gm = GameObject.FindGameObjectWithTag("GM").GetComponent<GameMaster>();
         transform.position = GameMaster.lastCheckPointPosition;
     }
 
@@ -27,7 +24,6 @@ public class Health : MonoBehaviour
         maxHealth = startingHealth;
         currentHealth = maxHealth;
         _playerController = GetComponent<PlayerController>();
-        rb = GetComponent<Rigidbody2D>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -52,6 +48,7 @@ public class Health : MonoBehaviour
         else
         {
             // DEAD
+            FindObjectOfType<EnemyHealth>().FullHeal();
             _playerController.OnDeath();
             // StartCoroutine(WaitForAnimationSeconds(deathTimer));
         }
@@ -70,9 +67,5 @@ public class Health : MonoBehaviour
     public void FullHeal()
     {
         currentHealth = maxHealth;
-    }
-
-    private void Update()
-    {
     }
 }

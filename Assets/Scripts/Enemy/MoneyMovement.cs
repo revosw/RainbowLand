@@ -68,9 +68,6 @@ public class MoneyMovement : MonoBehaviour
             shootFrom = new Vector2(shootPosTop.position.x, shootPosTop.position.y);
         }
             GameObject newBullet = Instantiate(bullet, shootFrom, Quaternion.identity);
-            Vector2 direction = shootFrom - (Vector2)target.position; //get the direction to the target
-            //newBullet.GetComponent<Rigidbody2D>().velocity = direction * shootPower;
-            
         newBullet.GetComponent<Rigidbody2D>().velocity = -1 * (shootFrom - (Vector2)target.position);
     }
 }

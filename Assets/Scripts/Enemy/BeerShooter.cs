@@ -7,12 +7,7 @@ public class BeerShooter : MonoBehaviour
     public float range;
     private float distToPlayer;
     private float shootCD = 3f;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public float incrementer = 3f;
 
     // Update is called once per frame
     void Update()
@@ -21,7 +16,7 @@ public class BeerShooter : MonoBehaviour
         {
             if (Time.time > shootCD)
             {
-                shootCD = Time.time + 5f;
+                shootCD = Time.time + incrementer;
                 Shoot();
                 Shoot();
                 Shoot();

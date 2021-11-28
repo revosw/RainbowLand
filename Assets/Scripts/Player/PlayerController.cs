@@ -152,6 +152,10 @@ namespace Player
 
             controls.Player.Disable();
             controls.UI.Enable();
+
+            var gamepad = Gamepad.current; // null if no gamepad connected..?
+            var padDesc = gamepad.description.product;
+            Debug.Log(padDesc); // prints as DualShock 4 [CUH-ZCT2x]
             // hasBeenActivated = true;
             // controls.Player.Enable();
         }
@@ -555,16 +559,9 @@ namespace Player
             }
         }
 
-        // private int FindProjectile()
-        // {
-        //     for (int i = 0; i < projectiles.Length; i++)
-        //     { 
-        //         if (!projectiles[i].activeSelf)
-        //             return i;
-        //     }
-        //
-        //     return 0;
-        // }
-        //
+        public PlayerInputAction GetPlayerInputInstance()
+        {
+                return controls;
+        }
     }
 }

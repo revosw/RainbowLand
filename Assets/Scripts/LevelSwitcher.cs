@@ -41,7 +41,7 @@ public class LevelSwitcher : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!CompareTag("player")) return;
+        if (!collision.CompareTag("player")) return;
 
         backgroundColor.CrossFadeAlphaWithCallBack(1f, 1f, delegate
         {

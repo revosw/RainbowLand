@@ -45,31 +45,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blackBackground: {fileID: 7513624017131322498}
-  banner: {fileID: 1404724821395218570}
+  banner: {fileID: 0}
   bannerMovement:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 101.03769
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 136
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1.5
-      value: 64.937
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 136
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 3
-      value: 100.04181
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 136

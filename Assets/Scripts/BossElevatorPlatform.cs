@@ -8,15 +8,17 @@ public class BossElevatorPlatform : MonoBehaviour
     [SerializeField] bool moving;
     [SerializeField] public Vector2 targetPosition = new Vector2(0, 0);
     [SerializeField] double yDestroy;
+    [SerializeField] GameObject Music;
+    [SerializeField] GameObject BossLoop;
 
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "player")
         {
-           
             moving = true;
-
+            Music.SetActive(false);
+            BossLoop.SetActive(true);
         }
     }
     private void Update()

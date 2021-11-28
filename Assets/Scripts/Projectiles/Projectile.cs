@@ -45,7 +45,11 @@ namespace Projectiles
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.CompareTag("Enemy"))
+            if (other.CompareTag("MoneyHurt"))
+            {
+                other.GetComponent<EnemyHealth>().TakeDamage(damage);
+            }
+            else if (other.CompareTag("Enemy"))
             {
                 other.GetComponent<BasicEnemyHealth>().TakeDamage(damage);
                 // gameObject.SetActive(false);

@@ -10,9 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a35b486822f7efc408de4a96fbe3e04b, type: 3}
-  m_Name: Level4SecondDialogue
+  m_Name: Level4ThirdDialogue
   m_EditorClassIdentifier: 
   dialogue:
-  - Did you know that recent studies show that around 70% of coding jobs have nothing
-    to do with technology at all? Beats me!
-  - 'Also, this next part is fun! '
+  - 'This is the last time we meet, adventurer..
+
+'
+  - It's been a blast! Good luck!
+  - '...
+
+    By the way!'
+  - 'Those boxes by the building can prove
+
+    useful to you!'
+  - 'Remember, only you can save yourself...
+
+'

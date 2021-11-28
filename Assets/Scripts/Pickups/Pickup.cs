@@ -15,7 +15,7 @@ namespace Pickups
 
             if (other.CompareTag("player"))
             {
-                Debug.Log("PICKUP!");
+                //Debug.Log("PICKUP!");
                 gameObject.SetActive(false);
                 // enabled = false;
                 // Destroy(this.gameObject);

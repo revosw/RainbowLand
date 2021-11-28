@@ -29,7 +29,6 @@ public class LevelSwitcher : MonoBehaviour
         float time = 0;
         while (time < bannerMovement.keys[bannerMovement.keys.Length-1].time)
         {
-            Debug.Log(time);
             time += Time.deltaTime;
 
             banner.transform.localPosition = new Vector3(0, bannerMovement.Evaluate(time), 0);

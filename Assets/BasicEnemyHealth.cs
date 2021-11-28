@@ -44,7 +44,7 @@ public class BasicEnemyHealth : MonoBehaviour
         currentHealth -= _damage;
         // animator.SetBool("takeDamage", true);
         // spriteRenderer.color = red;
-        Debug.Log("Ow!");
+        //Debug.Log("Ow!");
         //animation for taking damage
     }
 

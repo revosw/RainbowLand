@@ -6,7 +6,7 @@ public class ChangeColorFilter : MonoBehaviour
 {
     [SerializeField] ColorFilter.Filter activeFilter;
     // Start is called before the first frame update
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnDestroy()
     {
         GameObject.Find("Global Volume").GetComponent<ColorFilter>().SetFilter(activeFilter);
     }

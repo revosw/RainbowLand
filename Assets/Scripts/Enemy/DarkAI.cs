@@ -5,9 +5,6 @@ using UnityEngine;
 public class DarkAI : MonoBehaviour
 {
     private Rigidbody2D rb;
-    //Sprite stuff
-    private SpriteRenderer sprite; //Boss sprite
-    private float moveInputX;
     private Animator animator;
 
     //Grounded stuff
@@ -19,7 +16,7 @@ public class DarkAI : MonoBehaviour
     public float groundCheckRadius = 0.2f;
     private bool isGrounded = false;
     public Transform player;
-    //
+    
     //Movement fields
     bool running = false;
     [SerializeField]
@@ -27,18 +24,23 @@ public class DarkAI : MonoBehaviour
     [SerializeField]
     private Vector3[] positions;
     private int index;
+
     //Shooting fields
     private float stopAndShootCD = 3f;
     public float range;
     private float distToPlayer;
 
+    [SerializeField] public float jumpForce = 3;
+
+    BeerShooter beerShooter;
+    EnemyHealth health;
+
     private void Awake() {
         animator = GetComponentInChildren<Animator>();
-        sprite = GetComponentInChildren<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
+        health = GetComponentInChildren<EnemyHealth>();
+        beerShooter = GetComponent<BeerShooter>(); 
     }
-
-    bool lookLeft = false;
 
     void FixedUpdate()
     {
@@ -52,19 +54,12 @@ public class DarkAI : MonoBehaviour
         }
 
         //Movement code
-        if (positions[index].x >= transform.position.x)
-        {
-            transform.localScale = new Vector3(1f, 1f, 1f);
-            lookLeft = false;
-        }
-        else
-        {
-            transform.localScale = new Vector3(-1f, 1f, 1f);
-            lookLeft = true;
-        }
+        if (positions[index].x >= transform.position.x) transform.localScale = new Vector3(1f, 1f, 1f);
+        else transform.localScale = new Vector3(-1f, 1f, 1f);
+        
         if (positions[index].y - transform.position.y > 1 
             && Mathf.Abs(positions[index].x - transform.position.x) < 3) 
-                rb.AddForce(transform.up * 10, ForceMode2D.Impulse);
+                rb.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
 
         transform.position = Vector2.MoveTowards(transform.position, positions[index], Time.deltaTime * speed);
         if (transform.position == positions[index]) {
@@ -82,6 +77,8 @@ public class DarkAI : MonoBehaviour
         
         if (Mathf.Abs(rb.velocity.x) > 0) running = true;
         else running = false;
+
+        if (health.currentHealth < 20) beerShooter.incrementer = 2; // BOSS ENRAGE
 
         animator.SetBool("isGrounded", isGrounded);
         animator.SetBool("isRunning", running);

@@ -45,7 +45,7 @@ namespace Projectiles
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.CompareTag("MoneyHurt"))
+            if (other.CompareTag("MoneyHurt") || other.CompareTag("HurtBox"))
             {
                 other.GetComponent<EnemyHealth>().TakeDamage(damage);
             }

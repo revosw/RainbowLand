@@ -13,6 +13,7 @@ TagManager:
   - Ground
   - MovingPlatform
   - Trap
+  - MoneyHurt
   layers:
   - Default
   - TransparentFX

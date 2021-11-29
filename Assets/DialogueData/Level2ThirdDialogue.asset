@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Level2ThirdDialogue
   m_EditorClassIdentifier: 
   dialogue:
-  - "Well done so far! Not having a drink surely \npaid off. If you kicked the bottle
-    for good,\nmaybe everything would be easier!"
-  - '!'
+  - "Well done so far! Not having a drink surely \npaid off. If you only hadkicked
+    the bottle for\ngood, maybe everything would be easier!"
+  - ...!
   - 'Did you hear that?
 
     ...'

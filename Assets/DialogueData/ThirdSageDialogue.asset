@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: ThirdSageDialogue
   m_EditorClassIdentifier: 
   dialogue:
-  - "There is a bed running amok! Look like the one I saw in your room earlier. \n..."
+  - "There is a bed on the loose! Looks like the one I saw in your room earlier.
+    \n..."
   - 'When I was in your room? Enough of these trivial questions, try jumping on the
     bed! I heard your beds hate that.. '

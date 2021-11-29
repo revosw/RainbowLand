@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Level2FirstDialogue
   m_EditorClassIdentifier: 
   dialogue:
-  - Great job, getting out of bed!
+  - Great job getting out of bed!
   - 'What is the first thing you do after getting out of bed?
 
     ...'
@@ -22,4 +22,4 @@ MonoBehaviour:
     I dont think having a drink is a good idea.
 
     This next area is
-    tricky to manoeuvre.'
+    tricky to maneuver.'

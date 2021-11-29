@@ -14,6 +14,9 @@ namespace Player
         public float deathWaitTimeSeconds;
         private SpriteRenderer sprite;
 
+        // Audio
+        AudioSource shootSfx;
+
         // Movement speed variables
         [FormerlySerializedAs("speed")] [Header("Movement speed variables")]
         public float movementForce;
@@ -120,12 +123,14 @@ namespace Player
             // be enabled first
             //gameManager = 
 
+            // Audio
+            shootSfx = GetComponent<AudioSource>();
+
             rb = GetComponent<Rigidbody2D>();
             gravityForce = rb.gravityScale;
             controls = new PlayerInputAction();
             sprite = GetComponentInChildren<SpriteRenderer>();
-            controls.Player.Disable();
-            controls.UI.Enable();
+
 
             // todo: What the fuck is even going on here..?
             //  Need to read up on PlayerControls API
@@ -151,11 +156,8 @@ namespace Player
             controls.Player.Pause.performed += _ => OnPauseGame();
             controls.UI.Cancel.performed += _ => OnResumeGame();
 
-
-
-            // var gamepad = Gamepad.current; // null if no gamepad connected..?
-            // var padDesc = gamepad.description.product;
-            // Debug.Log(padDesc); // prints as DualShock 4 [CUH-ZCT2x]
+            controls.Player.Disable();
+            controls.UI.Enable();
             // hasBeenActivated = true;
             // controls.Player.Enable();
         }
@@ -165,14 +167,13 @@ namespace Player
         void FixedUpdate()
         {
 
-            //todo: re enable these!
             if (!canWallGrab)
             {
-                // controls.Player.WallGrab.Disable();
+                controls.Player.WallGrab.Disable();
 
             } else if (canWallGrab)
             {
-                // controls.Player.WallGrab.Enable();
+                controls.Player.WallGrab.Enable();
 
             }
             //Dialogue related code ->
@@ -560,10 +561,9 @@ namespace Player
                     _projectile.transform.position = firePoint.position;
                     // var direction = transform.localScale.x;
                     _projectile.GetComponent<Projectile>().activate(firePoint.transform.localScale.x);
-
+                    shootSfx.Play();
                     
                     _cooldownTimer = 0;
-
                 }
 
             }

@@ -15,6 +15,7 @@ TagManager:
   - Trap
   - MoneyHurt
   - OverlayTrigger
+  - elevatorDestroy
   layers:
   - Default
   - TransparentFX

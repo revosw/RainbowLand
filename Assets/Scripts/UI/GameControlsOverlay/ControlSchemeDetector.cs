@@ -8,25 +8,57 @@ using UnityEngine.UI;
 public class ControlSchemeDetector : MonoBehaviour
 {
 
-    public Sprite controllerIcon;
+    public Image controllerIcon;
 
-    public Sprite keyboardIcon;
-    
+    public Image keyboardIcon;
+    private string controlScheme;
+
     
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
+        controlScheme = "Keyboard&Mouse"; // Default to KB/M
+
+        InputUser.onChange += InputUserOnChange; // Listen for scheme changes.
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        InputUser.onChange += InputUserOnChange;
+        if (controlScheme == "Gamepad")
+        {
+            // keyboardIcon.enabled = false;
+            foreach (Transform child in keyboardIcon.transform)
+            {
+                child.gameObject.SetActive(false);
+            }
+            foreach (Transform child in controllerIcon.transform)
+            {
+                child.gameObject.SetActive(true);
+            }
+            // keyboardIcon.GetChild().gameObject.SetActive(false);
+            // controllerIcon.enabled = true;
+        }
+        else  // all the fallbacks...
+        {
+            // keyboardIcon.enabled = true;
+            foreach (Transform child in keyboardIcon.transform)
+            {
+                child.gameObject.SetActive(true);
+            }
+            foreach (Transform child in controllerIcon.transform)
+            {
+                child.gameObject.SetActive(false);
+            }
+            // keyboardIcon.GetComponentInChildren<Text>().enabled = true;
+            // controllerIcon.enabled = false;
+        }
+        
     }
 
     private void InputUserOnChange(InputUser arg1, InputUserChange arg2, InputDevice arg3)
     {
-        arg1.controlScheme.ToString();
+            controlScheme = arg1.controlScheme.Value.name;
+        
     }
 }

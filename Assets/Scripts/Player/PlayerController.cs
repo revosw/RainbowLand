@@ -124,7 +124,8 @@ namespace Player
             gravityForce = rb.gravityScale;
             controls = new PlayerInputAction();
             sprite = GetComponentInChildren<SpriteRenderer>();
-
+            controls.Player.Disable();
+            controls.UI.Enable();
 
             // todo: What the fuck is even going on here..?
             //  Need to read up on PlayerControls API
@@ -150,12 +151,11 @@ namespace Player
             controls.Player.Pause.performed += _ => OnPauseGame();
             controls.UI.Cancel.performed += _ => OnResumeGame();
 
-            controls.Player.Disable();
-            controls.UI.Enable();
 
-            var gamepad = Gamepad.current; // null if no gamepad connected..?
-            var padDesc = gamepad.description.product;
-            Debug.Log(padDesc); // prints as DualShock 4 [CUH-ZCT2x]
+
+            // var gamepad = Gamepad.current; // null if no gamepad connected..?
+            // var padDesc = gamepad.description.product;
+            // Debug.Log(padDesc); // prints as DualShock 4 [CUH-ZCT2x]
             // hasBeenActivated = true;
             // controls.Player.Enable();
         }

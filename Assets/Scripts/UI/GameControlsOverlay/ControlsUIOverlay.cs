@@ -11,47 +11,42 @@ using UnityEngine.UI;
 
 public class ControlsUIOverlay : MonoBehaviour
 {
-
     private Text text;
+    private PlayerInputAction playerInputAction;
+
 
     private string controlScheme;
     private string inputDeviceName;
 
     public GameObject player;
+
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        controlScheme = "Keyboard&Mouse"; // Default to KB/M
+
+        InputUser.onChange += InputUserOnChange;
+
+        
         text = GetComponent<Text>();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-
         
-        // var devices = InputSystem.devices;
-        // // Debug.Log($"InputSystem.devices = {devices}");
-        // string devs = "";
-        // foreach (var dev in devices)
-        // {
-        //     devs = devs + $"{dev.description.deviceClass}, ";
-        // }
-    
-        InputUser.onChange += InputUserOnChange;
-
-        
-        text.text = $"Active controller: {inputDeviceName} ";
-
+        // InputUser.onChange += InputUserOnChange;
+        text.text = $"Active controller: {controlScheme} ";
     }
-    
+
     private void InputUserOnChange(InputUser arg1, InputUserChange arg2, InputDevice arg3)
     {
+        Debug.Log("InputUser change callback.");
         // if (arg3 != null)
         // {
         //     inputDeviceName = arg3.displayName;
         // }
-        controlScheme = arg1.controlScheme.ToString();
+        controlScheme = arg1.controlScheme.Value.name;
         // inputDeviceName = arg3.name;
     }
-
 }

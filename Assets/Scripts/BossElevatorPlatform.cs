@@ -12,37 +12,54 @@ public class BossElevatorPlatform : MonoBehaviour
     [SerializeField] GameObject BossLoop;
     public GameObject platform;
     public bool timed;
-    public int timer = 3;
+    //public bool timed = true;
+    public  float timer = 0f;
+    private float _timer;
     [SerializeField] public Vector2 resoawnPosition = new Vector2(0, 0);
 
 
-
+   
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
      
         if (collision.gameObject.tag == "player")
         {
+             timed = true;
+            _timer = timer;
             moving = true;
             Music.SetActive(false);
             BossLoop.SetActive(true);
+           
+            
         }
 
 
-
+        
     }
     private void Update()
     {
+
         
-        
+
         if (moving)
         {
             transform.position = Vector2.MoveTowards(new Vector2(transform.position.x, transform.position.y), targetPosition, speed * Time.deltaTime);
-            if(timed)
-        {
-                Invoke("TimedFunction", timer);
-                Debug.Log(timer);
+
+            if (timed) {
+                
+                _timer -= Time.deltaTime;
+                Debug.Log("Timer: " + _timer);
+                if (_timer < 0)
+                {
+                    timed = false;
+                    TimedFunction();
+                }
             }
+
+      
+            
+   
         }
         
         if (transform.position.y < yDestroy)
@@ -52,9 +69,16 @@ public class BossElevatorPlatform : MonoBehaviour
     }
     private  void TimedFunction()
     {
+
+        Debug.Log("TimedFunction");
         gameObject.transform.SetParent(null);
-        Destroy(gameObject);
+        
+        moving = false;
+        timed = false;
         Instantiate(platform, resoawnPosition, Quaternion.identity);
+        
+        Destroy(gameObject);
+       
 
         return;
     }

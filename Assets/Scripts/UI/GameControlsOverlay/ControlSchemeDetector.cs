@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,7 +20,16 @@ public class ControlSchemeDetector : MonoBehaviour
     {
         controlScheme = "Keyboard&Mouse"; // Default to KB/M
 
-        InputUser.onChange += InputUserOnChange; // Listen for scheme changes.
+        try
+        {
+            InputUser.onChange += InputUserOnChange; // Listen for scheme changes.
+
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 
     // Update is called once per frame
@@ -58,7 +68,10 @@ public class ControlSchemeDetector : MonoBehaviour
 
     private void InputUserOnChange(InputUser arg1, InputUserChange arg2, InputDevice arg3)
     {
+        if (arg1.controlScheme.Value.name != null)
+        {
             controlScheme = arg1.controlScheme.Value.name;
+        }
         
     }
 }

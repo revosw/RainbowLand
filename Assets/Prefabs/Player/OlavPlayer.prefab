@@ -914,11 +914,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1967723445219709756, guid: 9ca6973f7bfce993ca10348580ac0a18, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.5844727
+      value: 0.0029907227
       objectReference: {fileID: 0}
     - target: {fileID: 1967723445219709756, guid: 9ca6973f7bfce993ca10348580ac0a18, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.089998245
+      value: -0.09000015
       objectReference: {fileID: 0}
     - target: {fileID: 1967723445219709756, guid: 9ca6973f7bfce993ca10348580ac0a18, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1286,6 +1286,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1301910824685478720}
     m_Modifications:
+    - target: {fileID: 3142049096261639184, guid: 76e5685cdc52d7db0ab5445b100d21f9, type: 3}
+      propertyPath: speed
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 3142049096261639189, guid: 76e5685cdc52d7db0ab5445b100d21f9, type: 3}
       propertyPath: m_Name
       value: PlayerProjectile

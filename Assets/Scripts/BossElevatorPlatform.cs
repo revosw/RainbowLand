@@ -49,7 +49,7 @@ public class BossElevatorPlatform : MonoBehaviour
             if (timed) {
                 
                 _timer -= Time.deltaTime;
-                Debug.Log("Timer: " + _timer);
+                //Debug.Log("Timer: " + _timer);
                 if (_timer < 0)
                 {
                     timed = false;
@@ -70,7 +70,7 @@ public class BossElevatorPlatform : MonoBehaviour
     private  void TimedFunction()
     {
 
-        Debug.Log("TimedFunction");
+        //Debug.Log("TimedFunction");
         gameObject.transform.SetParent(null);
         
         moving = false;

@@ -383,7 +383,7 @@ namespace Player
             if (!wasOnWall) //we were not on the wall...
             {
                 hitWallThisFrame = isWallTouching; //... but are we now?
-                if (hitWallThisFrame); //Debug.Log("Hit wall this frame!")
+                if (hitWallThisFrame); ////Debug.Log("Hit wall this frame!")
             }
             else
             {

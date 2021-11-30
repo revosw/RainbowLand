@@ -41,7 +41,7 @@ public class ControlsUIOverlay : MonoBehaviour
 
     private void InputUserOnChange(InputUser arg1, InputUserChange arg2, InputDevice arg3)
     {
-        Debug.Log("InputUser change callback.");
+        //Debug.Log("InputUser change callback.");
         // if (arg3 != null)
         // {
         //     inputDeviceName = arg3.displayName;

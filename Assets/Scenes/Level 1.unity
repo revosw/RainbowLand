@@ -1965,6 +1965,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_BoolArgument
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8165850632835717778, guid: 09f5ca4831de59847babef513e07bc9a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 299161551}
+    - target: {fileID: 8165850632835717778, guid: 09f5ca4831de59847babef513e07bc9a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnResumeGame
+      objectReference: {fileID: 0}
     - target: {fileID: 8165850632860866375, guid: 09f5ca4831de59847babef513e07bc9a, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -101920,6 +101928,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1129497294154995870, guid: c4a8bf3775a79257d8d1b5f36b4ec5ff, type: 3}
+      propertyPath: m_Text
+      value: D
+      objectReference: {fileID: 0}
+    - target: {fileID: 1129497296270508993, guid: c4a8bf3775a79257d8d1b5f36b4ec5ff, type: 3}
+      propertyPath: m_Text
+      value: A
+      objectReference: {fileID: 0}
+    - target: {fileID: 3088606050280434109, guid: c4a8bf3775a79257d8d1b5f36b4ec5ff, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6510915353951119225, guid: c4a8bf3775a79257d8d1b5f36b4ec5ff, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -101967,6 +101987,10 @@ PrefabInstance:
     - target: {fileID: 6510915353951119230, guid: c4a8bf3775a79257d8d1b5f36b4ec5ff, type: 3}
       propertyPath: m_Name
       value: Level1TutorialOverlays
+      objectReference: {fileID: 0}
+    - target: {fileID: 7606843734873004236, guid: c4a8bf3775a79257d8d1b5f36b4ec5ff, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c4a8bf3775a79257d8d1b5f36b4ec5ff, type: 3}
@@ -103106,32 +103130,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1301910824685478721, guid: f7422ab7cb7e6716bb6b16e725de6ee3, type: 3}
-      propertyPath: canShoot
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1301910824685478721, guid: f7422ab7cb7e6716bb6b16e725de6ee3, type: 3}
-      propertyPath: jumpForce
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 1301910824685478721, guid: f7422ab7cb7e6716bb6b16e725de6ee3, type: 3}
       propertyPath: dialogueUI
       value: 
       objectReference: {fileID: 1764993147}
-    - target: {fileID: 1301910824685478721, guid: f7422ab7cb7e6716bb6b16e725de6ee3, type: 3}
-      propertyPath: canWallGrab
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1301910824685478721, guid: f7422ab7cb7e6716bb6b16e725de6ee3, type: 3}
-      propertyPath: canWallJump
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1301910824685478721, guid: f7422ab7cb7e6716bb6b16e725de6ee3, type: 3}
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 1192399167}
     - target: {fileID: 1301910824685478721, guid: f7422ab7cb7e6716bb6b16e725de6ee3, type: 3}
-      propertyPath: maxExtraJumps
-      value: 0
+      propertyPath: wallJumpForce
+      value: 28
       objectReference: {fileID: 0}
     - target: {fileID: 1301910824685478731, guid: f7422ab7cb7e6716bb6b16e725de6ee3, type: 3}
       propertyPath: m_Name

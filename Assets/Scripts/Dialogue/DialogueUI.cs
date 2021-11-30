@@ -8,7 +8,6 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] private GameObject dialogueBox;
     [SerializeField] private TMP_Text textLabel;
 
-
     private TypeWriterEffect typeWriterEffect;
 
     public bool IsOpen { get; private set; } //Only dialogueUI can set, but outsiders can GET.
@@ -29,10 +28,12 @@ public class DialogueUI : MonoBehaviour
     //Steps through the list of dialogues using the type writer effect.
     private IEnumerator StepThroughDialogue(DialogueObject dialogueObject)
     {
-        for(int i=0; i<dialogueObject.Dialogue.Length; i++) {
+        for (int i = 0; i < dialogueObject.Dialogue.Length; i++) {
             string dialogue = dialogueObject.Dialogue[i];
             yield return typeWriterEffect.Run(dialogue, textLabel);
-            yield return new WaitUntil(() => Keyboard.current[Key.E].wasPressedThisFrame);
+
+            if(Gamepad.current != null) yield return new WaitUntil(() => Gamepad.current.triangleButton.wasPressedThisFrame); 
+                else  yield return new WaitUntil(() => Keyboard.current[Key.E].wasPressedThisFrame); 
         }
 
         CloseDialogueBox();

@@ -276,7 +276,7 @@ namespace Player
                 {
                     transform.localScale = new Vector3(touchedWallNormalVector.x, 1, 1); // reset player scale
                     sprite.transform.localScale = new Vector3(moveInputX*transform.localScale.x, 1, 1); // set sprite scale to input dir
-                    firePoint.transform.localScale = new Vector3(moveInputX*transform.localScale.x, 1, 1); // set sprite scale to input dir
+                    firePoint.transform.localScale = new Vector3(moveInputX, 1, 1); // set sprite scale to input dir
                     // Vector3 fpPos = firePoint.transform.position;
                     // firePoint.transform.position.Set(-fpPos.x, fpPos.y, fpPos.z); 
                 }

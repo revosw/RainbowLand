@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1292579653061692129}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -38.059998, y: -176.13, z: 0}
+  m_LocalPosition: {x: 242.07, y: -120.12, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1243491305736102688}
@@ -71,7 +71,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -1.4448166}
@@ -113,7 +113,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7513624016915276225}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -38.059998, y: -176.13, z: 0}
+  m_LocalPosition: {x: 0.2, y: -176.13, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1243491305736102688}
@@ -146,8 +146,8 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.079046994
     - serializedVersion: 3
-      time: 0.47314227
-      value: 159.52617
+      time: 0.44794846
+      value: 166.18886
       inSlope: 57.438587
       outSlope: -1.32547
       tangentMode: 1
@@ -155,8 +155,8 @@ MonoBehaviour:
       inWeight: 1
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 2.3444083
-      value: 158.48581
+      time: 2.3192143
+      value: 165.1485
       inSlope: Infinity
       outSlope: -5.2698765
       tangentMode: 7
@@ -164,8 +164,8 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 1
     - serializedVersion: 3
-      time: 3.0869062
-      value: 300.36038
+      time: 2.9739606
+      value: 544.4993
       inSlope: 0
       outSlope: 0
       tangentMode: 136
@@ -185,7 +185,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -1.4448166}
@@ -483,9 +483,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4983676910948995633, guid: 52870548ac8794e46a33802fc1c9b114, type: 3}
+      propertyPath: m_text
+      value: Just One More Drink
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983676910948995633, guid: 52870548ac8794e46a33802fc1c9b114, type: 3}
+      propertyPath: m_fontSize
+      value: 17.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983676910948995633, guid: 52870548ac8794e46a33802fc1c9b114, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 17.6
+      objectReference: {fileID: 0}
     - target: {fileID: 5155298722482475461, guid: 52870548ac8794e46a33802fc1c9b114, type: 3}
       propertyPath: m_Name
       value: Banner
+      objectReference: {fileID: 0}
+    - target: {fileID: 5842089619594494942, guid: 52870548ac8794e46a33802fc1c9b114, type: 3}
+      propertyPath: m_text
+      value: Act II
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 52870548ac8794e46a33802fc1c9b114, type: 3}

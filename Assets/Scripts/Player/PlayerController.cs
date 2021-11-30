@@ -103,6 +103,8 @@ namespace Player
         public Projectile projectile;
 
         private PlayerInputAction controls;
+        private PlayerInput input;
+        public string currentControlScheme;
         private float movement;
 
         public Animator animator;
@@ -129,6 +131,7 @@ namespace Player
             rb = GetComponent<Rigidbody2D>();
             gravityForce = rb.gravityScale;
             controls = new PlayerInputAction();
+            input = GetComponent<PlayerInput>();
             sprite = GetComponentInChildren<SpriteRenderer>();
 
 
@@ -281,7 +284,7 @@ namespace Player
                 {
                     transform.localScale = new Vector3(moveInputX, 1, 1); // set player scale to input dir.
                     sprite.transform.localScale = new Vector3(1, 1, 1); // reset sprite scale
-                    firePoint.transform.localScale = new Vector3(1, 1, 1); // reset sprite scale
+                    firePoint.transform.localScale = new Vector3(moveInputX, 1, 1); // reset sprite scale
 
                 }
                 
@@ -543,35 +546,40 @@ namespace Player
                 //todo: Rework this timer logic
                 if (_cooldownTimer >= shootCooldown)
                 {
-                    var direction = 0;
+                    // var direction = 0;
                     // int projectileIndex = FindProjectile();
                     // todo: can we fix issue with projectile following player orientation
                     // by changing the way we assign a transform position to it?
                     // var projectile = projectiles[projectileIndex];
                     // var position = position;
-                    if (firePoint.position.x < transform.position.x) direction = -1;
-                    else direction = 1;
-
-                    shootSfx.Play();
-                    var _projectile = Instantiate(projectile, firePoint.position, Quaternion.identity); // Added firePoint.position, Quaternion.identity and commented out below code.
+                    // if (firePoint.position.x < transform.position.x) direction = -1;
+                    // else direction = 1;
+                    
+                    // var _projectile = Instantiate(projectile, firePoint.position, Quaternion.identity); // Added firePoint.position, Quaternion.identity and commented out below code.
                                                                                                         // _projectile.transform.position = firePoint.position;
-                    _projectile.GetComponent<Projectile>().activate(direction);
+                    // _projectile.GetComponent<Projectile>().activate(direction);
+
+                    var _projectile = Instantiate(projectile);
+                    
+                    _projectile.transform.position = firePoint.position;
+                    // var direction = transform.localScale.x;
+                    _projectile.GetComponent<Projectile>().activate(firePoint.transform.localScale.x);
+                    shootSfx.Play();
+                    
                     _cooldownTimer = 0;
                 }
 
             }
         }
+        
+        public PlayerInputAction GetPlayerInputInstance()
+        {
+                return controls;
+        }
 
-        // private int FindProjectile()
-        // {
-        //     for (int i = 0; i < projectiles.Length; i++)
-        //     { 
-        //         if (!projectiles[i].activeSelf)
-        //             return i;
-        //     }
-        //
-        //     return 0;
-        // }
-        //
+        public string CurrentControlScheme()
+        {
+            return input.currentControlScheme;
+        }
     }
 }

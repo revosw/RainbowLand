@@ -103130,6 +103130,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1301910824685478721, guid: f7422ab7cb7e6716bb6b16e725de6ee3, type: 3}
+      propertyPath: jumpForce
+      value: 23
+      objectReference: {fileID: 0}
+    - target: {fileID: 1301910824685478721, guid: f7422ab7cb7e6716bb6b16e725de6ee3, type: 3}
       propertyPath: dialogueUI
       value: 
       objectReference: {fileID: 1764993147}
@@ -107516,7 +107520,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1315759240989388217, guid: 920131bcbdaec2545952d7025eff6993, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -214.1861
+      value: -215.3
       objectReference: {fileID: 0}
     - target: {fileID: 1315759240989388217, guid: 920131bcbdaec2545952d7025eff6993, type: 3}
       propertyPath: m_LocalPosition.y

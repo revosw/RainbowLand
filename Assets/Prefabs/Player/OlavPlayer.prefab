@@ -62,7 +62,7 @@ MonoBehaviour:
   deathWaitTimeSeconds: 1
   movementForce: 30
   airMovementFraction: 0.6
-  jumpForce: 20
+  jumpForce: 22
   maxMovementVelocity: 10
   slowdownMultiplier: 0.6
   airSlowdownMultiplier: 0.95

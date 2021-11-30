@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Pickups;
 using UnityEngine;
 
 public class BedMovement : MonoBehaviour
@@ -24,9 +25,12 @@ public class BedMovement : MonoBehaviour
 
     public Player.PlayerController playercontroller;
 
+    public ActivateDoubleJumpPickup powerup;
+
     private void OnDestroy()
     {
-        playercontroller.maxExtraJumps = 1; // Double jump activated.
+        powerup.SetActiveState(true);
+        // playercontroller.maxExtraJumps = 1; // Double jump activated.
     }
 
     bool GroundCheck() {

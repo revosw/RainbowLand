@@ -21,5 +21,6 @@ namespace Pickups
                 // Destroy(this.gameObject);
             }
         }
+         
     }
 } 

@@ -103,6 +103,8 @@ namespace Player
         public Projectile projectile;
 
         private PlayerInputAction controls;
+        private PlayerInput input;
+        public string currentControlScheme;
         private float movement;
 
         public Animator animator;
@@ -129,6 +131,7 @@ namespace Player
             rb = GetComponent<Rigidbody2D>();
             gravityForce = rb.gravityScale;
             controls = new PlayerInputAction();
+            input = GetComponent<PlayerInput>();
             sprite = GetComponentInChildren<SpriteRenderer>();
 
 
@@ -572,6 +575,11 @@ namespace Player
         public PlayerInputAction GetPlayerInputInstance()
         {
                 return controls;
+        }
+
+        public string CurrentControlScheme()
+        {
+            return input.currentControlScheme;
         }
     }
 }

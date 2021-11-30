@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
 using System;
+using Pickups;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -21,9 +22,12 @@ public class EnemyAI : MonoBehaviour
 
     float jumpCD = 5f;
     private float nextJump;
+
+    public ShootingPickup powerup;
     private void OnDestroy()
     {
-        playerController.canShoot = true;
+        // playerController.canShoot = true;
+        powerup.SetActiveState(true);
     }
 
     // Start is called before the first frame update

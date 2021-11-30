@@ -5,6 +5,8 @@ namespace Pickups
 {
     public class DoubleJumpPickup : Pickup
     {
+        
+        
         public override void DoOnTrigger(Collider2D other)
         {
             if (other.CompareTag("player"))

@@ -1,3 +1,3 @@
 # RAINBOWLAND 
-Play it here: https://itch.io/game/accept-admin/1298882/4920873
+Play it here: https://mvdbend.itch.io/rainbow-land
 Developed in C# using Unity.

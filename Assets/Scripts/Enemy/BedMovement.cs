@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Pickups;
 using UnityEngine;
 
 public class BedMovement : MonoBehaviour
@@ -21,8 +22,16 @@ public class BedMovement : MonoBehaviour
     const float groundCheckRadius = 0.2f;
     public Transform groundCheckCollider;
     public LayerMask groundLayer;
-    bool airjump = false;
 
+    public Player.PlayerController playercontroller;
+
+    public ActivateDoubleJumpPickup powerup;
+
+    private void OnDestroy()
+    {
+        powerup.SetActiveState(true);
+        // playercontroller.maxExtraJumps = 1; // Double jump activated.
+    }
 
     bool GroundCheck() {
         isGrounded = false;

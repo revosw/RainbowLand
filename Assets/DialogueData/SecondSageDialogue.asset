@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a35b486822f7efc408de4a96fbe3e04b, type: 3}
+  m_Name: SecondSageDialogue
+  m_EditorClassIdentifier: 
+  dialogue:
+  - Wow! That was some impressive jumping.
+  - Did you know, some spiders perform something called ballooning, in which the
+    spider releases threads meant to catch winds!
+  - They use these threads to fly, and some spider nets have been observed 5km above
+    sea level! Neat, huh?

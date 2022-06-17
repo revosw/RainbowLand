@@ -6,11 +6,12 @@ public class EnemyHealth : MonoBehaviour
 {
 
     public int enemyHealth;
-    private int currentHealth;
+
+    public int currentHealth { private set; get; }
+
     public Animator animator;
     float Timer = 0f;
     public SpriteRenderer spriteRenderer;
-
     public GameObject deathEffect;
 
     Color red = Color.red;
@@ -22,9 +23,8 @@ public class EnemyHealth : MonoBehaviour
         currentHealth = enemyHealth;    
     }
 
-
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (currentHealth <= 0)
         {
@@ -33,21 +33,23 @@ public class EnemyHealth : MonoBehaviour
         }
         if (animator.GetBool("takeDamage")) {
             Timer += Time.deltaTime;
-            if(Timer >=0.3f) spriteRenderer.color = white;
+            if(Timer >= 0.3f) spriteRenderer.color = white;
             if (Timer >= 1f) {
                 animator.SetBool("takeDamage", false);
                 Timer = 0f;
             }
         }
+        if (spriteRenderer.color == red)
+        {
+            Timer += Time.deltaTime;
+            if (Timer >= 0.3f) spriteRenderer.color = white;
+        }
     }
     
-
     public void TakeDamage(int _damage) {
         currentHealth -= _damage;
         animator.SetBool("takeDamage", true);
         spriteRenderer.color = red;
-        Debug.Log(spriteRenderer.color);
-        //animation for taking damage
     }
 
     private void DeathEffect() {
@@ -57,4 +59,9 @@ public class EnemyHealth : MonoBehaviour
             Destroy(effect, 4f);
         }
     }
+
+    public void FullHeal()
+    {
+        currentHealth = enemyHealth;
+    } 
 }

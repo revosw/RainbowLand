@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
 using System;
+using Pickups;
 
 public class EnemyAI : MonoBehaviour
 {
-
+    public Player.PlayerController playerController;
     public Transform target;
     public Transform enemyGFX;
     public Animator animator;
@@ -15,7 +16,6 @@ public class EnemyAI : MonoBehaviour
     public int bounceForce;
     Path path;
     int currentWaypoint = 0;
-    bool reachedEndofPath = false;
 
     Seeker seeker;
     Rigidbody2D rb;
@@ -23,12 +23,18 @@ public class EnemyAI : MonoBehaviour
     float jumpCD = 5f;
     private float nextJump;
 
+    public ShootingPickup powerup;
+    private void OnDestroy()
+    {
+        // playerController.canShoot = true;
+        powerup.SetActiveState(true);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
-
         InvokeRepeating("UpdatePath", 0f, .5f);
     }
 
@@ -53,11 +59,8 @@ public class EnemyAI : MonoBehaviour
         if ( path == null) 
             return;
         if(currentWaypoint >= path.vectorPath.Count) {
-            reachedEndofPath = true;
             return;
-        } else {
-            reachedEndofPath = false;
-        }
+        } 
 
         Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
         Vector2 force = direction * speed * Time.deltaTime;

@@ -1,2 +1,3 @@
-# unitytest
-Testing how version control is handled for unity projects
+# RAINBOWLAND 
+Play it here: https://mvdbend.itch.io/rainbow-land
+Developed in C# using Unity.

@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 4533299154341680284}
   - component: {fileID: 2205173412081997449}
   - component: {fileID: 1535591219473124245}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: JumpTroughGoldPlatform
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

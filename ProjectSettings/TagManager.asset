@@ -13,6 +13,9 @@ TagManager:
   - Ground
   - MovingPlatform
   - Trap
+  - MoneyHurt
+  - OverlayTrigger
+  - elevatorDestroy
   layers:
   - Default
   - TransparentFX

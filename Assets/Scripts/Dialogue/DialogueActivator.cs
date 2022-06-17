@@ -8,7 +8,6 @@ public class DialogueActivator : MonoBehaviour, IInteractable
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("player") && collision.TryGetComponent(out PlayerController player)) {
-
             player.Interactable = this;
         }
     }

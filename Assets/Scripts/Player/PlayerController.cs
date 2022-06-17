@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using Projectiles;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -8,7 +9,13 @@ namespace Player
 {
     public class PlayerController : MonoBehaviour, IPausable
     {
+        private static bool hasBeenActivated;
+
+        public float deathWaitTimeSeconds;
         private SpriteRenderer sprite;
+
+        // Audio
+        AudioSource shootSfx;
 
         // Movement speed variables
         [FormerlySerializedAs("speed")] [Header("Movement speed variables")]
@@ -49,8 +56,10 @@ namespace Player
         public float groundCheckRadius = 0.2f;
 
         public bool isGrounded;
-
-        public Collider2D wallChecker;
+        
+        public Transform wallTouchPoint;
+        public bool canWallJump;
+        public bool canWallGrab;
         public bool isWallTouching;
         public bool isWallGrabbing;
         public bool hitWallThisFrame;
@@ -83,7 +92,7 @@ namespace Player
         [Tooltip("Cooldown time before new projectile can be fired. Set to 0 for lols...")]
         public float shootCooldown;
 
-        private float _cooldownTimer;
+        public float _cooldownTimer;
 
         [Tooltip("Where should projectiles be fired from? Ideally, this would be a transform that is a child " +
                  "of the Player object (or the player itself).")]
@@ -91,9 +100,11 @@ namespace Player
 
         //todo: refactor this as a separate class thing?
         [Tooltip("The set of projectiles that the player can fire.")]
-        public GameObject[] projectiles;
+        public Projectile projectile;
 
         private PlayerInputAction controls;
+        private PlayerInput input;
+        public string currentControlScheme;
         private float movement;
 
         public Animator animator;
@@ -106,15 +117,21 @@ namespace Player
         /// Awake is called before Start
         void Awake()
         {
+            // if (GameObject.FindObjectsOfType<PlayerController>().Length >= 1) return;
+            // if (hasBeenActivated) return;
             // Parts of code taken from https://www.youtube.com/watch?v=vAZV5xO_AHU
 
             // The game always starts in the main menu, so UI should
             // be enabled first
             //gameManager = 
 
+            // Audio
+            shootSfx = GetComponent<AudioSource>();
+
             rb = GetComponent<Rigidbody2D>();
             gravityForce = rb.gravityScale;
             controls = new PlayerInputAction();
+            input = GetComponent<PlayerInput>();
             sprite = GetComponentInChildren<SpriteRenderer>();
 
 
@@ -126,12 +143,15 @@ namespace Player
             // controls.Player.Movement.canceled += _ => movement = 0;
             // we don't use 'movement' variable for anything, it seems?
 
+            controls.Player.Suicide.performed += Suicide;
 
             controls.Player.Move.performed += Move;
             controls.Player.Move.canceled += Move;
-            ;
+            
 
             controls.Player.Fire.started += Shoot;
+
+            controls.Player.Interact.performed += Interact;
 
             controls.Player.Jump.started += Jump;
             controls.Player.WallGrab.started += WallGrab;
@@ -141,6 +161,7 @@ namespace Player
 
             controls.Player.Disable();
             controls.UI.Enable();
+            // hasBeenActivated = true;
             // controls.Player.Enable();
         }
 
@@ -148,16 +169,26 @@ namespace Player
         // Update is called once per frame
         void FixedUpdate()
         {
-            //Dialogue related code ->
-            if (dialogueUI != null)
-            {
-                if (dialogueUI.IsOpen) return;
 
-                if (Keyboard.current[Key.E].wasPressedThisFrame)
-                {
-                    Interactable?.Interact(this); //If interactable is not null, reference this player.
-                }
+            if (!canWallGrab)
+            {
+                controls.Player.WallGrab.Disable();
+
+            } else if (canWallGrab)
+            {
+                controls.Player.WallGrab.Enable();
+
             }
+            //Dialogue related code ->
+            // if (dialogueUI != null)
+            // {
+            //     if (dialogueUI.IsOpen) return;
+            //
+            //     if (Keyboard.current[Key.E].wasPressedThisFrame)
+            //     {
+            //         Interactable?.Interact(this); //If interactable is not null, reference this player.
+            //     }
+            // }
 
             // Ground detector
             GroundCheck();
@@ -245,11 +276,15 @@ namespace Player
                 {
                     transform.localScale = new Vector3(touchedWallNormalVector.x, 1, 1); // reset player scale
                     sprite.transform.localScale = new Vector3(moveInputX*transform.localScale.x, 1, 1); // set sprite scale to input dir
+                    firePoint.transform.localScale = new Vector3(moveInputX, 1, 1); // set sprite scale to input dir
+                    // Vector3 fpPos = firePoint.transform.position;
+                    // firePoint.transform.position.Set(-fpPos.x, fpPos.y, fpPos.z); 
                 }
                 else
                 {
                     transform.localScale = new Vector3(moveInputX, 1, 1); // set player scale to input dir.
                     sprite.transform.localScale = new Vector3(1, 1, 1); // reset sprite scale
+                    firePoint.transform.localScale = new Vector3(moveInputX, 1, 1); // reset sprite scale
 
                 }
                 
@@ -305,6 +340,10 @@ namespace Player
                 SetPlayerGravityScale(gravityForce);
             }
             
+            // shooting cooldown timer
+            _cooldownTimer += Time.fixedDeltaTime;
+
+            
             animator.SetBool("isGrounded", isGrounded);
             animator.SetBool("isRunning", running);
         }
@@ -328,10 +367,9 @@ namespace Player
         {
             bool wasOnWall = isWallTouching;
             RaycastHit2D ray = Physics2D.Linecast(
-                new Vector2(firePoint.position.x, transform.position.y),
+                new Vector2(wallTouchPoint.position.x, transform.position.y),
                 transform.position,
                 whatIsGround);
-            // RaycastHit2D ray = wallChecker.Raycast()
             if (ray.collider != null)
             {
                 isWallTouching = true;
@@ -345,7 +383,7 @@ namespace Player
             if (!wasOnWall) //we were not on the wall...
             {
                 hitWallThisFrame = isWallTouching; //... but are we now?
-                if (hitWallThisFrame); //Debug.Log("Hit wall this frame!")
+                if (hitWallThisFrame); ////Debug.Log("Hit wall this frame!")
             }
             else
             {
@@ -373,6 +411,30 @@ namespace Player
             gameManager.OnResumeGame();
         }
 
+        private void Suicide(InputAction.CallbackContext obj)
+        {
+            OnDeath();
+        }
+        public void OnDeath()
+        {
+            controls.Player.Disable();
+            animator.SetBool("isDead", true);
+            StartCoroutine(OnRespawn());
+        }
+
+        public IEnumerator OnRespawn()
+        {
+
+            yield return new WaitForSecondsRealtime(deathWaitTimeSeconds);
+
+            //reset player
+            GetComponent<Health>().FullHeal();
+            transform.position = GameMaster.lastCheckPointPosition;
+            animator.SetBool("isDead", false);
+            controls.Player.Enable();
+
+        }
+
         public void SetPlayerGravityScale(float gravity)
         {
             if (rb != null)
@@ -380,6 +442,16 @@ namespace Player
                 //Debug.Log($"New gravity scale set to: {gravity}");
                 rb.gravityScale = gravity;
             }
+        }
+
+        public void Interact(InputAction.CallbackContext ctx)
+        {
+            if (dialogueUI != null)
+            {
+                if (dialogueUI.IsOpen) return;
+
+                    Interactable?.Interact(this); //If interactable is not null, reference this player.
+            } 
         }
 
         // InputAction.CallbackContext ctx
@@ -398,7 +470,7 @@ namespace Player
                 numberOfJumpsRemaining--;
             }
             // Wall Jump
-            else if (isWallTouching && !isGrounded)
+            else if (canWallJump && isWallTouching && !isGrounded )
             {
                 if (isWallGrabbing)
                 {
@@ -468,37 +540,46 @@ namespace Player
         //fixme: projectile direction changes when player direction changes..?
         public void Shoot(InputAction.CallbackContext ctx)
         {
-            //todo: projectiles don't despawn... Why?
+            // double time = ctx.time;
             if (canShoot)
             {
+                //todo: Rework this timer logic
                 if (_cooldownTimer >= shootCooldown)
                 {
-                    //Debug.Log("SHOOT");
-                    _cooldownTimer = 0;
-                    int projectileIndex = FindProjectile();
+                    // var direction = 0;
+                    // int projectileIndex = FindProjectile();
                     // todo: can we fix issue with projectile following player orientation
                     // by changing the way we assign a transform position to it?
-                    var projectile = projectiles[projectileIndex];
-                    var position = firePoint.position;
-                    projectile.transform.position = position;
-                    var direction = transform.localScale.x;
-                    projectile.GetComponent<Projectile>().activate(direction);
+                    // var projectile = projectiles[projectileIndex];
+                    // var position = position;
+                    // if (firePoint.position.x < transform.position.x) direction = -1;
+                    // else direction = 1;
+                    
+                    // var _projectile = Instantiate(projectile, firePoint.position, Quaternion.identity); // Added firePoint.position, Quaternion.identity and commented out below code.
+                                                                                                        // _projectile.transform.position = firePoint.position;
+                    // _projectile.GetComponent<Projectile>().activate(direction);
+
+                    var _projectile = Instantiate(projectile);
+                    
+                    _projectile.transform.position = firePoint.position;
+                    // var direction = transform.localScale.x;
+                    _projectile.GetComponent<Projectile>().activate(firePoint.transform.localScale.x);
+                    shootSfx.Play();
+                    
+                    _cooldownTimer = 0;
                 }
 
-                _cooldownTimer += Time.deltaTime;
             }
-        }
-
-        private int FindProjectile()
-        {
-            for (int i = 0; i < projectiles.Length; i++)
-            {
-                if (!projectiles[i].activeSelf)
-                    return i;
-            }
-
-            return 0;
         }
         
+        public PlayerInputAction GetPlayerInputInstance()
+        {
+                return controls;
+        }
+
+        public string CurrentControlScheme()
+        {
+            return input.currentControlScheme;
+        }
     }
 }
